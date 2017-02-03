@@ -24,18 +24,6 @@ MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("mongodb connected.");
   global.mongodb = db
-
-  global.mongodb.collection('article').update( 
-  { "articleId": "mean_reversion_part_1" },
-  { $set: { 
-            "viewedTimes": 0, 
-            "likedTimes": 0, 
-            "title": "一周学会如何在股票交易中运用Mean-Reversion策略获利 - 1", 
-            "cover": "http://legends.io/wp-content/uploads/2016/05/cover2.jpg", 
-            "lede:": "和你一起探讨均值回归策略在股票交易中的运用" 
-          } 
-  },
-  { upsert: true } );
 });
 
 // express behind proxy
