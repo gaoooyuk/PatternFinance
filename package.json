@@ -1,0 +1,39 @@
+{
+  "name": "patternfinance",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "assert": "^1.3.0",
+    "bluebird": "^2.9.32",
+    "body-parser": "~1.13.1",
+    "cookie-parser": "~1.3.5",
+    "deasync": "^0.1.6",
+    "debug": "~2.2.0",
+    "emailjs": "^0.3.16",
+    "express": "~4.13.0",
+    "fb": "^1.1.1",
+    "filesize": "^3.3.0",
+    "fs-extra": "^0.26.4",
+    "googleapis": "^5.0.0",
+    "hexo-cli": "^0.1.7",
+    "htmlparser2": "^3.9.1",
+    "jade": "~1.11.0",
+    "md5": "^2.2.1",
+    "memcpy": "^0.5.0",
+    "moment": "^2.10.6",
+    "mongodb": "^2.0.35",
+    "morgan": "~1.6.1",
+    "multer": "^1.1.0",
+    "python-shell": "^0.1.0",
+    "querystring": "^0.2.0",
+    "request": "^2.75.0",
+    "rongcloud-sdk": "^1.0.3",
+    "serve-favicon": "~2.3.0",
+    "soupselect": "^0.2.0",
+    "spdy": "^3.3.2",
+    "xml2json": "^0.10.0"
+  }
+}

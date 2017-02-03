@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pattern Finance - 市场错估重现江湖，屠龙英雄莫问出处</title>
+<script src="lib/qt.js"></script>
+<link rel="shortcut icon" href=public/images/ico/favicon.ico>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name="googlebot" content="NOODP">
+<meta name=description content="如果你是有效市场假说(Efficient Market Hypothesis)的拥护者，那么你一定会争论市场错估(Market Anomaly)并不会出现。而如果你反对EMH中所描述的市场是有效的，那么市场错估将成为你反击有效市场假说的最有力武器。">
+<meta name=keywords content="EMH,市场错估,Market Anomaly">
+<style type="text/css">
+#embed {
+width: 100%;
+height: 10000px;
+}
+#ftdiv {
+width: 100%;
+height: 400px;
+background-color: #26292e;
+}
+</style>
+</head>
+<div id="embed">
+</div>
+<script>
+(function() {
+var div = document.getElementById('embed');
+var engine = new QmlWeb.QMLEngine(div);
+engine.loadFile('qml/article_stock_market_anomalies.qml'); // see also engine.loadQML
+engine.start();
+})();
+</script>
+</body>
+<footer id=footer>
+<div id="ftdiv">
+</div>
+</footer>
+</html>

@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+var numCPUs = require('os').cpus().length;
+var cluster = require('cluster');
+
+// Get port from lanuch.sh script
+var port = normalizePort(process.env.PORT || process.argv[2]);
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+var workerListener = function (msg) {
+    if (msg.access) {
+      console.log('User access %s, worker [%d]', msg.access, msg.workerId);
+    }     
+};
+
+var forkWorker = function(listener) {
+    var worker = cluster.fork();
+    console.log('worker [%d] has been created', worker.process.pid);
+    worker.on('message', listener);
+    return worker;
+};
+    
+
+if (cluster.isMaster) {
+  // Fork workers.
+  for (var i = 0; i < numCPUs; i++) {
+    forkWorker(workerListener);
+  }
+} else {
+  var app = require('../app');
+  app.set('port', port)
+  return app.listen(port);
+}
+
+
+cluster.on('exit', function (worker, code, signal) {
+    console.log('PatternFinance worker [%d] died %s. Now, we will fork a new one.', worker.process.pid, code || signal);
+    forkWorker(workerListener);
+});
+
+cluster.on('online', function(worker) {
+    console.log('PatternFinance worker [%d] is now connected to port [%d]', worker.process.pid, port);
+});

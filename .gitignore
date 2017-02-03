@@ -1,0 +1,10 @@
+
+.DS_Store
+
+node_modules
+
+qml/imgs/books_backup
+
+qml/qml/main_backup.qml
+
+qml/main_backup.html

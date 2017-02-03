@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pattern Finance - 股票成交量分析(篇1)：Chaikin Money Flow指标</title>
+<script src="lib/qt.js"></script>
+<link rel="shortcut icon" href=public/images/ico/favicon.ico>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name="googlebot" content="NOODP">
+<meta name=description content="菜金资金流量(Chaikin Money Flow)指标可以被用于成交量的分析，而成交量对于股票交易来说也有着不可或缺的意义。CMF的振荡范围在-1和+1之间，你可以很直观地从中看出多空势力是如何变化的。CMF既被运用于量化投资中，也常常被喜欢图表分析的投资者使用。">
+<meta name=keywords content="成交量,Chaikin Money Flow,CMF,指标,股票,量化,投资,数据,交易,多空,算法交易,沪深300">
+<style type="text/css">
+#embed {
+width: 100%;
+height: 10000px;
+}
+#ftdiv {
+width: 100%;
+height: 400px;
+background-color: #26292e;
+}
+</style>
+</head>
+<div id="embed">
+</div>
+<script>
+(function() {
+var div = document.getElementById('embed');
+var engine = new QmlWeb.QMLEngine(div);
+engine.loadFile('qml/article_chaikin_money_flow_cmf.qml'); // see also engine.loadQML
+engine.start();
+})();
+</script>
+</body>
+<footer id=footer>
+<div id="ftdiv">
+</div>
+</footer>
+</html>

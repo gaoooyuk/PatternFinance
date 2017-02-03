@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pattern Finance - 投资故事系列: 不一样的第一桶金</title>
+<script src="lib/qt.js"></script>
+<link rel="shortcut icon" href=public/images/ico/favicon.ico>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name="googlebot" content="NOODP">
+<meta name=description content="">
+<meta name=keywords content="">
+<style type="text/css">
+#embed {
+width: 100%;
+height: 14000px;
+}
+#ftdiv {
+width: 100%;
+height: 400px;
+background-color: #26292e;
+}
+</style>
+</head>
+<div id="embed">
+</div>
+<script>
+(function() {
+var div = document.getElementById('embed');
+var engine = new QmlWeb.QMLEngine(div);
+engine.loadFile('qml/article_blackstone_story.qml'); // see also engine.loadQML
+engine.start();
+})();
+</script>
+</body>
+<footer id=footer>
+<div id="ftdiv">
+</div>
+</footer>
+</html>
