@@ -48,7 +48,7 @@ app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var home_dir = path.join(global.dirRoot, 'public/')
+  var home_dir = path.join(global.dirRoot, 'qml/')
   res.status(404).sendFile(path.join(home_dir + '/404.html'));
 });
 

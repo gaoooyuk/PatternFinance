@@ -37,17 +37,17 @@ router.get('/article/*', function(req, res, next) {
 
 		res.sendFile(path.join(home_dir + '/article_' + fn + '.html'));
 	} else {
-		res.sendFile(path.join(home_dir + '/404.html'));
+		res.status(404).sendFile(path.join(home_dir + '/404.html'));
 	}
 });
 
 router.get('/sitemap.xml', function(req, res, next) {
-	var home_dir = path.join(global.dirRoot, 'public/')
+	var home_dir = path.join(global.dirRoot, 'qml/')
 	res.sendFile(path.join(home_dir + '/sitemap.xml'));
 });
 
 router.get('/apple-app-site-association', function(req, res, next) {
-	var home_dir = path.join(global.dirRoot, 'public/')
+	var home_dir = path.join(global.dirRoot, 'qml/')
 	var aasa = fs.readFileSync(path.join(home_dir + '/apple-app-site-association'));
 	res.set('Content-Type', 'application/json');
     res.status(200).send(aasa);
