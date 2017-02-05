@@ -23,7 +23,7 @@ Rectangle {
     // More articles
     property var moreArticles: []
 
-    property string apiBase: "http://patternfinance.com/api"
+    property string apiBase: "https://patternfinance.com/api"
 
     function qmlWidth(w) {
         return w + 1
