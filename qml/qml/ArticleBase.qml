@@ -23,6 +23,8 @@ Rectangle {
     // More articles
     property var moreArticles: []
 
+    property string apiBase: "http://patternfinance.com/api"
+
     function qmlWidth(w) {
         return w + 1
     }
@@ -39,7 +41,7 @@ Rectangle {
     }
 
     function getRandomArticles(num, exceptArticleId) {
-        var url = "http://localhost:8110/api/getRandomArticles"
+        var url = apiBase + "/getRandomArticles"
         var body = {}
         body.num = num
         body.exceptArticleId = exceptArticleId
@@ -53,7 +55,7 @@ Rectangle {
     }
 
     function getNumberOfShares() {
-        var url = "http://localhost:8110/api/getArticleInfo"
+        var url = apiBase + "/getArticleInfo"
         var body = {}
         body.articleId = articleId
         network.httpPost(url, body, function(res) {
@@ -182,7 +184,7 @@ Rectangle {
 
             Image {
                 anchors.fill: parent
-                source: "http://www.mckinsey.com/~/media/McKinsey/Business%20Functions/Marketing%20and%20Sales/Our%20Insights/Measuring%20B2Bs%20digital%20gap/B2B-gap_thumbnail_1536x1536_300_Standard.ashx?mw=767&car=160:125&cq=50"
+                source: "../imgs/mckinseyBg.jpg"
             }
 
             Image {
@@ -510,7 +512,7 @@ Rectangle {
                 id: moreBg
                 anchors.fill: parent
                 fillMode: Image.Tile
-                source: "http://www.mckinsey.com/redesign/resources/images/interlaced-gray-bg.png"
+                source: "../imgs/interlaced-gray-bg.png"
             }
 
             Column {
