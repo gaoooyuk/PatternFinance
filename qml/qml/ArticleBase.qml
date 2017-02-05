@@ -230,7 +230,13 @@ Rectangle {
                     id: authorNameText
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 50
+                    anchors.bottomMargin: {
+                        if (mainWindow.width >= 500) {
+                            return 50
+                        }
+
+                        return 10
+                    }
                     font.pixelSize: 16
                     color: "white"
                     text: "By " + authorName
@@ -321,16 +327,16 @@ Rectangle {
                 visible: coverPanel.width < 500
 
                 Item {
-                    width: typeText.width + 15
-                    height: typeText.height + 6
+                    width: typeText.width + 11
+                    height: typeText.height + 3
                     anchors.top: parent.top
                     anchors.topMargin: -4
                     anchors.left: parent.left
 
                     Rectangle {
                         anchors.fill: parent
-                        anchors.margins: 2
-                        radius: 5
+                        anchors.margins: 1
+                        radius: 3
                         color: "black"
                         opacity: 0.5
                     }
@@ -338,7 +344,10 @@ Rectangle {
                     Text {
                         id: typeText
                         height: 20
-                        anchors.centerIn: parent
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
+                        anchors.left: parent.left
+                        anchors.leftMargin: 5
                         font.pixelSize: 14
                         color: "white"
                         text: articleType
