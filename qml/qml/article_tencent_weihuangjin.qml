@@ -5,13 +5,13 @@ ArticleBase {
     totalNumberOfChars: getTotalNumberOfChars()
     estimatedReadingMins: totalNumberOfChars/700
     totalNumberOfShares: 0
-    articleId: "renquan_starvc"
-    articleTitle: "任泉和StarVC的投资故事。原标题: 匠心打造，创投有道"
-    articleType: "文章"
-    articleCategory: "投资故事"
-    authorName: "创投有道"
-    summary: "任泉复盘15年。在李冰冰家里我决定退出演艺圈，她流着泪说支持我。原文章链接: https://xueqiu.com/5926873584/80468675"
-    from: "转载自雪球 2017-01-21"
+    articleId: "tencent_weihuangjin"
+    articleTitle: "黄金红包来袭, 大头评测腾讯微黄金“互联网+现货黄金”到底适不适合理财?"
+    articleType: "评测"
+    articleCategory: "产品评测"
+    authorName: "大头"
+    summary: ""
+    from: "2017-02-05 09:32"
     coverImage: "https://xqimg.imedao.com/159c0bdb2b2674f3feed092a.jpg!custom660.webp"
     contentModel: content
 

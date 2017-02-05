@@ -8,6 +8,8 @@ Rectangle {
     property int totalNumberOfShares: 0
     property string articleId: ""
     property string articleTitle: ""
+    property string articleType: ""
+    property string articleCategory: ""
     property string authorName: ""
     property string summary: ""
     property string from: ""
@@ -23,7 +25,7 @@ Rectangle {
     // More articles
     property var moreArticles: []
 
-    property string apiBase: "https://patternfinance.com/api"
+    property string apiBase: "/api"
 
     function qmlWidth(w) {
         return w + 1
@@ -249,7 +251,7 @@ Rectangle {
                     anchors.left: parent.left
                     font.pixelSize: 14
                     color: "white"
-                    text: "文章"
+                    text: articleType
                 }
 
                 Text {
@@ -259,7 +261,7 @@ Rectangle {
                     font.pixelSize: 14
                     font.underline: true
                     color: "white"
-                    text: "投资故事"
+                    text: articleCategory
                 }
 
                 Text {
@@ -286,7 +288,7 @@ Rectangle {
                     anchors.left: parent.left
                     font.pixelSize: 14
                     color: "white"
-                    text: "文章"
+                    text: articleType
                 }
 
                 Text {
@@ -296,7 +298,7 @@ Rectangle {
                     font.pixelSize: 14
                     font.underline: true
                     color: "white"
-                    text: "投资故事"
+                    text: articleCategory
                 }
 
                 Text {
@@ -339,7 +341,7 @@ Rectangle {
                         anchors.centerIn: parent
                         font.pixelSize: 14
                         color: "white"
-                        text: "文章"
+                        text: articleType
                     }
                 }
 
@@ -350,7 +352,7 @@ Rectangle {
                     font.pixelSize: 14
                     font.underline: true
                     color: "white"
-                    text: "投资故事"
+                    text: articleCategory
                 }
 
                 Text {
