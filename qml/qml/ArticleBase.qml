@@ -186,7 +186,7 @@ Rectangle {
 
             Image {
                 anchors.fill: parent
-                source: "../imgs/mckinseyBg.jpg"
+                source: coverImage
             }
 
             Image {

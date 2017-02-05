@@ -12,7 +12,7 @@ ArticleBase {
     authorName: "创投有道"
     summary: "任泉复盘15年。在李冰冰家里我决定退出演艺圈，她流着泪说支持我。原文章链接: https://xueqiu.com/5926873584/80468675"
     from: "转载自雪球 2017-01-21"
-    coverImage: "https://xqimg.imedao.com/159c0bdb2b2674f3feed092a.jpg!custom660.webp"
+    coverImage: "../articledata/covers/159c0bdb2b2674f3feed092a.jpg"
     contentModel: content
 
     ListModel {
