@@ -2782,11 +2782,11 @@ var QMLEngine = function () {
       } else {
         var src = QmlWeb.getUrlContents(file, true);
         if (!src) {
-          console.error("QMLEngine.loadComponent: Failed to load:", file);
+          // console.error("QMLEngine.loadComponent: Failed to load:", file);
           return undefined;
         }
 
-        console.log("QMLEngine.loadComponent: Loading file:", file);
+        // console.log("QMLEngine.loadComponent: Loading file:", file);
         tree = QmlWeb.parseQML(src, file);
       }
 
@@ -2795,7 +2795,7 @@ var QMLEngine = function () {
       }
 
       if (tree.$children.length !== 1) {
-        console.error("QMLEngine.loadComponent: Failed to load:", file, ": A QML component must only contain one root element!");
+        // console.error("QMLEngine.loadComponent: Failed to load:", file, ": A QML component must only contain one root element!");
         return undefined;
       }
 
@@ -4916,7 +4916,7 @@ function loadParser() {
     return;
   }
 
-  console.log("Loading parser...");
+  // console.log("Loading parser...");
   var tags = document.getElementsByTagName("script");
   for (var i in tags) {
     if (tags[i].src && tags[i].src.indexOf("/qt.") !== -1) {

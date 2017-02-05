@@ -1728,7 +1728,8 @@ section {
 
 body,
 p {
-    font-family: "Chronicle SSm", Georgia, Times, "Times New Roman", serif
+    -webkit-font-smoothing: antialiased;
+    font-family: sans-serif;
 }
 
 input[type=search] {
