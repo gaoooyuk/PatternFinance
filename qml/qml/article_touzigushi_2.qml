@@ -10,7 +10,7 @@ ArticleBase {
     articleType: "文章"
     articleCategory: "投资故事"
     authorName: "澎湃新闻"
-    summary: "“挣扎在悬浮状态”的他们有着怎么样的焦虑与彷徨。我们在这里记录他们为梦想和更好明天的不懈奋斗与期盼。原文章链接: http://www.toutiao.com/i6381279014161482242"
+    summary: "“挣扎在悬浮状态”的他们有着怎么样的焦虑与彷徨。我们在这里记录他们为梦想和更好明天的不懈奋斗与期盼。"
     from: "转载自澎湃 2017-01-30"
     coverImage: "../articledata/covers/guminshuli.jpg"
     contentModel: content

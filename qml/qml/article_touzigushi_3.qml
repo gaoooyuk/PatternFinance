@@ -10,7 +10,7 @@ ArticleBase {
     articleType: "文章"
     articleCategory: "投资故事"
     authorName: "一枚硬币走天下"
-    summary: "买别墅、送孩子留学、开豪车。看“一枚硬币走天下”12年股市浮沉。原文章链接: http://bbs.tianya.cn/post-stocks-1227959-2.shtml"
+    summary: "买别墅、送孩子留学、开豪车。看“一枚硬币走天下”12年股市浮沉。"
     from: "转载自天涯 2017-02-06"
     coverImage: "../articledata/covers/yimeiyingbi.png"
     contentModel: content
