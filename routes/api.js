@@ -57,15 +57,15 @@ router.post('/addSharesCount4Article', function(req, res, next) {
 
 router.get('/addArticles', function(req, res, next) {
 	global.mongodb.collection('article').update( 
-	{ "articleId": "touzigushi_2" },
+	{ "articleId": "touzigushi_3" },
 	{ 
 		$set: { 
 			"viewedTimes": 0,
 			"likedTimes": 0,
 			"sharedTimes": 0,
-			"title": "股民舒立: 22年投资路。走过股灾，“在股市赚钱太难了”",
-			"cover": "../articledata/covers/guminshuli.jpg",
-			"lede": "“挣扎在悬浮状态”的他们有着怎么样的焦虑与彷徨。我们在这里记录他们为梦想和更好明天的不懈奋斗与期盼。原文章链接: http://www.toutiao.com/i6381279014161482242",
+			"title": "一枚硬币走天下，十二年的酸甜苦辣",
+			"cover": "../articledata/covers/yimeiyingbi.png",
+			"lede": "买别墅、送孩子留学、开豪车。看“一枚硬币走天下”12年股市浮沉。原文章链接: http://bbs.tianya.cn/post-stocks-1227959-2.shtml",
 			"type": "文章",
 			"category": "投资故事"
 		}

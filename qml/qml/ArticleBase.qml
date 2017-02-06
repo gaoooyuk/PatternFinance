@@ -443,7 +443,7 @@ Rectangle {
                             font.pixelSize: 16
                             font.weight: Font.Light
                             color: "#4a4a4a"
-                            text: "阅读时长：" + estimatedReadingMins + " mins"
+                            text: "阅读时长：" + estimatedReadingMins + "分钟"
                         }
                     }
 
