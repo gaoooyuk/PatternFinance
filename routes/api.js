@@ -57,65 +57,17 @@ router.post('/addSharesCount4Article', function(req, res, next) {
 
 router.get('/addArticles', function(req, res, next) {
 	global.mongodb.collection('article').update( 
-	{ "articleId": "touzigushi_1" },
+	{ "articleId": "touzigushi_2" },
 	{ 
 		$set: { 
 			"viewedTimes": 0,
 			"likedTimes": 0,
 			"sharedTimes": 0,
-			"title": "不一样的第一桶金",
-			"cover": "../articledata/covers/baymax_sketchies_by_snookievonpink123-d8691o0.jpg",
-			"lede": "看飞泥死党“死胖子”是如何在嬉笑怒骂间赚到人生中第一桶金的",
+			"title": "股民舒立: 22年投资路。走过股灾，“在股市赚钱太难了”",
+			"cover": "../articledata/covers/guminshuli.jpg",
+			"lede": "“挣扎在悬浮状态”的他们有着怎么样的焦虑与彷徨。我们在这里记录他们为梦想和更好明天的不懈奋斗与期盼。原文章链接: http://www.toutiao.com/i6381279014161482242",
 			"type": "文章",
 			"category": "投资故事"
-		}
-	},
-	{ upsert: true } );
-
-	global.mongodb.collection('article').update( 
-	{ "articleId": "renquan_starvc" },
-	{ 
-		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": "任泉和StarVC的投资故事",
-			"cover": "../articledata/covers/159c0bdb2b2674f3feed092a.jpg",
-			"lede": "在李冰冰家里我决定退出演艺圈 她流着泪说支持我",
-			"type": "文章",
-			"category": "投资故事"
-		}
-	},
-	{ upsert: true } );
-
-	global.mongodb.collection('article').update( 
-	{ "articleId": "blackstone_story" },
-	{ 
-		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": "黑石帝国的崛起: 华尔街赚钱大王",
-			"cover": "../articledata/covers/BLKX_06_1000.jpg",
-			"lede": "为人熟知的商业与金融世界潜规则",
-			"type": "文章",
-			"category": "金融帝国"
-		}
-	},
-	{ upsert: true } );
-
-	global.mongodb.collection('article').update( 
-	{ "articleId": "tencent_weihuangjin" },
-	{ 
-		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": "黄金红包来袭, 大头评测腾讯微黄金“互联网+现货黄金”到底适不适合理财?",
-			"cover": "../articledata/covers/BLKX_06_1000.jpg",
-			"lede": "",
-			"type": "评测",
-			"category": "产品评测"
 		}
 	},
 	{ upsert: true } );

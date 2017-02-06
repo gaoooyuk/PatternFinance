@@ -456,7 +456,7 @@ Rectangle {
                                 h += contentLayout.children[i].height
                             }
 
-                            h += contentLayout.spacing * (contentLayout.children.length - 1)
+                            h += contentLayout.spacing * contentLayout.children.length
 
                             return h
                         }
@@ -470,7 +470,18 @@ Rectangle {
                                 model: contentModel
                                 delegate: Item {
                                     width: contentPanel.width
-                                    height: textItem.height
+                                    height: "img" === type
+                                            ? imgItem.height
+                                            : textItem.height
+
+                                    Image {
+                                        id: imgItem
+                                        width: qmlWidth(contentPanel.width)
+                                        height: width * ratio
+                                        anchors.centerIn: parent
+                                        source: "img" === type ? content : ""
+                                        visible: "img" === type
+                                    }
 
                                     Text {
                                         id: textItem
@@ -480,6 +491,7 @@ Rectangle {
                                         font.pixelSize: 18
                                         color: "#4a4a4a"
                                         text: content
+                                        visible: "txt" === type
                                     }
                                 }
                             }
