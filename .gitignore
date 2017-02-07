@@ -3,6 +3,8 @@
 
 node_modules
 
+tools
+
 qml/imgs/books_backup
 
 qml/qml/main_backup.qml
