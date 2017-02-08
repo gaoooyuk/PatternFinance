@@ -470,9 +470,18 @@ Rectangle {
                                 model: contentModel
                                 delegate: Item {
                                     width: contentPanel.width
-                                    height: "img" === type
-                                            ? imgItem.height
-                                            : textItem.height
+                                    height: {
+                                        var h = 0
+                                        if ("img" === type) {
+                                            h = imgItem.height
+                                        } else if ("txt" === type) {
+                                            h = textItem.height
+                                        } else if ("sectionHeader" === type) {
+                                            h = textItem.height + 50
+                                        }
+
+                                        return h
+                                    }
 
                                     Image {
                                         id: imgItem
@@ -486,12 +495,14 @@ Rectangle {
                                     Text {
                                         id: textItem
                                         width: qmlWidth(contentPanel.width)
-                                        wrapMode: Text.WordWrap
+                                        anchors.bottom: parent.bottom
+                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                         lineHeight: 30
-                                        font.pixelSize: 18
-                                        color: "#4a4a4a"
+                                        font.pixelSize: "sectionHeader" === type ? 30 : 18
+                                        font.bold: "sectionHeader" === type ? true : false
+                                        color: "sectionHeader" === type ? "#2a2a2a" : "#4a4a4a"
                                         text: content
-                                        visible: "txt" === type
+                                        visible: "txt" === type || "sectionHeader" === type
                                     }
                                 }
                             }
@@ -742,7 +753,7 @@ Rectangle {
                                                         width: qmlWidth(parent.width)
                                                         anchors.left: parent.left
                                                         font.pixelSize: 18
-                                                        wrapMode: Text.WordWrap
+                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                                         color: "#9b9b9b"
                                                         text: {
                                                             if (undefined !== moreArticles[index]) {
@@ -908,7 +919,7 @@ Rectangle {
                                             width: 289
                                             font.pixelSize: 16
                                             lineHeight: 30
-                                            wrapMode: Text.WordWrap
+                                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                             color: "#4a4a4a"
                                             text: recommBookInfo[index]
                                         }

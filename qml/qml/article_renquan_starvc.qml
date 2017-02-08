@@ -43,7 +43,7 @@ ArticleBase {
             content: "很多人说到底为什么你有这么大的决心决定，不喜欢吗？我说不，我非常喜欢那个职业，那个职业给我带来很多意想不到的人生状态，给我带来年轻人虚荣满足的东西都是通过那个职业，但是我觉得人有的时候经常要思考，不能留恋过去，不能留恋你所谓的那种美好，我要思考在我40岁的时候我应该做什么更有优势。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "让家人最难过的决定"
         }
@@ -88,7 +88,7 @@ ArticleBase {
             content: "我家里人对我很好，永远用这种方式激励我去创业，让我不停地寻找自己的方法方式。我后来实在没办法，也讲了很多，从李冰冰同学，另外一个同学借了3万块钱，当时本来想让他们入股，但是他们觉得投这个风险太大，觉得还是借给你吧。如果投资失败，但是借你，你人在，有一天肯定要还给我的。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "让李冰冰后悔的一件事"
         }
@@ -123,7 +123,7 @@ ArticleBase {
             content: "每天晚上回到我自己宿舍的时候，我基本5分钟就睡着，早晨起来背着包就走，旁边是一瓶水、一瓶可乐，三个月很快。我当时只想为什么开餐厅？就是每个月转三千块钱我心里就会踏实。一千块钱租房子，一千块钱我的生活费，一千块钱男人都里要有一千块钱你才能心里踏实。第一个月赚了两千，第二个月赚了五千块钱。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "赚这点钱是你的人生目标吗？"
         }
@@ -153,7 +153,7 @@ ArticleBase {
             content: "我在意的是这15年它一直给我思考，这是我人生最大的价值，是我意外的收获。当时我想到的三千块钱、五千块钱能给一个年轻人一份踏实，但是它给了我更多的思索、思考，这15年我一直在思考这个钱是放在银行还是放在投资里，因为它确实不停地在数字上每一年的变化。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "从来不放钱在银行，全部在项目中"
         }
@@ -188,7 +188,7 @@ ArticleBase {
             content: "我那时候在寻找股权投资这么有价值怎么投？就找朋友，认识了朋友就投了万达的院线，也比较早期，自己也没有那么惊喜，反正都是按照自己的意愿，这些公司都纷纷的在我们最好的时机能上市了。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "重新寻找新的合伙人"
         }
@@ -233,7 +233,7 @@ ArticleBase {
             content: "我们做明星的先辈，不管成不成，我们做事就是像泉哥这样说到做到。2014年年初商量好，我们年中找到项目同时对外宣布StarVC开始成立。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "第一期：与生活方式相关的创新"
         }
@@ -293,7 +293,7 @@ ArticleBase {
             content: "所以，StarVC背后是这样一个强大的流量，以前是我们在演戏的时候讲是粉丝，其实用在商业上讲就是流量，现在想获取流量真的需要很大的资金才能获取这些主动的流量，我们自带的流量会给我们被投企业带来很快的品牌背书。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "第二期：互联网金融"
         }
@@ -318,7 +318,7 @@ ArticleBase {
             content: "又验证了我们对互联网金融的理解。包括我们投了一家P2P公司，成为第一家在香港主板上市的P2P公司，非常健康的。我们投一家公司真的需要半年的时间才能投不投这家公司。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "第三期：寻找科技类的公司"
         }
@@ -338,7 +338,7 @@ ArticleBase {
             content: "这半年中我看到很多优秀的科技公司，包括我们投的商汤科技，包括VR公司，包括天上的公司，这家暂时还不能说，都是我们这一期投的公司。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "有责任，有情怀"
         }

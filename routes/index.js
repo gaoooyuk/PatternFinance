@@ -35,7 +35,8 @@ router.get('/article/*', function(req, res, next) {
 			{ $inc : { "viewedTimes" : 1 } },
 			{ upsert: false } );
 
-		res.sendFile(path.join(home_dir + '/article_' + fn + '.html'));
+		var articlehtml_dir = path.join(global.dirRoot, 'qml/articlehtml/')
+		res.sendFile(path.join(articlehtml_dir + '/article_' + fn + '.html'));
 	} else {
 		res.status(404).sendFile(path.join(home_dir + '/404.html'));
 	}

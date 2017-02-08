@@ -73,6 +73,11 @@ ArticleBase {
             content: "作为职业股民，我深深地饱尝了以此为职业的个中滋味，其中的酸甜苦辣。"
         }
         ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "酸"
+        }
+        ListElement {
             type: "txt"
             ratio: 1
             content: "先说酸吧，确实有时候感到很心酸："
@@ -86,6 +91,11 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "其次，一只股票你拿了很久，好不容易赚钱了，你屁颠屁颠的跑出来，赚了一点小钱，心头还沾沾自喜，结果调整完后连续的拉升，大涨了很多，你的所得相对于后面的股价微不足道，这时候确实心酸。你比如最近没多久的000062深圳华强，买进去后拿了很久，一直不涨，大半年了终于起来了，结果9.3元左右卖掉了，还得意于自己的操作。可过了没多久，2个多月吧，有个朋友从美国打来电话，问我卖掉没有，她17元多卖掉了。我心里就像打翻了醋坛子满不是滋味！"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "甜"
         }
         ListElement {
             type: "txt"
@@ -111,6 +121,11 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "还有一点感到甜的是每当看到街上的小商贩在辛勤劳作的情景就会感到很幸福，我不必要像他们一样的起早贪黑日晒雨淋的劳作。当然，我没有任何瞧不起他们的意思，我也是出生于农村，很尊重各种劳动者。有时候我就在想，他就是把摊子上全部的东西卖掉也没有多少钱，干嘛不炒股呢？但转过来又一想，如果他们炒股不知道会亏成什么样子。"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "苦"
         }
         ListElement {
             type: "txt"
@@ -251,6 +266,11 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "啦……"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "辣"
         }
         ListElement {
             type: "txt"

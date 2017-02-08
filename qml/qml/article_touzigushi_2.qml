@@ -53,9 +53,9 @@ ArticleBase {
             content: "“成功”背面，这个关于“失败”的故事是：他挨过两次股灾，第二次比第一次亏得还多。在牛市的疯狂中他曾 “失去了理性”。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
-            content: "“530股灾”"
+            content: "530股灾"
         }
         ListElement {
             type: "txt"
@@ -118,7 +118,7 @@ ArticleBase {
             content: "2007年的股灾之后，还起了一波牛市，舒立没有参与。他说，心理上需要修复时间。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "股灾又来了"
         }
@@ -218,7 +218,7 @@ ArticleBase {
             content: "这个自创的工具诞生近一年后，也就是今年1月，他在微博上公开收集用户的意见，最好与最次的选项分别是：“极其准确，骇人听闻”和“完全不准，我不是人”。他终于在股灾后恢复了略带自恋的戏谑措辞。"
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             ratio: 1
             content: "一次拓展"
         }
