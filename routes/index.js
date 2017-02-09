@@ -14,6 +14,7 @@ router.get('/article/*', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 	var fn = req.params['0']
 
+	var article = {}
 	var find = false
 	var done = false
 	var cursor = global.mongodb.collection('article').find({ "articleId": fn });
@@ -21,6 +22,7 @@ router.get('/article/*', function(req, res, next) {
 		assert.equal(err, null);
 
 	  	if (doc != null) {
+	  		article = doc
 	  		find = true
 	  	}
 
@@ -35,8 +37,13 @@ router.get('/article/*', function(req, res, next) {
 			{ $inc : { "viewedTimes" : 1 } },
 			{ upsert: false } );
 
-		var articlehtml_dir = path.join(global.dirRoot, 'qml/articlehtml/')
-		res.sendFile(path.join(articlehtml_dir + '/article_' + fn + '.html'));
+		res.render('article', 
+			{ 
+				"title": article.title, 
+				"articleId": article.articleId,
+				"html_description": article.lede,
+				"html_keywords": article.keywords
+			})
 	} else {
 		res.status(404).sendFile(path.join(home_dir + '/404.html'));
 	}

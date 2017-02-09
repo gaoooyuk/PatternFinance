@@ -57,20 +57,13 @@ router.post('/addSharesCount4Article', function(req, res, next) {
 
 router.get('/addArticles', function(req, res, next) {
 	global.mongodb.collection('article').update( 
-	{ "articleId": "luhan_qinghanjijin" },
+	{},
 	{ 
 		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": "鹿晗和他的清晗基金",
-			"cover": "../articledata/covers/luhan_qinghanjijin.png",
-			"lede": "作为已经征服娱乐圈并且拥有众多迷弟迷妹的鹿晗，如今又要在资本圈大杀四方？故事已经开场。",
-			"type": "文章",
-			"category": "投资故事"
+			"keywords": ""
 		}
 	},
-	{ upsert: true } );
+	{ upsert: false } );
 
 	res.send('Success')
 });
