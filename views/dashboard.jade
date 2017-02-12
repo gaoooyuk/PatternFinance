@@ -1,14 +1,12 @@
 doctype html
 html
   head
-    title 磨石金融 - #{title}
+    title Dashboard | 磨石金融
     script(type="text/javascript"
       src="lib/qt.js")
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width,initial-scale=1")
     meta(name="googlebot" content="NOODP")
-    meta(name="description" content=html_description)
-    meta(name="keywords" content=html_keywords)
     script.
       var _vds = _vds || [];
       window._vds = _vds;
@@ -31,7 +29,7 @@ html
       (function() {
       var div = document.getElementById('embed');
       var engine = new QmlWeb.QMLEngine(div);
-      engine.loadFile('qml/article_#{articleId}.qml');
+      engine.loadFile('qml/Dashboard.qml');
       engine.start();
       })();
     footer.global-footer
@@ -65,13 +63,13 @@ html
               li 
                 strong 探索持续获利的投资模式
               li 
-                a(href="/" class="" target="_blank") 磨石研究: 探寻股市里可被复制的获利模式
+                a(href="/" class="" target="_blank") 磨石研究院: 探寻股市里可被复制的获利模式
               li 
-                a(href="/" class="" target="_blank") 物是评测: 最全面、最详细的金融产品评测
+                a(href="/" class="" target="_blank") 产品评测 : 最全面、最详细的金融产品评测
               li 
-                a(href="/" class="" target="_blank") 投资故事: 投资即人生
+                a(href="/" class="" target="_blank") 投资故事 : 投资即人生
               li 
-                a(href="/" class="" target="_blank") 金融帝国: 资本市场里最为人熟知的大鳄
+                a(href="/" class="" target="_blank") 金融帝国 : 资本市场里最为人熟知的大鳄
               li 
                 a(href="https://www.gimletech.com" class="" target="_blank") Gimletech : 金融科技与投资利器的结合
           

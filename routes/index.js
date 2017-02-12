@@ -10,6 +10,10 @@ router.get('/', function(req, res, next) {
 	res.sendFile(path.join(home_dir + '/main.html'));
 });
 
+router.get('/dashboard', function(req, res, next) {
+	res.render('dashboard', {})
+});
+
 router.get('/article/*', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 	var fn = req.params['0']
