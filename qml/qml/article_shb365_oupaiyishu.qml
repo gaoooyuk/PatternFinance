@@ -115,7 +115,12 @@ ArticleBase {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "XXXX"
+            content: "史红彬是谁？"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "混迹民间的商人总是喜欢一些夸大而不实的称谓。史红彬也不免其俗。从欧派艺术的宣传上来看，其“带头大哥”也有着不只一种身份。书画宝创始人、全球艺术交易网创始人、瓯派文化董事长、瓯派艺术研究院创始人，似乎有了这些光环的加持，史总的生意就能顺风顺水。大头显然不是一个喜欢刨根问底的人，但老板说要深度，看在操守(gongzi)的份上就只有对不起别人家史大大了。毕竟大头老板经常告诫大头: 写评测除了要严肃活泼，还要有理(tucao)有据(tucao)有节(tucao)。"
         }
         ListElement {
             type: "img"
@@ -123,9 +128,19 @@ ArticleBase {
             content: "../articledata/shb365_oupaiyishu/shb_titles.png"
         }
         ListElement {
+            type: "txt"
+            ratio: 1
+            content: "首先让我们来看看(tucaoyixia)这个全球艺术交易网。大家还记不记得除了shb365.com之外，史红彬在2014年的时候还注册过一个域名(www.qqysjyw.com)。是不是有点眼熟？这不就是全球艺术交易网的拼音吗！如果你现在访问这个域名的话，你会看到和书画宝网站完全相同的内容。"
+        }
+        ListElement {
             type: "img"
             ratio: 0.36
             content: "../articledata/shb365_oupaiyishu/qqysw.png"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "在瓯派艺术的百度贴吧上也有着这么一段对史总的介绍。大头这才明白，怪不得史总能赚大钱，这一个西瓜子掰两半的方法还真是好用。作为吃瓜群众的大头觉得用来唬唬大爷大妈这也算够用了。"
         }
         ListElement {
             type: "img"
@@ -155,7 +170,7 @@ ArticleBase {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>插播大头招聘广告一条</strong> <br>如果你想投稿，或者成为“物是评测”的专栏作者，现在就联系我吧: datou@patternfinance.com"
+            content: "<strong>插播大头招聘广告一条</strong> <br>如果你对某个金融产品不吐不快，或者成为“物是评测”的专栏作者，现在就联系我吧: datou@patternfinance.com"
         }
     }
 }
