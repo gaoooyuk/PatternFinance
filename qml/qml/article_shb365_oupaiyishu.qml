@@ -155,7 +155,7 @@ ArticleBase {
         ListElement {
             type: "txt"
             ratio: 1
-            content: ""
+            content: "<strong>插播大头招聘广告一条</strong> <br>如果你想投稿，或者成为“物是评测”的专栏作者，现在就联系我吧: datou@patternfinance.com"
         }
     }
 }

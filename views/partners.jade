@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title 合作伙伴 | 磨石金融
+    script(type="text/javascript"
+      src="lib/qt.js")
+    meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width,initial-scale=1")
+    meta(name="googlebot" content="NOODP")
+    meta(name="description" content=html_description)
+    meta(name="keywords" content=html_keywords)
+    script.
+      var _vds = _vds || [];
+      window._vds = _vds;
+      (function(){
+      _vds.push(['setAccountId', '8c80410b5bc2dd32']);
+      (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+      })();
+      })();
+    link(rel='stylesheet', type='text/css', href='public/stylesheets/article.css')
+    link(rel="shortcut icon" href='public/images/ico/favicon.ico')
+  body
+    div#embed
+    script.
+      (function() {
+      var div = document.getElementById('embed');
+      var engine = new QmlWeb.QMLEngine(div);
+      engine.loadFile('qml/website_partners.qml');
+      engine.start();
+      })();
+    footer.global-footer
+      section.footer
+        div.footer-inner
+          div.footer-section
+            div.app-description
+                strong 版权所有 
+                © Pattern Finance 2017。以商业目的使用Pattern Finance网站内容需获许可。非商业目的使用授权遵循 CC BY-NC 4.0
+            div(class="copyright")
+              a(class="rootLink item-home colorize" href="/")
+                h1
+                  img(src='imgs/partner/pattern.svg')

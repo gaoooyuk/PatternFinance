@@ -10,6 +10,16 @@ router.get('/', function(req, res, next) {
 	res.sendFile(path.join(home_dir + '/main.html'));
 });
 
+router.get('/partners', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('partners', 
+	{ 
+		"html_description": "",
+		"html_keywords": "合作伙伴"
+	})
+});
+
 router.get('/dashboard', function(req, res, next) {
 	res.render('dashboard', {})
 });
