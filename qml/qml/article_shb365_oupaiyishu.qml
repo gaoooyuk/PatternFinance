@@ -6,11 +6,11 @@ ArticleBase {
     estimatedReadingMins: totalNumberOfChars/700
     totalNumberOfShares: 0
     articleId: "shb365_oupaiyishu"
-    articleTitle: "大头重磅评测：号称40天收益200%的书画宝独家揭秘"
+    articleTitle: "大头物是评测：号称40天收益200%的书画宝深度揭秘"
     articleType: "评测"
     articleCategory: "产品评测"
     authorName: "大头"
-    summary: ""
+    summary: "让大妈们趋之若鹜的书画宝究竟是一场商业模式的创新，还是一场“群鸦的盛宴”？"
     from: "2017-02-10 13:22"
     coverImage: "../articledata/covers/shb365.png"
     contentModel: content
@@ -55,7 +55,7 @@ ArticleBase {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "那么书画宝究竟是怎样一款产品呢？让我们先从欧派艺术说起。"
+            content: "<strong>那么书画宝究竟是怎样一款产品呢？</strong>让我们先从欧派艺术说起。"
         }
         ListElement {
             type: "txt"
@@ -65,7 +65,7 @@ ArticleBase {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "1. 在2014年6月，由“温州市山青水秀环境工程有限公司”改名为现在的“温州瓯派文化艺术有限公司”。"
+            content: "1. 在2014年6月，由“温州市山青水秀<strong>环境工程</strong>有限公司”改名为现在的“温州瓯派<strong>文化艺术</strong>有限公司”。"
         }
         ListElement {
             type: "txt"
