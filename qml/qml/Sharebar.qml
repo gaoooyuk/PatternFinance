@@ -169,12 +169,13 @@ Rectangle {
                             sbEnabledImg.visible = true
                             if ("weixin" === sns) {
                                 qrcodeBox.visible = true
-                            } else {
-                                qrcodeBox.visible = false
                             }
                         }
                         onExited: {
                             sbEnabledImg.visible = false
+                            if ("weixin" === sns) {
+                                qrcodeBox.visible = false
+                            }
                         }
                         onClicked: {
                             updateSharesCount()
