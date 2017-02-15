@@ -3,7 +3,7 @@ import QtQuick 2.5
 Rectangle {
     id: mainWindow
 
-    property string summary: "一群酷到爆的人做的金融科技新媒体"
+    property string summary: "一群酷到爆的人做的金融新媒体"
     property string coverImage: "../imgs/partner/bg.png"
 
     function qmlWidth(w) {

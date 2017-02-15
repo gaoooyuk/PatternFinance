@@ -167,6 +167,11 @@ Rectangle {
                         cursorShape: Qt.PointingHandCursor
                         onEntered: {
                             sbEnabledImg.visible = true
+                            if ("weixin" === sns) {
+                                qrcodeBox.visible = true
+                            } else {
+                                qrcodeBox.visible = false
+                            }
                         }
                         onExited: {
                             sbEnabledImg.visible = false
@@ -199,6 +204,67 @@ Rectangle {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: qrcodeBox
+        width: 200
+        height: 210
+        anchors.top: parent.top
+        anchors.topMargin: 80
+        anchors.left: parent.left
+        anchors.leftMargin: 35
+        border.width: 2
+        border.color: "#dddddd"
+        radius: 5
+        visible: false
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                id: qrBoxTitleBar
+                width: parent.width
+                height: 30
+
+                Text {
+                    anchors.centerIn: parent
+                    font.pixelSize: 16
+                    font.bold: true
+                    color: "#9b9b9b"
+                    text: "分享到微信"
+                }
+            }
+
+            Item {
+                id: qrcodeItem
+                width: parent.width
+                height: 150
+
+                Image {
+                    width: 150
+                    height: 150
+                    anchors.centerIn: parent
+                    source: "../articledata/qrcodes/" + shareBar.articleId + ".png"
+                }
+            }
+
+            Item {
+                id: qrBoxBottomBar
+                width: parent.width
+                height: parent.height
+                        - qrBoxTitleBar.height
+                        - qrcodeItem.height
+
+                Text {
+                    anchors.top: parent.top
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 12
+                    color: "#9b9b9b"
+                    text: "使用微信扫码将网页分享到微信"
                 }
             }
         }
