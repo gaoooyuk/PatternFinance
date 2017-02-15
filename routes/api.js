@@ -56,21 +56,30 @@ router.post('/addSharesCount4Article', function(req, res, next) {
 });
 
 router.get('/addArticles', function(req, res, next) {
+	// global.mongodb.collection('article').update( 
+	// { "articleId": "ashares_shengsichang" },
+	// { 
+	// 	$set: { 
+	// 		"viewedTimes": 0,
+	// 		"likedTimes": 0,
+	// 		"sharedTimes": 0,
+	// 		"title": "乙未年A股生死场",
+	// 		"cover": "../articledata/covers/shengsichang.jpg",
+	// 		"lede": "进场、狂欢、收割、出逃、恐惧、抄底……散户们在A股市场的生生死死，往复循环。",
+	// 		"type": "文章",
+	// 		"category": "投资故事"
+	// 	}
+	// },
+	// { upsert: true } );
+
 	global.mongodb.collection('article').update( 
-	{ "articleId": "ashares_shengsichang" },
+	{ "category": "产品评测" },
 	{ 
-		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": "乙未年A股生死场",
-			"cover": "../articledata/covers/shengsichang.jpg",
-			"lede": "进场、狂欢、收割、出逃、恐惧、抄底……散户们在A股市场的生生死死，往复循环。",
-			"type": "文章",
-			"category": "投资故事"
+		$set: {
+			"category": "物是评测"
 		}
 	},
-	{ upsert: true } );
+	{ upsert: false } );
 
 	res.send('Success')
 });

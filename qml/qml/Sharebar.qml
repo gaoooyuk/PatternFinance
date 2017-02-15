@@ -262,6 +262,7 @@ Rectangle {
 
                 Text {
                     anchors.top: parent.top
+                    anchors.topMargin: 2
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 12
                     color: "#9b9b9b"

@@ -8,7 +8,7 @@ ArticleBase {
     articleId: "shb365_oupaiyishu"
     articleTitle: "大头物是评测：号称40天收益200%的书画宝深度揭秘"
     articleType: "评测"
-    articleCategory: "产品评测"
+    articleCategory: "物是评测"
     authorName: "大头"
     summary: "让大妈们趋之若鹜的书画宝究竟是一场商业模式的创新，还是一场“群鸦的盛宴”？"
     from: "2017-02-10 13:22"

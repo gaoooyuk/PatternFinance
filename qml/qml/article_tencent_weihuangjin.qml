@@ -8,7 +8,7 @@ ArticleBase {
     articleId: "tencent_weihuangjin"
     articleTitle: "黄金红包来袭, 大头评测腾讯微黄金“互联网+现货黄金”到底适不适合理财?"
     articleType: "评测"
-    articleCategory: "产品评测"
+    articleCategory: "物是评测"
     authorName: "大头"
     summary: ""
     from: "2017-02-05 09:32"

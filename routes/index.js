@@ -20,6 +20,16 @@ router.get('/partners', function(req, res, next) {
 	})
 });
 
+router.get('/about', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('about', 
+	{ 
+		"html_description": "",
+		"html_keywords": "关于我们,磨石金融,新媒体"
+	})
+});
+
 router.get('/dashboard', function(req, res, next) {
 	res.render('dashboard', {})
 });

@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title 磨石金融 - #{title}
+    title 关于我们 | 磨石金融
     script(type="text/javascript"
       src="lib/qt.js")
     meta(charset='utf-8')
@@ -31,7 +31,7 @@ html
       (function() {
       var div = document.getElementById('embed');
       var engine = new QmlWeb.QMLEngine(div);
-      engine.loadFile('qml/article_#{articleId}.qml');
+      engine.loadFile('qml/website_about.qml');
       engine.start();
       })();
     footer.global-footer
@@ -78,8 +78,6 @@ html
             ul.utility-links
               li 
                 strong 关于我们
-              li 
-                a(href="/about") 关于磨石金融
               li 
                 a(href="/joinus") 加入我们
               li 
