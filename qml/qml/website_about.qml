@@ -52,12 +52,22 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
+            content: "磨石金融的新媒体联盟计划专为<strong>自媒体</strong>和<strong>垂直媒体</strong>设计。加入该计划的自媒体除了可以获得内容的分成外，还将获得磨石金融提供的版权维权委托服务。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
             content: "新媒体合作联系 <br>xmt@patternfinance.com"
         }
         ListElement {
             type: "sectionHeader"
             ratio: 1
             content: "技术联盟(TAP: Technology Alliance Partner)计划"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "今天就加入磨石金融TAP计划，你可以免费使用磨石金融提供的大部分数据API，并共享技术联盟计划内发布的网页组件和金融服务的源代码。"
         }
         ListElement {
             type: "txt"

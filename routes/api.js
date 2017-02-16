@@ -34,6 +34,19 @@ router.post('/getRandomArticles', function(req, res, next) {
 	});
 });
 
+router.post('/getChannelArticles', function(req, res, next) {
+	// Number of articles to retrieve
+	var num = req.body.num
+	var category = req.body.category
+
+	var articles = []
+	var cursor = global.mongodb.collection(collectionName).find({ "category": category })
+	cursor.toArray(function(err, docs) {
+		articles = getRandomSubset(docs, num)
+		res.send(articles)
+	});
+});
+
 router.post('/getArticleInfo', function(req, res, next) {
 	var numOfShares = 0
 	var cursor = global.mongodb.collection(collectionName).find({ "articleId": req.body.articleId });

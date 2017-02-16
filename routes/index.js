@@ -30,6 +30,54 @@ router.get('/about', function(req, res, next) {
 	})
 });
 
+router.get('/research', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('channel', 
+	{ 
+		"channel": "磨石研究",
+		"channel_qml": "website_research",
+		"html_description": "",
+		"html_keywords": "磨石研究,投资模式,磨石金融"
+	})
+});
+
+router.get('/review', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('channel', 
+	{ 
+		"channel": "物是评测",
+		"channel_qml": "website_review",
+		"html_description": "",
+		"html_keywords": "物是评测,磨石金融"
+	})
+});
+
+router.get('/story', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('channel', 
+	{ 
+		"channel": "投资故事",
+		"channel_qml": "website_story",
+		"html_description": "",
+		"html_keywords": "投资故事,磨石金融,新媒体"
+	})
+});
+
+router.get('/company', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('channel', 
+	{ 
+		"channel": "金融帝国",
+		"channel_qml": "website_company",
+		"html_description": "",
+		"html_keywords": "金融帝国,磨石金融,新媒体"
+	})
+});
+
 router.get('/dashboard', function(req, res, next) {
 	res.render('dashboard', {})
 });
