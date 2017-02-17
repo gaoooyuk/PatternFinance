@@ -78,6 +78,16 @@ router.get('/company', function(req, res, next) {
 	})
 });
 
+router.get('/joinus', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('joinus', 
+	{ 
+		"html_description": "",
+		"html_keywords": "加入我们,加入磨石,磨石金融"
+	})
+});
+
 router.get('/dashboard', function(req, res, next) {
 	res.render('dashboard', {})
 });

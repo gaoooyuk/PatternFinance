@@ -3,7 +3,6 @@ import QtQuick 2.5
 Rectangle {
     id: mainWindow
 
-    property string summary: "一群酷到爆的人做的金融新媒体"
     property string coverImage: "../imgs/partner/bg.png"
 
     function qmlWidth(w) {
@@ -14,7 +13,8 @@ Rectangle {
         return h + 1
     }
 
-    height: coverPanel.height
+    height: snsBar.height
+            + coverPanel.height
             + articlePanel.height
 
     ListModel {
@@ -85,9 +85,16 @@ Rectangle {
         anchors.fill: parent
 
         Rectangle {
+            id: snsBar
+            width: parent.width
+            height: 30
+            color: "#1a1a1a"
+        }
+
+        Rectangle {
             id: coverPanel
             width: parent.width
-            height: width * 0.48
+            height: width * 0.4
 
             Image {
                 anchors.fill: parent
@@ -98,7 +105,7 @@ Rectangle {
         Rectangle {
             id: articlePanel
             width: parent.width
-            height: articleSummaryPanel.height + articleContentPanel.height
+            height: articleContentPanel.height
 
             Rectangle {
                 id: contentPanel
@@ -114,38 +121,6 @@ Rectangle {
 
                 Column {
                     anchors.fill: parent
-
-                    Item {
-                        id: articleSummaryPanel
-                        width: parent.width
-                        height: summaryText.height + 100
-
-                        Rectangle {
-                            id: sPanel
-                            width: parent.width
-                            height: summaryText.height + 50
-                            anchors.top: parent.top
-                            anchors.topMargin: 20
-                            color: "#FAFAF9"
-
-                            Text {
-                                id: summaryText
-                                width: qmlWidth(contentPanel.width * 0.9)
-                                anchors.centerIn: parent
-                                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                lineHeight: 30
-                                font.pixelSize: 16
-                                color: "#4a4a4a"
-                                text: summary
-                            }
-
-                            Rectangle {
-                                width: 4
-                                height: parent.height
-                                color: "#f2f2f2"
-                            }
-                        }
-                    }
 
                     Item {
                         id: articleContentPanel
