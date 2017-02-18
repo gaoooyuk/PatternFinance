@@ -16,6 +16,7 @@ Rectangle {
     height: snsBar.height
             + coverPanel.height
             + articlePanel.height
+            + liveChatPanel.height
 
     ListModel {
         id: contentModel
@@ -185,6 +186,13 @@ Rectangle {
                     }
                 }
             }
+        }
+
+        LiveChat {
+            id: liveChatPanel
+            width: mainWindow.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            userToken: "4tjkJStgDYYNTsNvZQmrTO3YYAztjqSiWyjQKa7qX4NgVlJgH5gLlq7wpZvFqnf88XfxuetXgJBQ1/HkPdTiPNHzqPXOgBHKGsqo8/M3mKE=" // moshikf_about
         }
     }
 }

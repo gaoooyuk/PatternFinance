@@ -16,6 +16,7 @@ Rectangle {
     height: snsBar.height
             + coverPanel.height
             + articlePanel.height
+            + liveChatPanel.height
 
     ListModel {
         id: contentModel
@@ -73,11 +74,6 @@ Rectangle {
             type: "txt"
             ratio: 1
             content: "TAP合作联系 <br>tap@patternfinance.com"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: ""
         }
     }
 
@@ -185,6 +181,13 @@ Rectangle {
                     }
                 }
             }
+        }
+
+        LiveChat {
+            id: liveChatPanel
+            width: mainWindow.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            userToken: "5/3ZwMh6PCqJ60EAuLrWZeo7Tvtng141r9wg86KVxosF90Z9cYiGVLiNniqGCupB7ZFOvB3iecnEkbY/9mvGv1Jkz+s3kIFsBzfffUUi/0E=" // moshikf_partners
         }
     }
 }
