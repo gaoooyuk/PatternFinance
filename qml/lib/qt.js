@@ -12259,6 +12259,8 @@ QmlWeb.registerQmlType({
       var msg = new RongIMLib.TextMessage({content: text, extra:"附加信息"});
       var conversationtype = RongIMLib.ConversationType.PRIVATE;
       var targetId = _thisChatClient.currentTargetId; // 目标 Id
+      // var pushContent = 'haha'
+      // var pushData = ''
 
       RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
           onSuccess: function (message) {
@@ -12291,7 +12293,7 @@ QmlWeb.registerQmlType({
               }
               console.log('发送失败:' + info);
           }
-        }
+        } // , false, pushContent, pushData
       );
     }
   }]);

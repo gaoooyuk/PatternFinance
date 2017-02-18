@@ -104,7 +104,7 @@ Rectangle {
                     Item {
                         id: chatTitleBar
                         width: parent.width
-                        height: 55
+                        height: 60
 
                         Rectangle {
                             width: 10
@@ -137,11 +137,11 @@ Rectangle {
 
                         property int messageItemHeight: 60
 
-                        width: parent.width
+                        width: parent.width - 11
                         height: 360
-                        anchors.horizontalCenter: parent.horizontalCenter
-    //                    verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
-                        clip: true
+                        anchors.left: parent.left
+                        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+                        verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
 
                         contentItem: Item {
                             width: conversationLV.width
