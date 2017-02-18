@@ -110,7 +110,7 @@ Rectangle {
                             width: 10
                             height: width
                             anchors.top: parent.top
-                            anchors.topMargin: 24
+                            anchors.topMargin: 26
                             anchors.left: parent.left
                             anchors.leftMargin: 16
                             radius: width / 2
@@ -120,9 +120,10 @@ Rectangle {
                         }
 
                         Text {
+                            anchors.top: parent.top
+                            anchors.topMargin: 21
                             anchors.left: parent.left
                             anchors.leftMargin: 45
-                            anchors.verticalCenter: parent.verticalCenter
                             font.pixelSize: 15
                             font.bold: true
                             color: "#4a4a4a"
