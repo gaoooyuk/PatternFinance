@@ -12130,6 +12130,14 @@ QmlWeb.registerQmlType({
       this.appKey = newAppKey
       RongIMLib.RongIMClient.init(newAppKey);
 
+      if (Notification && Notification.permission !== "granted") {
+          Notification.requestPermission(function(status) {
+              if (Notification.permission !== status){
+                  Notification.permission = status;
+              }
+          });
+      }
+
       // 设置连接监听状态 （ status 标识当前连接状态 ）
       // 连接状态监听器
       RongIMClient.setConnectionStatusListener({
@@ -12165,7 +12173,24 @@ QmlWeb.registerQmlType({
             switch(message.messageType){
                 case RongIMClient.MessageType.TextMessage:
                     // message.content.content => 消息内容
-                    _thisChatClient.textMessageReceived(message.content.content)
+                    var msg = message.content.content
+                    _thisChatClient.textMessageReceived(msg)
+
+                    var options = {
+                        dir: "ltr",  //控制方向，据说目前浏览器还不支持
+                        lang: "utf-8",
+                        icon: "../livechat/avatar.png",
+                        sound: "../livechat/msg.wav",
+                        silent: false,
+                        body: msg
+                    };
+                    var notification = new Notification('磨石金融', options);
+                    notification.onshow = function () {
+                        setTimeout(function () {
+                            notification.close();
+                        }, 10000);
+                    }
+
                     break;
                 case RongIMClient.MessageType.VoiceMessage:
                     // 对声音进行预加载                
