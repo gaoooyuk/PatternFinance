@@ -70,7 +70,8 @@ Rectangle {
         })
     }
 
-    height: coverPanel.height
+    height: snsBar.height
+            + coverPanel.height
             + articlePanel.height
             + spacer.height
             + morePanel.height
@@ -174,6 +175,93 @@ Rectangle {
 
     Column {
         anchors.fill: parent
+
+        Rectangle {
+            id: snsBar
+            width: parent.width
+            height: 30
+            color: "#1a1a1a"
+
+            Item {
+                id: homeBtn
+                width: 60
+                height: parent.height
+                anchors.left: parent.left
+
+                Text {
+                    id: homeText
+                    height: 20
+                    anchors.centerIn: parent
+                    font.pixelSize: 14
+                    color: "#c8c8c8"
+                    text: "首页"
+                }
+
+                GeneralMouseArea {
+                    onEntered: {
+                        homeText.color = "white"
+                    }
+                    onExited: {
+                        homeText.color = "#c8c8c8"
+                    }
+                    onClicked: {
+                        Qt.openUrlExternally("/")
+                    }
+                }
+            }
+
+            Item {
+                id: loginBtn
+                width: 60
+                height: parent.height
+                anchors.right: parent.right
+
+                Text {
+                    id: loginText
+                    height: 20
+                    anchors.centerIn: parent
+                    font.pixelSize: 14
+                    color: "#c8c8c8"
+                    text: "登录"
+                }
+
+                GeneralMouseArea {
+                    onEntered: {
+                        loginText.color = "white"
+                    }
+                    onExited: {
+                        loginText.color = "#c8c8c8"
+                    }
+                }
+            }
+
+            Item {
+                id: pubBtn
+                width: 60
+                height: parent.height
+                anchors.right: loginBtn.left
+
+                Text {
+                    id: pubBtnText
+                    height: 20
+                    anchors.centerIn: parent
+                    font.pixelSize: 14
+                    color: "#c8c8c8"
+                    text: "我要投稿"
+                }
+
+                GeneralMouseArea {
+                    onEntered: {
+                        joinusText.color = "white"
+                    }
+                    onExited: {
+                        joinusText.color = "#c8c8c8"
+                    }
+                    onClicked: {
+                    }
+                }
+            }
+        }
 
         Rectangle {
             id: coverPanel
