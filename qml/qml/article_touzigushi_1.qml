@@ -14,6 +14,7 @@ ArticleBase {
     from: "转载自雪球 2016-08-12"
     coverImage: "../articledata/covers/baymax_sketchies_by_snookievonpink123-d8691o0.jpg"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -491,6 +492,42 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "一个人财富起点之前，一定是知识储备的起点。几天前，@DAVID自由之路 有一个帖子，叫《底层阶级的上升之路》，当时看完后我的一个感想——要改变自己的人生轨迹，相比于财务上生硬干瘪的计划，读书和学习的计划是最先也是最迫切需要的。自己知识和性格上的积累对家庭特别是孩子的影响更大。在现在的社会，“知识改变命运”一样有效。看完死胖子故事，应该做的一定不是马上开始自己的储蓄和定投计划，然后几个月之后又被淡忘或者放弃，而是应该认真的思考自己的学习计划，寻找那些能由内而外改变自己的思维冲击。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "END"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "死胖子"
+        }
+        ListElement {
+            title: "目标：100万"
+        }
+        ListElement {
+            title: "炒股和攒钱炒股"
+        }
+        ListElement {
+            title: "次贷危机"
+        }
+        ListElement {
+            title: "赚钱存钱的重要"
+        }
+        ListElement {
+            title: "买车热潮"
+        }
+        ListElement {
+            title: "尾声"
+        }
+        ListElement {
+            title: "后记"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

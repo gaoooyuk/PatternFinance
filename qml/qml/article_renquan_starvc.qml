@@ -14,6 +14,7 @@ ArticleBase {
     from: "转载自雪球 2017-01-21"
     coverImage: "../articledata/covers/159c0bdb2b2674f3feed092a.jpg"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -411,6 +412,40 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "今天很荣幸的跟大家分享了一下StarVC的故事，也希望有机会跟在座的投资人，各位的同行一起合作。因为我觉得分享是这个时代的特色，而且我觉得分享是一种情怀，也是一种胸怀。StarVC的邮箱我说我们密码可以公开，所有人都可以到我们这五千个项目里寻找你们喜欢的项目，我说这个时代不怕独享，就怕有分享的精神，有分享的精神你才能做的更强更大。StarVC带着我们自己的情怀，我相信未来一定会完成我们自己的梦想的。"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "让家人最难过的决定"
+        }
+        ListElement {
+            title: "让李冰冰后悔的一件事"
+        }
+        ListElement {
+            title: "赚这点钱是你的人生目标吗"
+        }
+        ListElement {
+            title: "从来不放钱在银行"
+        }
+        ListElement {
+            title: "重新寻找新的合伙人"
+        }
+        ListElement {
+            title: "与生活方式相关的创新"
+        }
+        ListElement {
+            title: "互联网金融"
+        }
+        ListElement {
+            title: "寻找科技类的公司"
+        }
+        ListElement {
+            title: "有责任，有情怀"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

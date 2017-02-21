@@ -14,6 +14,7 @@ ArticleBase {
     from: "转载自品玩黑镜 2015-12-17"
     coverImage: "../articledata/covers/shengsichang.jpg"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -466,6 +467,31 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "而这是另一种更加残酷的收割。"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "那个逃出生天的人"
+        }
+        ListElement {
+            title: "那颗最新鲜的韭菜"
+        }
+        ListElement {
+            title: "那个冷眼旁观的大牛"
+        }
+        ListElement {
+            title: "那根遥控命运的杠杆"
+        }
+        ListElement {
+            title: "那种刻骨铭心的恐惧"
+        }
+        ListElement {
+            title: "那场乍暖还寒之后的抄底"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

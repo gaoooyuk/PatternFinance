@@ -2450,9 +2450,9 @@ var QMLEngine = function () {
 
       this.start();
 
-      this.updateGeometry();
-
       this.callCompletedSignals();
+
+      this.updateGeometry();
 
       return component;
     }
@@ -4596,7 +4596,7 @@ function applyProperty(item, i, value, objectScope, componentScope) {
 
 function connectSignal(item, signalName, value, objectScope, componentScope) {
   if (!item[signalName]) {
-    console.warn("No signal called " + signalName + " found!");
+    // console.warn("No signal called " + signalName + " found!");
     return undefined;
   } else if (typeof item[signalName].connect !== "function") {
     console.warn(signalName + " is not a signal!");

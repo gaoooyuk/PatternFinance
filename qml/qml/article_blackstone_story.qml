@@ -14,6 +14,7 @@ ArticleBase {
     from: "2017-01-28 19:45"
     coverImage: "../articledata/covers/BLKX_06_1000.jpg"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -35,7 +36,7 @@ ArticleBase {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "1、黑石成立之初：首战大捷，奠定口碑（1985-1990）"
+            content: "黑石成立之初：首战大捷，奠定口碑（1985-1990）"
         }
         ListElement {
             type: "txt"
@@ -70,7 +71,7 @@ ArticleBase {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "2、从频临死亡到行业翘楚的涅槃（1990年代）"
+            content: "从濒临死亡到行业翘楚的涅槃（1990年代）"
         }
         ListElement {
             type: "txt"
@@ -110,7 +111,7 @@ ArticleBase {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "3、秃鹰基金：度过萧条期的替代工具（2000年初）"
+            content: "秃鹰基金：度过萧条期的替代工具（2000年初）"
         }
         ListElement {
             type: "txt"
@@ -130,7 +131,7 @@ ArticleBase {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "4、并购浪潮：黄金时期的大发展（2003-2007）"
+            content: "并购浪潮：黄金时期的大发展（2003-2007）"
         }
         ListElement {
             type: "txt"
@@ -210,7 +211,7 @@ ArticleBase {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "5、2008年金融危机之后：应对方式及其亚洲策略"
+            content: "2008年金融危机之后：应对方式及其亚洲策略"
         }
         ListElement {
             type: "txt"
@@ -221,6 +222,33 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "金融危机后黑石集团加大了对新兴市场的投资，在亚洲市场尤其是中国逐步加快了投资速度。为进入中国市场，黑石力邀前香港财政司司长梁锦松加入黑石。梁锦松走马上任后就为黑石募资30亿美元，并且采用了“走上层路线”的策略，便于拓展中国市场。因此，不同于凯雷等对手在中国的水土不服，黑石的中国之旅比较顺利，这也印证了黑石的投资智慧。黑石在中国的投资包括蓝星集团、寿光物流园等，成功退出的项目收益情况也较令人满意。2008年，黑石集团购入上海Channel1购物中心的物业，价格为10亿元，总面积为4.2万平方米。在持有该物业的三年时间内，黑石集团将其出租率提高至90%。2011年9月，黑石集团将所持有的Channel195%的股权出售给新世界发展有限公司，价格为14.6亿元人民币。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "END"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "黑石成立之初"
+        }
+        ListElement {
+            title: "从濒临死亡到行业翘楚"
+        }
+        ListElement {
+            title: "秃鹰基金"
+        }
+        ListElement {
+            title: "并购浪潮"
+        }
+        ListElement {
+            title: "金融危机之后"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

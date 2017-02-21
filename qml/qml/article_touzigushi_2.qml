@@ -14,6 +14,7 @@ ArticleBase {
     from: "转载自澎湃 2017-01-30"
     coverImage: "../articledata/covers/guminshuli.jpg"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -188,6 +189,11 @@ ArticleBase {
             content: "一向风趣的他好久没在微博上编段子了，有点心不在焉。等到家人忙活起了猴年春节，他把自己关在房间里，除夕、大年初一、初二，一个人闷着苦思冥想。"
         }
         ListElement {
+            type: "AD_2"
+            ratio: 1
+            content: ""
+        }
+        ListElement {
             type: "txt"
             ratio: 1
             content: "后来，他说在那几天想明白了关键的东西。很快，他在自己新开通的微信公众号上用自创的“红梯子”变量工具来预测行情的顶部与底部，“红梯子”上面的紫线叫乐极生悲线，下面的红线叫否极泰来线。"
@@ -233,6 +239,11 @@ ArticleBase {
             content: "交易清淡的时候，他做分答，写微博和公众号。他在去年股灾前还同时炒期货，“我开了这个户，进去一个礼拜，100多万就没了，超快。”但一起炒股和炒期货的朋友倒是成了他微信公众号的订阅户。"
         }
         ListElement {
+            type: "AD_1"
+            ratio: 1
+            content: ""
+        }
+        ListElement {
             type: "txt"
             ratio: 1
             content: "他想让自己重心有所转移，只在股市中留了1/4的钱，剩下的绝大多数去买了稳健的理财产品，他知道风险和收益成正比，却流露出前所未有的保守，“利率超过4%我都有点担心兑付问题。”"
@@ -276,6 +287,22 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "END"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "530股灾"
+        }
+        ListElement {
+            title: "股灾又来了"
+        }
+        ListElement {
+            title: "一次拓展"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

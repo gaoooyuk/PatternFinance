@@ -14,6 +14,7 @@ ArticleBase {
     from: "2017-02-07 20:13"
     coverImage: "../articledata/covers/luhan_qinghanjijin.png"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -86,6 +87,19 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "未完待续"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "质疑"
+        }
+        ListElement {
+            title: "不只是超级迷妹和偶像"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

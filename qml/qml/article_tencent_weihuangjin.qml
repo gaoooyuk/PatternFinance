@@ -14,6 +14,7 @@ ArticleBase {
     from: "2017-02-05 09:32"
     coverImage: "../articledata/covers/huangjinhongbao.jpg"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -23,7 +24,7 @@ ArticleBase {
             ratio: 1
         }
         ListElement {
-            type: "txt"
+            type: "sectionHeader"
             content: "虚拟红包中的真金白银"
             ratio: 1
         }
@@ -67,10 +68,15 @@ ArticleBase {
             content: "END"
             ratio: 1
         }
+    }
+
+    ListModel {
+        id: toc
         ListElement {
-            type: "txt"
-            content: "END"
-            ratio: 1
+            title: "虚拟红包中的真金白银"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

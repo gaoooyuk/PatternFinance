@@ -14,6 +14,7 @@ ArticleBase {
     from: "转载自天涯 2017-02-06"
     coverImage: "../articledata/covers/yimeiyingbi.png"
     contentModel: content
+    tocModel: toc
 
     ListModel {
         id: content
@@ -291,6 +292,30 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "一个成功的散户一定是一个心态很好的人。如果你想在股市赚到钱，那么你一定要修炼好你的心态。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "END"
+        }
+    }
+
+    ListModel {
+        id: toc
+        ListElement {
+            title: "酸"
+        }
+        ListElement {
+            title: "甜"
+        }
+        ListElement {
+            title: "苦"
+        }
+        ListElement {
+            title: "辣"
+        }
+        ListElement {
+            title: "END"
         }
     }
 }

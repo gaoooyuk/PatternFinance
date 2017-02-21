@@ -16,6 +16,7 @@ Rectangle {
     property string coverImage: ""
 
     property var contentModel
+    property var tocModel
 
     // Recomm book
     property string recommBookCover: ""
@@ -71,6 +72,7 @@ Rectangle {
 
     height: coverPanel.height
             + articlePanel.height
+            + spacer.height
             + morePanel.height
 
     Network {
@@ -326,32 +328,13 @@ Rectangle {
                 anchors.left: titlePanel.left
                 visible: coverPanel.width < 500
 
-                Item {
-                    width: typeText.width + 11
-                    height: typeText.height + 3
+                Text {
+                    id: typeText
                     anchors.top: parent.top
-                    anchors.topMargin: -4
                     anchors.left: parent.left
-
-                    Rectangle {
-                        anchors.fill: parent
-                        anchors.margins: 1
-                        radius: 3
-                        color: "black"
-                        opacity: 0.5
-                    }
-
-                    Text {
-                        id: typeText
-                        height: 20
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
-                        anchors.left: parent.left
-                        anchors.leftMargin: 5
-                        font.pixelSize: 14
-                        color: "white"
-                        text: articleType
-                    }
+                    font.pixelSize: 14
+                    color: "white"
+                    text: articleType
                 }
 
                 Text {
@@ -367,7 +350,7 @@ Rectangle {
                 Text {
                     anchors.top: parent.top
                     anchors.left: parent.left
-                    anchors.leftMargin: 150
+                    anchors.leftMargin: 145
                     font.pixelSize: 14
                     color: "white"
                     text: from
@@ -378,7 +361,7 @@ Rectangle {
         Rectangle {
             id: articlePanel
             width: parent.width
-            height: articleSummaryPanel.height + articleContentPanel.height
+            height: contentPanel.height
 
             Rectangle {
                 id: contentPanel
@@ -389,7 +372,7 @@ Rectangle {
 
                     return articlePanel.width * 0.85
                 }
-                height: parent.height
+                height: articleSummaryPanel.height + articleContentPanel.height
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
@@ -450,59 +433,88 @@ Rectangle {
                     Item {
                         id: articleContentPanel
                         width: parent.width
-                        height: {
-                            var h = 0
-                            for (var i = 1; i < contentLayout.children.length; i++) {
-                                h += contentLayout.children[i].height
-                            }
-
-                            h += contentLayout.spacing * contentLayout.children.length
-
-                            return h
-                        }
+                        height: contentLayout.height
 
                         Column {
                             id: contentLayout
-                            anchors.fill: parent
                             spacing: 40
 
                             Repeater {
                                 model: contentModel
                                 delegate: Item {
-                                    width: contentPanel.width
-                                    height: {
-                                        var h = 0
+                                    id: contentDelegate
+
+                                    function updateGeometry() {
+                                        var item = loader.item
+
                                         if ("img" === type) {
-                                            h = imgItem.height
+                                            item.source = content
+                                            item.width = qmlWidth(contentPanel.width)
+                                            contentDelegate.height = item.height
                                         } else if ("txt" === type) {
-                                            h = textItem.height
+                                            item.text = content
+                                            item.width = qmlWidth(contentPanel.width)
+                                            contentDelegate.height = item.height
                                         } else if ("sectionHeader" === type) {
-                                            h = textItem.height + 50
+                                            item.text = content
+                                            item.width = qmlWidth(contentPanel.width)
+                                            contentDelegate.height = item.height + 50
+                                            item.anchors.bottom = contentDelegate.bottom
+                                        } else if ("AD_1" === type) {
+                                            if (mainWindow.width >= 1000) {
+                                                item.width = contentPanel.width * 1.2
+                                            } else {
+                                                item.width = qmlWidth(contentPanel.width * 0.9)
+                                            }
+                                            contentDelegate.height = item.height + 50
+                                            item.anchors.left = contentDelegate.left
+                                            item.anchors.verticalCenter = contentDelegate.verticalCenter
+                                        } else if ("AD_2" === type) {
+                                            if (mainWindow.width >= 1000) {
+                                                item.width = contentPanel.width * 1.2
+                                            } else {
+                                                item.width = qmlWidth(contentPanel.width * 0.9)
+                                            }
+                                            contentDelegate.height = item.height + 50
+                                            item.anchors.left = contentDelegate.left
+                                            item.anchors.verticalCenter = contentDelegate.verticalCenter
                                         }
-
-                                        return h
                                     }
 
-                                    Image {
-                                        id: imgItem
-                                        width: qmlWidth(contentPanel.width)
-                                        height: width * ratio
-                                        anchors.centerIn: parent
-                                        source: "img" === type ? content : ""
-                                        visible: "img" === type
+                                    width: contentPanel.width
+
+                                    Connections {
+                                        target: mainWindow
+                                        onWidthChanged: {
+                                            if (loader.inited) {
+                                                contentDelegate.updateGeometry()
+                                            }
+                                        }
                                     }
 
-                                    Text {
-                                        id: textItem
-                                        width: qmlWidth(contentPanel.width)
-                                        anchors.bottom: parent.bottom
-                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                        lineHeight: 30
-                                        font.pixelSize: "sectionHeader" === type ? 30 : 18
-                                        font.bold: "sectionHeader" === type ? true : false
-                                        color: "sectionHeader" === type ? "#2a2a2a" : "#4a4a4a"
-                                        text: content
-                                        visible: "txt" === type || "sectionHeader" === type
+                                    Loader {
+                                        id: loader
+
+                                        property bool inited: false
+                                    }
+
+                                    Component.onCompleted: {
+                                        loader.loaded.connect(function () {
+                                            loader.inited = true
+                                            updateGeometry()
+                                        })
+
+                                        if ("img" === type) {
+                                            loader.source = "../qml/article/ImageComp.qml"
+                                        } else if ("txt" === type) {
+                                            loader.source = "../qml/article/TextComp.qml"
+                                        } else if ("sectionHeader" === type) {
+                                            loader.source = "../qml/article/SectionHeaderComp.qml"
+                                        } else if ("AD_1" === type) {
+                                            loader.source = "../qml/article/AD_1.qml"
+                                        } else if ("AD_2" === type) {
+                                            loader.source = "../qml/article/AD_2.qml"
+                                        }
                                     }
                                 }
                             }
@@ -524,6 +536,21 @@ Rectangle {
                 articleTitle: mainWindow.articleTitle
                 numberOfShares: totalNumberOfShares
             }
+
+            TableOfContent {
+                anchors.top: contentPanel.top
+                anchors.topMargin: 22
+                anchors.left: contentPanel.right
+                anchors.leftMargin: 20
+                visible: mainWindow.width >= 1280
+                tableOfContentModel: tocModel
+            }
+        }
+
+        Item {
+            id: spacer
+            width: parent.width
+            height: 20
         }
 
         Item {

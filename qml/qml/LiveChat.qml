@@ -248,9 +248,9 @@ Rectangle {
                     Text {
                         id: placeholder
                         anchors.left: parent.left
-                        anchors.leftMargin: 20
+                        anchors.leftMargin: 21
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: 12
+                        anchors.bottomMargin: 14
                         font.pixelSize: 14
                         color: "#d8d8d8"
                         text: "打个招呼吧"
