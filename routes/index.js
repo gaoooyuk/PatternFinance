@@ -143,4 +143,9 @@ router.get('/apple-app-site-association', function(req, res, next) {
     res.status(200).send(aasa);
 });
 
+router.get('/baidu_verify_RqzP5GieDl.html', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+	res.sendFile(path.join(home_dir + '/baidu_verify_RqzP5GieDl.html'));
+});
+
 module.exports = router;
