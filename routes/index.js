@@ -148,4 +148,9 @@ router.get('/sogousiteverification.txt', function(req, res, next) {
 	res.sendFile(path.join(home_dir + '/sogousiteverification.txt'));
 });
 
+router.get('/shenma-site-verification.txt', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+	res.sendFile(path.join(home_dir + '/shenma-site-verification.txt'));
+});
+
 module.exports = router;
