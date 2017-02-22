@@ -70,6 +70,18 @@ Rectangle {
         })
     }
 
+    function getTotalNumberOfChars() {
+        var total = 0
+
+        if (undefined !== contentModel) {
+            for (var i = 0; i < contentModel.count; i++) {
+                total += String(contentModel.get(i).content).length
+            }
+        }
+
+        return total
+    }
+
     height: snsBar.height
             + coverPanel.height
             + articlePanel.height
@@ -161,18 +173,6 @@ Rectangle {
         }
     }
 
-    function getTotalNumberOfChars() {
-        var total = 0
-
-        if (undefined !== contentModel) {
-            for (var i = 0; i < contentModel.count; i++) {
-                total += String(contentModel.get(i).content).length
-            }
-        }
-
-        return total
-    }
-
     Column {
         anchors.fill: parent
 
@@ -252,10 +252,10 @@ Rectangle {
 
                 GeneralMouseArea {
                     onEntered: {
-                        joinusText.color = "white"
+                        pubBtnText.color = "white"
                     }
                     onExited: {
-                        joinusText.color = "#c8c8c8"
+                        pubBtnText.color = "#c8c8c8"
                     }
                     onClicked: {
                     }
@@ -460,7 +460,8 @@ Rectangle {
 
                     return articlePanel.width * 0.85
                 }
-                height: articleSummaryPanel.height + articleContentPanel.height
+                height: articleSummaryPanel.height
+                        + articleContentPanel.height
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {

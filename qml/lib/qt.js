@@ -1669,6 +1669,12 @@ Signal.UniqueConnection = 128;
 QmlWeb.Signal = Signal;
 
 var Qt = {
+  updateGeometry: function updateGeometry(h) {
+    var embed = document.getElementById('embed');
+    if (embed) {
+      embed.style.height = h + "px"
+    }
+  },
   openUrlExternally: function openUrlExternally(url) {
     var page = window.open(url, "_blank");
     page.focus();
@@ -2300,6 +2306,8 @@ var QMLEngine = function () {
       if (height) {
         // this.rootObject.height = height;
       }
+
+      // console.log("(qt.js) height: ", this.rootObject.height)
 
       var embed = document.getElementById('embed');
       if (embed) {
