@@ -10,6 +10,11 @@ router.get('/', function(req, res, next) {
 	res.sendFile(path.join(home_dir + '/main.html'));
 });
 
+router.get('/login', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+	res.sendFile(path.join(home_dir + '/login.html'));
+});
+
 router.get('/partners', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 

@@ -217,7 +217,7 @@ pre {
 .common-BodyTitle {
     font-weight: 500;
     font-size: 19px;
-    line-height: 28px;
+    line-height: 24px;
     color: #32325d
 }
 
@@ -558,7 +558,7 @@ pre {
 .xs-rows {
     display: -ms-flexbox;
     display: flex;
-    margin: -20px
+    margin: 100px 0 0 0;
 }
 
 .feature-block {
@@ -603,7 +603,8 @@ pre {
 @media (min-width:670px) {
     .sm-cols {
         -ms-flex-direction: row;
-        flex-direction: row
+        flex-direction: row;
+        margin-top: 100px;
     }
     .sm-cols .feature-block {
         -ms-flex-preferred-size: 100%;
@@ -644,7 +645,8 @@ pre {
         -ms-flex-direction: column;
         flex-direction: column;
         -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap
+        flex-wrap: nowrap;
+        margin-top: auto;
     }
     .md-rows .feature-block {
         -ms-flex-preferred-size: auto;
@@ -1032,7 +1034,7 @@ pre {
 }
 
 .globalNav .navSection.primary .rootLink {
-    font-weight: 500
+    font-weight: 400
 }
 
 .globalNav .colorize {
@@ -1994,7 +1996,6 @@ div.globalFooterCard.card-radar {
         -ms-flex-preferred-size: auto;
         flex-basis: auto;
         -ms-flex-direction: column;
-        flex-direction: column;
         margin: 0 0 20px
     }
 }
