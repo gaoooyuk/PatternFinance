@@ -279,6 +279,11 @@ ArticleBase {
             content: "在善心汇所谓的动态激励阶梯收益中，第一代、第三代和第五代可以分别拿到6%、4%和2%的提成。善心汇声称，这种奖励模式是史上首推1.3.5代领导奖，独有跳级制，杜绝架空领导人。然而，这只是一种变相的发展下线的方式而已。"
         }
         ListElement {
+            type: "img"
+            ratio: 0.30
+            content: "http://mmbiz.qpic.cn/mmbiz_jpg/E8n3IicetzRJ42cZLJrl2rP100M7TsKpVIyZvVa0CgSFFHQXKATBqNsqpsvVBSP2bIdLXMNhgT1M9aKwbicFAxlw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1"
+        }
+        ListElement {
             type: "txt"
             ratio: 1
             content: "善心汇在推广自己的APP时，声称“只要你邀请更多的用户注册就会获得丰厚的回报”。平台通过“介绍方”拉人入伙获得投资资金以外，还通过购买善心币和会员年费等方式变相收费，说白了就是“靠人头获利”。"
@@ -309,6 +314,11 @@ ArticleBase {
             content: "当被问及是否知道自己的资金去向时，其中的会员称，匹配的人各种各样，由系统提供打款对方电话和账号资料，其中穷人和残疾人都有，对于如何确定对方为这些群体，表示这些信息都源于善心汇老总张天明，善心汇有着自己的微信会员群，而在这里，每晚8点，张天明都会对这些会员进行“培训”，也就是说所有的匹配对象都是无法确定的，而这种模式则像极了当年的庞式骗局，所谓的匹配对象不过是将新用户的钱用于支付了老用户的利息和短期回报。"
         }
         ListElement {
+            type: "img"
+            ratio: 0.89
+            content: "http://mmbiz.qpic.cn/mmbiz_jpg/E8n3IicetzRLx96GdezajJWaBTCNDg21aszpia9xkdolgDRxvNUXOoicVOg0QoxweCoPwEvQ9rFsARDmkL2Cmbngg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1"
+        }
+        ListElement {
             type: "txt"
             ratio: 1
             content: "据此前媒体报道，在善心汇的微信群中，群主每天都会催促群内成员发展新会员，其中，不少群成员之间的关系多为亲属或者朋友。目前，“善心汇”已经存在资金量严重不足的问题。所以只能加快匹配速度，通过不断发展下家，进行吸金。"
@@ -332,6 +342,11 @@ ArticleBase {
             type: "txt"
             ratio: 1
             content: "但通过以往类似平台的现象来看，一旦出现此类情况，那么这或将意味着系统极有可能面临着崩盘的危险，而所谓的总裁也不过是想趁机并以此为借口，大捞一笔，然后逃之夭夭，此类案件比比皆是。"
+        }
+        ListElement {
+            type: "img"
+            ratio: 0.90
+            content: "http://mmbiz.qpic.cn/mmbiz_jpg/E8n3IicetzRLx96GdezajJWaBTCNDg21akEiaMibeZHtUNN9a2RlDF1wibpYarEfPv2nHf2CbdKwlop3Gial5clSO9g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1"
         }
         ListElement {
             type: "txt"
