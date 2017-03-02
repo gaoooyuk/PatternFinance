@@ -539,6 +539,7 @@ Rectangle {
                                         if ("img" === type) {
                                             item.source = content
                                             item.width = qmlWidth(contentPanel.width)
+                                            item.centerIn = contentDelegate
                                             contentDelegate.height = item.height
                                         } else if ("txt" === type) {
                                             item.text = content
