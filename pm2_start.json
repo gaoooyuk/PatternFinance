@@ -1,0 +1,14 @@
+{
+  "apps" : [{
+    "name"        : "patternfinance",
+    "script"      : "./bin/www",
+    "args"        : ["3020"],
+    "error_file"       : "./pm2logs/PatternFinance-Error.log",
+    "out_file"         : "./pm2logs/PatternFinance-Output.log",
+    "watch"       : true,
+    "ignore_watch" : ["pm2logs", ".git", "项目资料", "qml/qml", "qml/articledata", "tools", "node_modules"],
+    "watch_options": {
+      "followSymlinks": false
+    }
+  }]
+}
