@@ -21,7 +21,7 @@ router.post('/login', function(req, res, next) {
 	var token = req.body.token
 
 	if ("code" === method) {
-		res.send({ success: true })
+		handleCodeLogin(token, res)
 	} else if ("email" === method) {
 		res.send({ success: true })
 	} else {
@@ -209,6 +209,39 @@ function buildArticleModelElement(e) {
     d += "        }"
 
     return d
+}
+
+function handleCodeLogin(token, res) {
+	var cursor = global.mongodb.collection('writer').find({ "id": token });
+	cursor.each(function(err, doc) {
+		assert.equal(err, null);
+
+	  	if (doc != null) {
+	  		var writer = {}
+	  		writer.id = doc.id
+	  		writer.type = doc.type
+	  		writer.email = doc.c_email
+	  		if ("" === doc.c_email) {
+	  			if (!s_activated) {
+					global.mongodb.collection(collectionName).update( 
+						{ "id": token },
+						{ "s_activated": true },
+						{ upsert: false } 
+					);
+	  			}
+
+	  			res.send({ success: true, user: writer })
+	  		} else {
+				res.send({ success: true, user: writer })
+	  		}
+	  	} else {
+	  		var fakeWriter = {}
+	  		fakeWriter.id = "fakeid"
+	  		fakeWriter.type = "faketype"
+	  		fakeWriter.email = "fakeemail"
+			res.send({ success: true, user: fakeWriter })
+	  	}
+	});
 }
 
 var find = function(key, value, callback) {

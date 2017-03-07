@@ -100,8 +100,13 @@ Strut.ready(function() {
     function t(t) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == xhr.DONE) { //  && xhr.status == 200
-                console.log("Login result: ", xhr.responseText)
+            if (xhr.readyState == xhr.DONE) {
+                var res = JSON.parse(xhr.responseText)
+                if (res.success) {
+                    // caching user data
+                    sessionStorage.user = JSON.stringify(res.user)
+                    window.location = "/dashboard"
+                }
             }
         }
 
@@ -147,7 +152,7 @@ Strut.ready(function() {
                 // check if code valid
                 o = l.value.length
             }
-            o ? (t(r), n.classList.add("form-submitted")) : (l.focus())
+            o ? (t(r)) : (l.focus())
         })
 });
 
@@ -229,7 +234,6 @@ Strut.isRetina = window.devicePixelRatio > 1.3, Strut.mobileViewportWidth = 670,
             this.dropdownContainer.style.width = i + "px",
             this.dropdownContainer.style.height = s + "px";
         var p = Math.round(c.left + c.width / 2);
-        // this.dropdownArrow.style.transform = "translateX(" + p + "px) rotate(45deg)";
         var d = o.children[0].offsetHeight / l;
         // this.dropdownBackgroundAlt.style.transform = "translateY(" + d + "px)"
     }, globalNavDropdowns.prototype.closeDropdown = function() {

@@ -779,21 +779,10 @@
 }
 
 .globalNav.noDropdownTransition .alternateBackground,
-.globalNav.noDropdownTransition .dropdownArrow,
 .globalNav.noDropdownTransition .dropdownBackground,
 .globalNav.noDropdownTransition .dropdownContainer,
 .globalNav.noDropdownTransition .dropdownSection {
     transition: none
-}
-
-.globalNav .dropdownContent {
-    position: absolute;
-    top: 0;
-    left: 0
-}
-
-.globalNav .linkGroup {
-    padding: 20px 35px
 }
 
 .globalNav .linkContainer {

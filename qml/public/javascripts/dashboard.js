@@ -1,5 +1,19 @@
 "use strict";
 
+function initWriter() {
+	if (undefined === sessionStorage.user) {
+		window.location = "/login"
+		return
+	}
+
+	var writer = JSON.parse(sessionStorage.user)
+	Writer.id = writer.id
+	Writer.type = writer.type
+	Writer.email = writer.email
+
+	document.querySelector("#html_email").innerHTML = ("" === Writer.email ? Writer.id : Writer.email);
+}
+
 function initPublishBox() {
 	var n = window.PointerEvent ? { end: "pointerup", enter: "pointerenter", leave: "pointerleave" } : { end: "touchend", enter: "mouseenter", leave: "mouseleave" };
     var closeTimeout = null
@@ -131,7 +145,7 @@ function initAdminTools() {
 	var a = document.createElement("a");
 	a.className = "linkContainer item-atlas"
 	a.href = "javascript:void(0)"
-	a.innerHTML = "<svg viewBox=\"0 0 48 48\"><path fill=\"#FCD669\" class=\"hover-fillLight\" d=\"M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z\"></path><path fill=\"#CE7C3A\" class=\"hover-fillDark\" d=\"M24.012 1.834c.366.005.73.196.92.575l16.825 33.72c.396.79-.314 1.685-1.175 1.48L24 33.626V1.834h.01z\"></path><path fill=\"#FFF\" d=\"M24 1.834v31.794l-16.584 3.98A1.043 1.043 0 0 1 6.24 36.13L23.067 2.41c.195-.39.572-.58.947-.576H24z\"></path></svg><div class=\"productLinkContent\"><h3 class=\"linkTitle\">待审文章 23篇</h3><p class=\"linkSub\">需要人工审核的文章总数</p></div>"
+	a.innerHTML = "<svg viewBox=\"0 0 48 48\"><path fill=\"#FCD669\" class=\"hover-fillLight\" d=\"M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z\"></path><path fill=\"#CE7C3A\" class=\"hover-fillDark\" d=\"M24.012 1.834c.366.005.73.196.92.575l16.825 33.72c.396.79-.314 1.685-1.175 1.48L24 33.626V1.834h.01z\"></path><path fill=\"#FFF\" d=\"M24 1.834v31.794l-16.584 3.98A1.043 1.043 0 0 1 6.24 36.13L23.067 2.41c.195-.39.572-.58.947-.576H24z\"></path></svg><div class=\"productLinkContent\"><h3 class=\"linkTitle\">待审文章 0篇</h3><p class=\"linkSub\">需要人工审核的文章总数</p></div>"
 	li.appendChild(a);
 	ul.appendChild(li);
 }
@@ -236,6 +250,10 @@ function globalNavPopup(e) {
         this.closeButton && this.closeButton.addEventListener(n, function(e) { t.closeAllPopups() }), document.body.addEventListener(n, function(e) { Strut.touch.isDragging || t.closeAllPopups() }, !1)
 }
 
+var Writer = {
+
+};
+
 var Strut = {
     random: function(e, t) {
         return Math.random() * (t - e) + e
@@ -259,6 +277,7 @@ var Strut = {
 };
 
 Strut.ready(function() {
+	initWriter()
     initPublishBox();
     initImportBox();
     initAdminTools();

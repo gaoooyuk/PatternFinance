@@ -84,6 +84,14 @@ pre {
     transition-duration: .25s;
     display: none
 }
+.globalNav .dropdownContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.globalNav .linkGroup {
+    padding: 20px 35px
+}
 
 .globalFooter {
     font-family: Camphor, Open Sans, Segoe UI, sans-serif;
