@@ -1,22 +1,56 @@
 doctype html
 html
   head
-    title Dashboard | 磨石金融
+    title 我的研究 | 磨石金融
     script(type="text/javascript"
       src="lib/qt.js")
+    script(src="https://cdn.ronghub.com/RongIMLib-2.2.5.min.js")
+    script(data-jsfiddle="common" src="public/handsontable/handsontable.full.js")
     meta(charset='utf-8')
     meta(name="viewport" content="width=device-width,initial-scale=1")
     meta(name="googlebot" content="NOODP")
+    script.
+      var _vds = _vds || [];
+      window._vds = _vds;
+      (function(){
+      _vds.push(['setAccountId', '8c80410b5bc2dd32']);
+      (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+      })();
+      })();
+    link(data-jsfiddle="common" rel="stylesheet" media="screen" href="public/handsontable/handsontable.full.css")
     link(rel='stylesheet', type='text/css', href='public/stylesheets/article.css')
     link(rel="shortcut icon" href='public/images/ico/favicon.ico')
   body
+    div#handsontable
     div#embed
     script.
       (function() {
-      var div = document.getElementById('embed');
-      var engine = new QmlWeb.QMLEngine(div);
-      engine.loadFile('qml/Dashboard.qml');
-      engine.start();
+        var div = document.getElementById('embed');
+        var engine = new QmlWeb.QMLEngine(div);
+        engine.loadFile('qml/My.qml');
+        engine.start();
+      })();
+    script.
+      (function() {
+        var data = [
+          ["", "Ford", "Volvo", "Toyota", "Honda", "Ford", "Volvo", "Toyota", "Honda", "Ford", "Volvo", "Toyota", "Honda", "Ford", "Volvo", "Toyota", "Honda"],
+          ["2016", 10, 11, 12, 13, 10, 11, 12, 13, 10, 11, 12, 13, 10, 11, 12, 13],
+          ["2017", 20, 11, 14, 13, 10, 11, 12, 13, 10, 11, 12, 13, 10, 11, 12, 13],
+          ["2018", 30, 15, 12, 13, 10, 11, 12, 13, 10, 11, 12, 13, 10, 11, 12, 13]
+        ];
+
+        var container = document.getElementById('handsontable');
+        var hot = new Handsontable(container, {
+          data: data,
+          rowHeaders: true,
+          colHeaders: true
+        });
       })();
     footer.global-footer
           

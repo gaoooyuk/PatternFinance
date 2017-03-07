@@ -94,7 +94,17 @@ router.get('/joinus', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res, next) {
-	res.render('dashboard', {})
+	var home_dir = path.join(global.dirRoot, 'qml/')
+	res.sendFile(path.join(home_dir + '/dashboard.html'));
+});
+
+router.get('/my', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+	res.render('my', 
+	{ 
+		"html_description": "",
+		"html_keywords": "磨石金融"
+	})
 });
 
 router.get('/article/*', function(req, res, next) {
