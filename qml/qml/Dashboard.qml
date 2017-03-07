@@ -4,236 +4,197 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     id: mainWindow
+    height: spacer1.height + dbInner.height
+    onHeightChanged: {
+        var embed = document.getElementById('embed');
+        if (embed) {
+          embed.style.height = height + "px"
+        }
+    }
 
-    property string apiBase: "/api"
+    property string apiBase: "/account"
+    property var composerObj
+    property var sentBoxObj
+    property var articleInfo
 
-    function getCandidates() {
-        network.httpGet("../dashboarddata/metrics.json", function(res) {
-            var cs = JSON.parse(res)
-            for (var c in cs) {
-                var d = {}
-                d.selected = false
-
-                var name = cs[c].name
-                var accum_volatility_50d = cs[c].accum_volatility_50d
-                var relative_volatility_vs_hs300 = cs[c].relative_volatility_vs_hs300
-                var avg_volume_50d = cs[c].avg_volume_50d
-                var corr_vs_hs300 = cs[c].corr_vs_hs300
-                d.mdata = [name, accum_volatility_50d, relative_volatility_vs_hs300, avg_volume_50d, corr_vs_hs300]
-
-                candidatesModel.append(d)
+    function publishArticle() {
+//        var url = apiBase + "/publishArticle2Medium"
+        var url = apiBase + "/addArticle"
+        network.httpPost(url, prepareArticleData(), function(res) {
+            try {
+                var json = JSON.parse(res)
+                if (mainWindow.sentBoxObj) {
+                    mainWindow.sentBoxObj.handlePublishResponse(json)
+                }
+            } catch(e) {
+                console.log("JSON parse error(Dashboard.qml publishArticle): ", e)
             }
         })
     }
 
-    height: bgImg.height + liveChatPanel.height
+    function prepareArticleData() {
+        var info = mainWindow.articleInfo
+        var data = info
+        data.rawData = mainWindow.composerObj.dumpArticle()
+
+        return data
+    }
+
+    function shortUUID() {
+        var ALPHABET = '23456789abdegjkmnpqrvwxyz';
+        var ALPHABET_LENGTH = ALPHABET.length;
+
+        var ID_LENGTH = 8
+        var rtn = ''
+        for (var i = 0; i < ID_LENGTH; i++) {
+            rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET_LENGTH));
+        }
+        return rtn;
+    }
 
     Network {
         id: network
     }
 
-    ListModel {
-        id: candidatesModel
-    }
-
-
-
     Column {
         anchors.fill: parent
 
-        Image {
-            id: bgImg
+        Item {
+            id: spacer1
             width: parent.width
-            height: width / 1.6
-            fillMode: Image.Tile
-            anchors.fill: parent
-            source: "../dashboarddata/bg1.jpg"
+            height: 60
 
             Rectangle {
-                id: candidatesPanel
-
-                property int itemHeight: 40
-
-                width: {
-                    if (mainWindow.width >= 1200) {
-                        return 900
-                    }
-
-                    return mainWindow.width * 0.75
-                }
-                height: 400
-                anchors.top: parent.top
-                anchors.topMargin: 150
+                width: parent.width
+                height: 1
+                anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                radius: 8
-
-                Column {
-                    anchors.fill: parent
-
-                    Item {
-                        id: titleBar
-                        width: candidatesPanel.width
-                        height: 40
-
-                        Rectangle {
-                            width: parent.width
-                            height: 2
-                            anchors.bottom: parent.bottom
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            color: "#f2f2f2"
-                        }
-
-                        Row {
-                            anchors.fill: parent
-
-                            Repeater {
-                                model: ListModel {
-                                    id: tModel
-                                    ListElement {
-                                        name: "股票代码"
-                                    }
-                                    ListElement {
-                                        name: "累计波动率(50日)"
-                                    }
-                                    ListElement {
-                                        name: "沪深300相对波动率"
-                                    }
-                                    ListElement {
-                                        name: "平均成交量(50日)"
-                                    }
-                                    ListElement {
-                                        name: "沪深300相关性"
-                                    }
-                                }
-                                delegate: Item {
-                                    width: titleBar.width / tModel.count
-                                    height: titleBar.height
-
-                                    Text {
-                                        width: parent.width - 10
-                                        anchors.top: parent.top
-                                        anchors.topMargin: 10
-                                        anchors.right: parent.right
-                                        anchors.rightMargin: 20
-                                        horizontalAlignment: Text.AlignRight
-                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                        font.pixelSize: 15
-                                        font.bold: true
-                                        color: "#4a4a4a"
-                                        text: name
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    ScrollView {
-                        id: sView
-                        width: candidatesPanel.width
-                        height: candidatesPanel.height
-                                - titleBar.height
-                                - bottomBar.height
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOn
-                        clip: true
-
-                        contentItem: Item {
-                            width: sView.width
-                            height: candidatesPanel.itemHeight * candidatesModel.count
-
-                            Column {
-                                anchors.fill: parent
-
-                                Repeater {
-                                    model: candidatesModel
-                                    delegate: Rectangle {
-                                        id: cDelegate
-                                        property int rowIdx: index
-
-                                        width: sView.width
-                                        height: candidatesPanel.itemHeight
-                                        color: selected ? "#C1F5C4" : "transparent"
-
-                                        Row {
-                                            width: parent.width
-                                            height: parent.height
-                                            anchors.centerIn: parent
-
-                                            Repeater {
-                                                model: mdata
-                                                delegate: Item {
-                                                    width: sView.width / tModel.count
-                                                    height: candidatesPanel.itemHeight
-
-                                                    Text {
-                                                        width: parent.width * 0.9
-                                                        anchors.right: parent.right
-                                                        anchors.rightMargin: 20
-                                                        anchors.verticalCenter: parent.verticalCenter
-                                                        wrapMode: Text.WordWrap
-                                                        font.pixelSize: 16
-                                                        color: "#4a4a4a"
-                                                        text: mdata[index]
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        GeneralMouseArea {
-                                            onClicked: {
-                                                var s = !selected
-                                                candidatesModel.setProperty(cDelegate.rowIdx, "selected", s)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Item {
-                        id: bottomBar
-                        width: candidatesPanel.width
-                        height: 40
-
-                        Rectangle {
-                            width: parent.width
-                            height: 2
-                            anchors.top: parent.top
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            color: "#f2f2f2"
-                        }
-
-                        Text {
-                            id: poweredbyText
-                            anchors.right: parent.right
-                            anchors.rightMargin: 10
-                            anchors.verticalCenter: parent.verticalCenter
-                            font.pixelSize: 14
-                            color: "#9b9b9b"
-                            text: "Powered by Gimletech"
-                        }
-
-                        GeneralMouseArea {
-                            onClicked: {
-                                Qt.openUrlExternally("https://www.gimletech.com")
-                            }
-                        }
-                    }
-                }
+                color: "#f1f1f1"
             }
         }
 
-        LiveChat {
-            id: liveChatPanel
-            width: mainWindow.width
-            anchors.horizontalCenter: parent.horizontalCenter
-            kf: true
-            userToken: "Lenq9Wz9mUs/T6A4YtwbA+o7Tvtng141r9wg86KVxosF90Z9cYiGVACCx+leObg6932DWzGs4hZB4HaG5SwQGTRCO9/nzJHD" // moshikf
+        Item {
+            id: dbInner
+            width: parent.width
+            height: 800
+
+            Item {
+                id: importPanel
+                width: 600
+                height: 450
+                anchors.centerIn: parent
+
+                Text {
+                    id: newBtn
+                    width: 120
+                    height: 35
+                    anchors.top: parent.top
+                    anchors.topMargin: 20
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 30
+                    color: "#d8d8d8"
+                    text: "新建文章"
+
+                    GeneralMouseArea {
+                        onEntered: {
+                            newBtn.color = "#4a4a4a"
+                        }
+                        onExited: {
+                            newBtn.color = "#d8d8d8"
+                        }
+                        onClicked: {
+                            loader.loadComposer(null)
+                        }
+                    }
+                }
+
+                ImportBox {
+                    id: importBox
+                    anchors.top: parent.top
+                    anchors.topMargin: 150
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onContentAvailable: {
+                        loader.loadComposer(ct)
+                    }
+
+                    function setContent(importedContent) {
+                        contentAvailable(importedContent)
+                    }
+                }
+
+                Text {
+                    width: 128
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 20
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 16
+                    color: "#8a8a8a"
+                    text: "查看我的文章列表"
+                }
+            }
+
+            Loader {
+                id: loader
+                anchors.fill: parent
+
+                function loadComposer(contentArray) {
+                    loader.source = "Composer.qml"
+                    var composer = loader.item
+                    composer.heightChanged.connect(function() {
+                        dbInner.height = composer.height
+                    })
+                    composer.articleInfoChanged.connect(function (info) {
+                        mainWindow.articleInfo = info
+                    })
+                    mainWindow.composerObj = composer
+
+                    // create default article info
+                    var ai = {}
+                    ai.id = shortUUID()
+                    ai.author = "阿一西德卤"
+                    ai.cover = "../imgs/dashboard/defaultCover.png"
+                    ai.lede = ""
+                    ai.category = "物是评测"
+                    mainWindow.articleInfo = ai
+                    composer.initArticleInfo(ai)
+                    if (contentArray) {
+                        composer.fillContentModel(contentArray)
+                    }
+
+                    composer.width = dbInner.width * 0.6
+                    composer.anchors.top = dbInner.top
+                    composer.anchors.horizontalCenter = dbInner.horizontalCenter
+                    changePublishBtnVisibility(true)
+                }
+
+                function loadSentBox() {
+                    loader.source = "SentBox.qml"
+                    var sbox = loader.item
+                    mainWindow.sentBoxObj = sbox
+                    sbox.newArticleRequest.connect(function() {
+                        loader.loadComposer(null)
+                    })
+                    sbox.width = dbInner.width
+                    sbox.anchors.top = dbInner.top
+                    sbox.anchors.horizontalCenter = dbInner.horizontalCenter
+                    dbInner.height = sbox.height
+                    changePublishBtnVisibility(false)
+
+                    mainWindow.publishArticle()
+                }
+            }
+
+            PublishBox {
+                id: publishBox
+                anchors.top: parent.top
+                visible: false
+                onPublishRequest: {
+                    loader.loadSentBox()
+                }
+            }
         }
     }
 
     Component.onCompleted: {
-        getCandidates()
     }
 }

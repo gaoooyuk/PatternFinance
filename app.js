@@ -10,7 +10,9 @@ var assert = require('assert');
 var path = require('path');
 
 // Routes
+var account = require('./routes/account');
 var routes = require('./routes/index');
+var admin = require('./routes/admin');
 var api = require('./routes/api');
 
 var app = express();
@@ -43,6 +45,8 @@ app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public/')));
 app.use('/article', express.static(path.join(__dirname, 'qml/')));
 app.use('/', express.static(path.join(__dirname, 'qml/')));
+app.use('/account', account);
+app.use('/admin', admin);
 app.use('/', routes);
 app.use('/api', api);
 

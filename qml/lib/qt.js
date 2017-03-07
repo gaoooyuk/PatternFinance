@@ -1575,7 +1575,10 @@ var Signal = function () {
 
         if (args.length === 0 || callType === 1 && slot === args[0] || callType === 2 && thisObj === args[0] || callType === 3 && thisObj === args[0] && slot === args[0][args[1]] || thisObj === args[0] && slot === args[1]) {
           if (thisObj) {
-            var index = thisObj.$tidyupList.indexOf(this.signal);
+            var index = -1
+            if (thisObj.$tidyupList) {
+              index = thisObj.$tidyupList.indexOf(this.signal);
+            }
             if (index >= 0) {
               thisObj.$tidyupList.splice(index, 1);
             }
@@ -4331,7 +4334,7 @@ function construct(meta) {
     if (typeof item.dom !== "undefined") {
       item.dom.className += " " + classComponents[classComponents.length - 1];
       if (meta.object.id) {
-        item.dom.className += "  " + meta.object.id;
+        item.dom.id = meta.object.id;
       }
     }
     // Handle default properties
@@ -7659,7 +7662,8 @@ QmlWeb.registerQmlType({
     key: "layoutChildren",
     value: function layoutChildren() {
       var curPos = 0;
-      var maxWidth = 0;
+      var maxWidth = 0;      
+
       for (var i = 0; i < this.children.length; i++) {
         var child = this.children[i];
         if (!child.visible || !child.width || !child.height) {
@@ -8211,6 +8215,7 @@ QmlWeb.registerQmlType({
     this.$img.addEventListener("load", function () {
       var w = _this38.$img.naturalWidth;
       var h = _this38.$img.naturalHeight;
+
       _this38.sourceSize.width = w;
       _this38.sourceSize.height = h;
       _this38.implicitWidth = w;
@@ -8404,7 +8409,12 @@ QmlWeb.registerQmlType({
     // In case the class is qualified, only use the last part for the css class
     // name.
     var classComponent = meta.object.$class.split(".").pop();
-    this.dom.className = "" + classComponent + (this.id ? " " + this.id : "");
+    this.dom.className = "" + classComponent;
+    
+    if (this.id) {
+      this.dom.id = this.id;
+    }
+
     this.css = this.dom.style;
     this.impl = null; // Store the actually drawn element
 
@@ -9020,6 +9030,11 @@ QmlWeb.registerQmlType({
       component.childrenRect.y = minY;
       component.childrenRect.width = maxWidth;
       component.childrenRect.height = maxHeight;
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      this.css.visibility = "hidden";
     }
   }]);
 
@@ -10281,6 +10296,13 @@ QmlWeb.registerQmlType({
         // any side effects that result in those roleNames being referenced.
         newItem.parent = this.parent;
 
+        var from = this.container().children.length - 1
+        var to = index
+        var vals = this.container().children.splice(from, 1);
+        for (var i = 0; i < vals.length; i++) {
+          this.container().children.splice(to + i, 0, vals[i]);
+        }
+
         // TODO debug this. Without check to Init, Completed sometimes called
         // twice.. But is this check correct?
         if (QmlWeb.engine.operationState !== QMLOperationState.Init && QmlWeb.engine.operationState !== QMLOperationState.Idle) {
@@ -10289,6 +10311,7 @@ QmlWeb.registerQmlType({
           this.$callOnCompleted(newItem);
         }
       }
+
       if (QmlWeb.engine.operationState !== QMLOperationState.Init) {
         // We don't call those on first creation, as they will be called
         // by the regular creation-procedures at the right time.
@@ -11092,7 +11115,8 @@ QmlWeb.registerQmlType({
     textFormat: "enum",
     textMargin: "real",
     verticalAlignment: "enum",
-    wrapMode: "enum"
+    wrapMode: "enum",
+    lineHeight: "real"
   },
   signals: {
     linkActivated: [{ type: "string", name: "link" }],
@@ -11114,6 +11138,7 @@ QmlWeb.registerQmlType({
     this.redoStackPosition = -1;
 
     var textarea = this.impl = document.createElement("textarea");
+    textarea.style.overflow = "hidden";
     textarea.style.pointerEvents = "auto";
     textarea.style.width = "100%";
     textarea.style.height = "100%";
@@ -11132,6 +11157,7 @@ QmlWeb.registerQmlType({
     this.Component.completed.connect(this, this.Component$onCompleted);
     this.textChanged.connect(this, this.$onTextChanged);
     this.colorChanged.connect(this, this.$onColorChanged);
+    this.lineHeightChanged.connect(this, this.$onLineHeightChanged);
 
     this.impl.addEventListener("input", function () {
       return _this49.$updateValue();
@@ -11269,6 +11295,12 @@ QmlWeb.registerQmlType({
       this.impl.style.color = newVal.$css;
     }
   }, {
+    key: "$onLineHeightChanged",
+    value: function $onLineHeightChanged(newVal) {
+      this.impl.style.lineHeight = newVal + "px";
+      this.$updateValue();
+    }
+  }, {
     key: "$updateValue",
     value: function $updateValue() {
       if (this.text !== this.impl.value) {
@@ -11284,7 +11316,7 @@ QmlWeb.registerQmlType({
   }, {
     key: "$updateCss",
     value: function $updateCss() {
-      var supported = ["border", "borderRadius", "borderWidth", "borderColor", "backgroundColor"];
+      var supported = ["border", "borderRadius", "borderWidth", "borderColor", "backgroundColor", "lineHeight"];
       var style = this.impl.style;
       for (var n = 0; n < supported.length; n++) {
         var o = supported[n];
@@ -11315,6 +11347,7 @@ QmlWeb.registerQmlType({
   },
   properties: {
     text: "string",
+    color: { type: "string", initialValue: "black" },
     font: "font",
     maximumLength: { type: "int", initialValue: -1 },
     readOnly: "bool",
@@ -11354,6 +11387,7 @@ QmlWeb.registerQmlType({
 
     this.Component.completed.connect(this, this.Component$onCompleted);
     this.textChanged.connect(this, this.$onTextChanged);
+    this.colorChanged.connect(this, this.$onColorChanged);
     this.echoModeChanged.connect(this, this.$onEchoModeChanged);
     this.maximumLengthChanged.connect(this, this.$onMaximumLengthChanged);
     this.readOnlyChanged.connect(this, this.$onReadOnlyChanged);
@@ -11380,6 +11414,13 @@ QmlWeb.registerQmlType({
       // moves to the right!
       if (this.impl.value !== newVal) {
         this.impl.value = newVal;
+      }
+    }
+  }, {
+    key: "$onColorChanged",
+    value: function $onColorChanged(newVal) {
+      if (this.impl.style.color !== newVal) {
+        this.impl.style.color = newVal;
       }
     }
   }, {
@@ -12104,6 +12145,10 @@ QmlWeb.registerQmlType({
 
   return _class86;
 }());
+
+//
+//  Pattern Finance
+//
 
 QmlWeb.registerQmlType({
   module: "ChatCore",

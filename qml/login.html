@@ -1,34 +1,33 @@
-<html lang="en" id="payments"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>登录 | 磨石金融</title>
 <meta name="description" content="">
 <link rel="shortcut icon" href="public/images/ico/favicon.ico">
+<link rel="stylesheet" href="public/stylesheets/login.css">
 <link rel="stylesheet" href="public/stylesheets/index-96cbeb8a572a01fdc7afc2faff292cd6.css">
 <link rel="stylesheet" href="public/stylesheets/default-b566dce28ebbc5dd249dad9be586554c.css">
-<link rel="stylesheet" href="public/stylesheets/shared-site-b6e8a8cde16d263f3161eb1f1b2dde3b.css">
-<script defer="" src="public/javascripts/default-239cfcaeccf937c2b3e45332484b4a60.js"></script>
-<script defer="" src="public/javascripts/index-7f485ed753d7d8c17d8c206d5aedea78.js"></script>
-<script defer src="public/javascripts/default-70bb9a14949117cf716ae5fc9a2ce709.js"></script>
-<script src="public/javascripts/shared-site-d660a42d37a0c76b465712fc11b4bc11.js"></script>
+<link rel="stylesheet" href="public/stylesheets/sharedsite.css">
+<script defer="" src="public/javascripts/login.js"></script>
+<script src="public/javascripts/sharedsite.js"></script>
 </head>
 <body>
 <header class="globalNav noDropdownTransition">
 <div class="container-lg">
 <ul class="navRoot">
 <li class="navSection logo">
-<a class="rootLink item-home colorize" href="/"><h1><svg width="103px" height="26px" viewBox="0 0 103 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<title>pattern</title>
-<g id="Page-1" stroke="none" stroke-width="1" fill="#4a4a4a" fill-rule="evenodd" font-size="30" font-family="Avenir-Black, Avenir" font-weight="700">
-<g id="Hub" transform="translate(-4455.000000, -4699.000000)" fill="#4a4a4a">
-<g id="Group-91" transform="translate(4397.000000, 4668.000000)">
-<text id="pattern">
-<tspan x="56" y="50">pattern</tspan>
-</text>
+<a class="rootLink item-home colorize" href="/">
+<h1>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs></defs>
+<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+<g id="Hub" transform="translate(-3452.000000, -5178.000000)">
+<image id="logo" x="3452" y="5178" width="40" height="40" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAAu5JREFUWAntWE9rE0EUf29mtu2aNCLtoaXWFrwWevID9DN4lApWRRAC2ovfwksFoWA9ebDfo+fiyRZP4qaItIcmkTXu7jzfbAyEZXZmYSG97BySzJvfvPfmN5v3Z/HFfo/AMwjoOktw58PB2qkL+uRlb31ugU4AcN2FA6BTGo52Dg/vX7txAMIHuOn1xsG6N9Aw2DBYl4G6+ys9g0iIQpI3XkrGMAp9ThnM73nt1Wf0KBOEXQqNc4zp80nCvb2zRaUC66FygzJdBAgGQNAnLDsQmv1xCGHnUfcbtEbCeSBlMoTLQbMmEEOU8Ebdbm8gsnnLaBnmEK4wpa4WcKVTRlqGuQlCvSEC8bkNYQiBBTQlsiqZWs9/7u5+ad1aXjoBxO3i2vScmb5I/+oHR+/uXUzLi7/39qNtBXjCxlvFteLcel1FUBi2WR/oorw4Z4MZaSmL8uIcE3PNlBbltnklB20bZyVrHKzLdMPgTBhM00Rz9POzzZhsXnv/7RQQY/KA7fVfmTLdhxJzSZsQLoEoKgvU4xSHP0PQq8+6EWaZPVCbdChTWCYJESC1fbbVuIdww4iCockQGcG507DKVgjke6FoRQb2VGcOwoc91zp5mI2Codsy52J/g8MqEAaJgsujt3cjl8LHr39QCLTKGWetDJfzSnSl+3+ij0ebgzLcRO5/rnIk6XH0n2yzf8uREFUyjsGUFR1FzRUdLG6b3bxxsC7XDYMzYhDVOPq7zaHIOFSCtx40WSmOh5XqQY6D5Hwh9N+lWJDefP4qQl2SIUwpLzQssYNfuaj/5co43Bt8X7izvP2024vdRzZNE79lcoFMM2QaHKHEMTcnW5I9teHz5kpCz2SIOEt6Zc2QyetBp73FPc4xl+md8uZqbEVVeQWWd1/c4HBJz10bf9qGERP1IVODTwebfRtkIuObiDmid1hVx3RarlHpX2zYKLuyaeUGU5arp3HmMfExN8FXcnACvonvxsG6rDcMNgzWZaDu/n/1mw3ibU52JQAAAABJRU5ErkJggg=="></image>
 </g>
 </g>
-</g>
-</svg></h1></a>
+</svg>
+</h1></a>
 </li>
 <li class="navSection primary">
 <a class="rootLink item-products hasDropdown colorize" data-dropdown="products">
@@ -54,24 +53,40 @@
 <ul>
 <li>
 <a class="linkContainer item-connect" href="/write" data-analytics-action="connect" data-analytics-source="mobile_nav">
-<svg viewBox="0 0 48 48"><path fill="#68D4F8" class="hover-fillLight" d="M48 24c0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c1.363 0 2.698.12 4 .338V15h5v5h14.662c.218 1.302.338 2.637.338 4z"></path><path fill="#FFF" d="M16.99 29.966L17 17l-5.55-.006a1.02 1.02 0 0 0-.725.3L2.65 25.446a1.55 1.55 0 0 0-.44 1.28c1.22 9.944 9.1 17.825 19.042 19.047.472.058.945-.104 1.28-.44l8.172-8.076c.192-.193.3-.453.3-.725L31 31l-12.985-.01a1.023 1.023 0 0 1-1.024-1.024z"></path><path fill="#217AB7" class="hover-fillDark" d="M47.697 20.195L37.194 30.702a1.03 1.03 0 0 1-.726.3h-5.462V18.03c0-.567-.46-1.025-1.025-1.025H16.994V11.52c0-.274.108-.534.3-.726L27.783.3C38 1.916 46.07 9.98 47.698 20.194z"></path></svg>时速<span class="new-badge">开发中</span>
+<svg viewBox="0 0 48 48">
+<path fill="#68D4F8" class="hover-fillLight" d="M48 24c0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c1.363 0 2.698.12 4 .338V15h5v5h14.662c.218 1.302.338 2.637.338 4z"></path>
+<path fill="#FFF" d="M16.99 29.966L17 17l-5.55-.006a1.02 1.02 0 0 0-.725.3L2.65 25.446a1.55 1.55 0 0 0-.44 1.28c1.22 9.944 9.1 17.825 19.042 19.047.472.058.945-.104 1.28-.44l8.172-8.076c.192-.193.3-.453.3-.725L31 31l-12.985-.01a1.023 1.023 0 0 1-1.024-1.024z"></path>
+<path fill="#217AB7" class="hover-fillDark" d="M47.697 20.195L37.194 30.702a1.03 1.03 0 0 1-.726.3h-5.462V18.03c0-.567-.46-1.025-1.025-1.025H16.994V11.52c0-.274.108-.534.3-.726L27.783.3C38 1.916 46.07 9.98 47.698 20.194z"></path>
+</svg>时速<span class="new-badge">开发中</span>
 </a>
 </li>
 </ul>
 <ul>
 <li>
 <a class="linkContainer item-relay" href="/analytics" data-analytics-action="relay" data-analytics-source="mobile_nav">
-<svg viewBox="0 0 48 48"><path fill="#FFA27B" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path><path fill="#C23D4B" class="hover-fillDark" d="M24 12.5c8.285 0 15 6.828 15 15.25S32.285 43 24 43c-8.284 0-15-6.828-15-15.25S15.716 12.5 24 12.5z"></path><path fill="#FFF" d="M25 38.925v6.288a.787.787 0 0 1-.788.787h-.424a.787.787 0 0 1-.788-.788v-6.287c-3.668-.49-6.5-3.623-6.5-7.425a7.5 7.5 0 0 1 15 0c0 3.802-2.832 6.935-6.5 7.425z"></path></svg>星星之火<span class="new-badge">开发中</span>
+<svg viewBox="0 0 48 48">
+<path fill="#FFA27B" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path>
+<path fill="#C23D4B" class="hover-fillDark" d="M24 12.5c8.285 0 15 6.828 15 15.25S32.285 43 24 43c-8.284 0-15-6.828-15-15.25S15.716 12.5 24 12.5z"></path>
+<path fill="#FFF" d="M25 38.925v6.288a.787.787 0 0 1-.788.787h-.424a.787.787 0 0 1-.788-.788v-6.287c-3.668-.49-6.5-3.623-6.5-7.425a7.5 7.5 0 0 1 15 0c0 3.802-2.832 6.935-6.5 7.425z"></path>
+</svg>星星之火<span class="new-badge">开发中</span>
 </a>
 </li>
 <li>
 <a class="linkContainer item-atlas" href="/ai" data-analytics-action="atlas" data-analytics-source="mobile_nav">
-<svg viewBox="0 0 48 48"><path fill="#FCD669" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path><path fill="#CE7C3A" class="hover-fillDark" d="M24.012 1.834c.366.005.73.196.92.575l16.825 33.72c.396.79-.314 1.685-1.175 1.48L24 33.626V1.834h.01z"></path><path fill="#FFF" d="M24 1.834v31.794l-16.584 3.98A1.043 1.043 0 0 1 6.24 36.13L23.067 2.41c.195-.39.572-.58.947-.576H24z"></path></svg>爆款指南<span class="new-badge">开发中</span>
+<svg viewBox="0 0 48 48">
+<path fill="#FCD669" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path>
+<path fill="#CE7C3A" class="hover-fillDark" d="M24.012 1.834c.366.005.73.196.92.575l16.825 33.72c.396.79-.314 1.685-1.175 1.48L24 33.626V1.834h.01z"></path>
+<path fill="#FFF" d="M24 1.834v31.794l-16.584 3.98A1.043 1.043 0 0 1 6.24 36.13L23.067 2.41c.195-.39.572-.58.947-.576H24z"></path>
+</svg>爆款指南<span class="new-badge">开发中</span>
 </a>
 </li>
 <li>
 <a class="linkContainer item-radar" href="/radar" data-analytics-action="radar" data-analytics-source="mobile_nav">
-<svg viewBox="0 0 48 48"><path class="hover-fillLight" fill="#F6A4EB" d="M41.364 21.886h6.538c.06.697.098 1.4.098 2.114 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c6.833 0 12.993 2.86 17.364 7.442v14.444z"></path><path fill="#FFF" d="M37.746 37.4a1.3 1.3 0 0 1 .92-.38c.72 0 1.303.444 1.303 1.163 0 .503-.353.982-.708 1.292-3.484 3.122-8.325 5.53-13.783 5.53-11.75 0-19.486-9.538-19.486-18.83 0-8.72 7.195-16.19 15.25-16.19s11.227 5.54 11.227 5.54L37.747 37.4z"></path><path class="hover-fillDark" fill="#9251AC" d="M47.995 24zm0 0c0-.995-.807-1.974-1.802-1.974-1.15 0-1.8.94-1.8 1.83-.09 3.174-1.228 7.127-3.453 10.182-2.355 3.232-6.91 6.956-13.242 6.956-7.625 0-13.213-5.767-13.213-11.925 0-4.3 2.886-7.17 5.828-7.17 1.588 0 2.48.683 2.965 1.312.362.468 1.063.493 1.482.074L40.968 7.032A23.926 23.926 0 0 1 47.995 24z"></path></svg>版权雷达
+<svg viewBox="0 0 48 48">
+<path class="hover-fillLight" fill="#F6A4EB" d="M41.364 21.886h6.538c.06.697.098 1.4.098 2.114 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c6.833 0 12.993 2.86 17.364 7.442v14.444z"></path>
+<path fill="#FFF" d="M37.746 37.4a1.3 1.3 0 0 1 .92-.38c.72 0 1.303.444 1.303 1.163 0 .503-.353.982-.708 1.292-3.484 3.122-8.325 5.53-13.783 5.53-11.75 0-19.486-9.538-19.486-18.83 0-8.72 7.195-16.19 15.25-16.19s11.227 5.54 11.227 5.54L37.747 37.4z"></path>
+<path class="hover-fillDark" fill="#9251AC" d="M47.995 24zm0 0c0-.995-.807-1.974-1.802-1.974-1.15 0-1.8.94-1.8 1.83-.09 3.174-1.228 7.127-3.453 10.182-2.355 3.232-6.91 6.956-13.242 6.956-7.625 0-13.213-5.767-13.213-11.925 0-4.3 2.886-7.17 5.828-7.17 1.588 0 2.48.683 2.965 1.312.362.468 1.063.493 1.482.074L40.968 7.032A23.926 23.926 0 0 1 47.995 24z"></path>
+</svg>版权雷达
 <span class="new-badge">开发中</span>
 </a>
 </li>
@@ -139,7 +154,11 @@
 <ul class="productsGroup">
 <li>
 <a class="linkContainer item-connect" href="/write" data-analytics-action="connect" data-analytics-source="nav_dropdown">
-<svg viewBox="0 0 48 48"><path fill="#68D4F8" class="hover-fillLight" d="M48 24c0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c1.363 0 2.698.12 4 .338V15h5v5h14.662c.218 1.302.338 2.637.338 4z"></path><path fill="#FFF" d="M16.99 29.966L17 17l-5.55-.006a1.02 1.02 0 0 0-.725.3L2.65 25.446a1.55 1.55 0 0 0-.44 1.28c1.22 9.944 9.1 17.825 19.042 19.047.472.058.945-.104 1.28-.44l8.172-8.076c.192-.193.3-.453.3-.725L31 31l-12.985-.01a1.023 1.023 0 0 1-1.024-1.024z"></path><path fill="#217AB7" class="hover-fillDark" d="M47.697 20.195L37.194 30.702a1.03 1.03 0 0 1-.726.3h-5.462V18.03c0-.567-.46-1.025-1.025-1.025H16.994V11.52c0-.274.108-.534.3-.726L27.783.3C38 1.916 46.07 9.98 47.698 20.194z"></path></svg>
+<svg viewBox="0 0 48 48">
+<path fill="#68D4F8" class="hover-fillLight" d="M48 24c0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c1.363 0 2.698.12 4 .338V15h5v5h14.662c.218 1.302.338 2.637.338 4z"></path>
+<path fill="#FFF" d="M16.99 29.966L17 17l-5.55-.006a1.02 1.02 0 0 0-.725.3L2.65 25.446a1.55 1.55 0 0 0-.44 1.28c1.22 9.944 9.1 17.825 19.042 19.047.472.058.945-.104 1.28-.44l8.172-8.076c.192-.193.3-.453.3-.725L31 31l-12.985-.01a1.023 1.023 0 0 1-1.024-1.024z"></path>
+<path fill="#217AB7" class="hover-fillDark" d="M47.697 20.195L37.194 30.702a1.03 1.03 0 0 1-.726.3h-5.462V18.03c0-.567-.46-1.025-1.025-1.025H16.994V11.52c0-.274.108-.534.3-.726L27.783.3C38 1.916 46.07 9.98 47.698 20.194z"></path>
+</svg>
 <div class="productLinkContent">
 <h3 class="linkTitle">时速 <span class="new-badge">开发中</span></h3>
 <p class="linkSub">提升你的写作技能，加快你的写作速度</p>
@@ -148,7 +167,11 @@
 </li>
 <li>
 <a class="linkContainer item-relay" href="/analytics" data-analytics-action="relay" data-analytics-source="nav_dropdown">
-<svg viewBox="0 0 48 48"><path fill="#FFA27B" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path><path fill="#C23D4B" class="hover-fillDark" d="M24 12.5c8.285 0 15 6.828 15 15.25S32.285 43 24 43c-8.284 0-15-6.828-15-15.25S15.716 12.5 24 12.5z"></path><path fill="#FFF" d="M25 38.925v6.288a.787.787 0 0 1-.788.787h-.424a.787.787 0 0 1-.788-.788v-6.287c-3.668-.49-6.5-3.623-6.5-7.425a7.5 7.5 0 0 1 15 0c0 3.802-2.832 6.935-6.5 7.425z"></path></svg>
+<svg viewBox="0 0 48 48">
+<path fill="#FFA27B" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path>
+<path fill="#C23D4B" class="hover-fillDark" d="M24 12.5c8.285 0 15 6.828 15 15.25S32.285 43 24 43c-8.284 0-15-6.828-15-15.25S15.716 12.5 24 12.5z"></path>
+<path fill="#FFF" d="M25 38.925v6.288a.787.787 0 0 1-.788.787h-.424a.787.787 0 0 1-.788-.788v-6.287c-3.668-.49-6.5-3.623-6.5-7.425a7.5 7.5 0 0 1 15 0c0 3.802-2.832 6.935-6.5 7.425z"></path>
+</svg>
 <div class="productLinkContent">
 <h3 class="linkTitle">星星之火 <span class="new-badge">开发中</span></h3>
 <p class="linkSub">全平台数据都在这里</p>
@@ -157,7 +180,11 @@
 </li>
 <li>
 <a class="linkContainer item-atlas" href="/ai" data-analytics-action="atlas" data-analytics-source="nav_dropdown">
-<svg viewBox="0 0 48 48"><path fill="#FCD669" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path><path fill="#CE7C3A" class="hover-fillDark" d="M24.012 1.834c.366.005.73.196.92.575l16.825 33.72c.396.79-.314 1.685-1.175 1.48L24 33.626V1.834h.01z"></path><path fill="#FFF" d="M24 1.834v31.794l-16.584 3.98A1.043 1.043 0 0 1 6.24 36.13L23.067 2.41c.195-.39.572-.58.947-.576H24z"></path></svg>
+<svg viewBox="0 0 48 48">
+<path fill="#FCD669" class="hover-fillLight" d="M24 0c13.255 0 24 10.745 24 24S37.255 48 24 48 0 37.255 0 24 10.745 0 24 0z"></path>
+<path fill="#CE7C3A" class="hover-fillDark" d="M24.012 1.834c.366.005.73.196.92.575l16.825 33.72c.396.79-.314 1.685-1.175 1.48L24 33.626V1.834h.01z"></path>
+<path fill="#FFF" d="M24 1.834v31.794l-16.584 3.98A1.043 1.043 0 0 1 6.24 36.13L23.067 2.41c.195-.39.572-.58.947-.576H24z"></path>
+</svg>
 <div class="productLinkContent">
 <h3 class="linkTitle">爆款指南 <span class="new-badge">开发中</span></h3>
 <p class="linkSub">通过人工智能帮你规划出爆款文章</p>
@@ -166,7 +193,11 @@
 </li>
 <li>
 <a class="linkContainer item-radar" href="/radar" data-analytics-action="radar" data-analytics-source="nav_dropdown">
-<svg viewBox="0 0 48 48"><path class="hover-fillLight" fill="#F6A4EB" d="M41.364 21.886h6.538c.06.697.098 1.4.098 2.114 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c6.833 0 12.993 2.86 17.364 7.442v14.444z"></path><path fill="#FFF" d="M37.746 37.4a1.3 1.3 0 0 1 .92-.38c.72 0 1.303.444 1.303 1.163 0 .503-.353.982-.708 1.292-3.484 3.122-8.325 5.53-13.783 5.53-11.75 0-19.486-9.538-19.486-18.83 0-8.72 7.195-16.19 15.25-16.19s11.227 5.54 11.227 5.54L37.747 37.4z"></path><path class="hover-fillDark" fill="#9251AC" d="M47.995 24zm0 0c0-.995-.807-1.974-1.802-1.974-1.15 0-1.8.94-1.8 1.83-.09 3.174-1.228 7.127-3.453 10.182-2.355 3.232-6.91 6.956-13.242 6.956-7.625 0-13.213-5.767-13.213-11.925 0-4.3 2.886-7.17 5.828-7.17 1.588 0 2.48.683 2.965 1.312.362.468 1.063.493 1.482.074L40.968 7.032A23.926 23.926 0 0 1 47.995 24z"></path></svg>
+<svg viewBox="0 0 48 48">
+<path class="hover-fillLight" fill="#F6A4EB" d="M41.364 21.886h6.538c.06.697.098 1.4.098 2.114 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c6.833 0 12.993 2.86 17.364 7.442v14.444z"></path>
+<path fill="#FFF" d="M37.746 37.4a1.3 1.3 0 0 1 .92-.38c.72 0 1.303.444 1.303 1.163 0 .503-.353.982-.708 1.292-3.484 3.122-8.325 5.53-13.783 5.53-11.75 0-19.486-9.538-19.486-18.83 0-8.72 7.195-16.19 15.25-16.19s11.227 5.54 11.227 5.54L37.747 37.4z"></path>
+<path class="hover-fillDark" fill="#9251AC" d="M47.995 24zm0 0c0-.995-.807-1.974-1.802-1.974-1.15 0-1.8.94-1.8 1.83-.09 3.174-1.228 7.127-3.453 10.182-2.355 3.232-6.91 6.956-13.242 6.956-7.625 0-13.213-5.767-13.213-11.925 0-4.3 2.886-7.17 5.828-7.17 1.588 0 2.48.683 2.965 1.312.362.468 1.063.493 1.482.074L40.968 7.032A23.926 23.926 0 0 1 47.995 24z"></path>
+</svg>
 <div class="productLinkContent">
 <h3 class="linkTitle">版权雷达 <span class="new-badge">开发中</span></h3>
 <p class="linkSub">帮助原创作者发现各大内容平台侵权问题</p>
@@ -193,7 +224,8 @@
 </a>
 <div class="documentationArticles">
 <ul>
-<li><h4>Get started</h4></li>
+<li>
+<h4>Get started</h4></li>
 <li>
 <a href="/" data-analytics-action="docs_elements" data-analytics-source="nav_dropdown">
 集成指南
@@ -206,7 +238,8 @@ SDK下载
 </li>
 </ul>
 <ul>
-<li><h4>Popular topics</h4></li>
+<li>
+<h4>Popular topics</h4></li>
 <li>
 <a href="/" data-analytics-action="docs_apple_pay" data-analytics-source="nav_dropdown">
 常见问题
@@ -229,7 +262,8 @@ Pricing
 <li>
 <a class="linkContainer item-openSource" href="/" data-analytics-action="open_source" data-analytics-source="nav_dropdown">
 <h3 class="linkTitle linkIcon"><svg width="17" height="17"><path fill="#6772E5" class="hover-fillDark" d="M8.5 17a8.5 8.5 0 1 1 0-17 8.5 8.5 0 0 1 0 17zM6.987 6.078a.684.684 0 0 0-.968-.968L3.116 8.012a.684.684 0 0 0 0 .967l2.9 2.9a.684.684 0 0 0 .97-.967l-2.42-2.418 2.42-2.42zm6.996 1.95L11.08 5.123a.684.684 0 0 0-.966.968l2.418 2.42-2.418 2.417a.684.684 0 0 0 .967.967l2.904-2.902a.684.684 0 0 0 0-.966z"></path></svg>Open Source</h3>
-</a></li>
+</a>
+</li>
 </ul>
 </div>
 </div>
@@ -244,7 +278,8 @@ Pricing
 <li>
 <a class="linkContainer item-customers" href="/partners" data-analytics-action="customers" data-analytics-source="nav_dropdown">
 <h3 class="linkTitle linkIcon"><svg width="17" height="17"><path fill="#87BBFD" class="hover-fillLight" d="M2 16a1 1 0 0 1-1-1V9a4 4 0 0 1 8 0v7H2zm3-9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"></path><path fill="#6772E5" class="hover-fillDark" d="M15 16H9a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h.55a2.5 2.5 0 0 1 4.9 0H15a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1z"></path><path fill="#87BBFD" class="hover-fillLight" d="M11 12h2v4h-2v-4z"></path></svg>合作伙伴</h3>
-</a></li>
+</a>
+</li>
 <li>
 <a class="linkContainer item-jobs" href="/jobs" data-analytics-action="jobs" data-analytics-source="nav_dropdown">
 <h3 class="linkTitle linkIcon"><svg width="17" height="17"><path fill="#6772E5" class="hover-fillDark" d="M1.5 4h14c.828 0 1.5.67 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 0 13.5v-8C0 4.67.67 4 1.5 4z"></path><path fill="#87BBFD" class="hover-fillLight" d="M13 15V4h2v11h-2zM2 4h2v11H2V4z"></path><path fill="#6772E5" class="hover-fillDark" d="M11.5 3.5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1V4H4v-.5A2.5 2.5 0 0 1 6.5 1h4A2.5 2.5 0 0 1 13 3.5V4h-1.5v-.5z"></path></svg>查看招聘职位</h3>
@@ -256,12 +291,16 @@ Pricing
 <h3 class="linkTitle linkIcon"><svg width="17" height="17"><path fill="#87BBFD" class="hover-fillLight" d="M1 4h4.5v11H1.75A1.75 1.75 0 0 1 0 13.25V5a1 1 0 0 1 1-1z"></path><path fill="#6772E5" class="hover-fillDark" d="M14 15H2v-.025a2.243 2.243 0 0 0 2-2.225V3a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v9a3 3 0 0 1-3 3zm1-11H6v3h9V4z"></path></svg>合作伙伴计划</h3>
 </a>
 <ul class="blogPosts">
-<li><a href="/partners">
+<li>
+<a href="/partners">
 <span class="title ">新媒体计划</span>
-</a></li>
-<li><a href="/partners">
+</a>
+</li>
+<li>
+<a href="/partners">
 <span class="title ">TAP技术联盟计划</span>
-</a></li>
+</a>
+</li>
 </ul>
 </div>
 </div>
@@ -296,12 +335,16 @@ Pricing
 </p>
 <div class="methods-list">
 <ul>
-<li><label><input type="radio" id="type_code" name="payment_methods" value="code" checked=true>
-邀请码登录
-</label></li>
-<li><label><input type="radio" id="type_email" name="payment_methods" value="email">
-邮箱登录
-</label></li>
+<li>
+<label>
+<input type="radio" id="type_code" name="payment_methods" value="code" checked=true> 邀请码登录
+</label>
+</li>
+<li>
+<label>
+<input type="radio" id="type_email" name="payment_methods" value="email"> 邮箱登录
+</label>
+</li>
 </ul>
 <p class="other">
 <span>
@@ -318,7 +361,12 @@ Pricing
 </div>
 <ul class="xs-rows sm-cols md-rows worldwide-content">
 <li class="feature-block xs-icon-top md-icon-left">
-<figure class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path fill="#87BBFD" d="M45 40H14a2 2 0 0 1-2-2V27.2h22.455V26H47v12a2 2 0 0 1-2 2zM34.455 17H45a2 2 0 0 1 2 2v2H34.455v-4z"></path><path fill="#6772E5" d="M34 31H3a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h31a2 2 0 0 1 2 2v19a2 2 0 0 1-2 2zM11 15a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3z"></path></svg></figure>
+<figure class="icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+<path fill="#87BBFD" d="M45 40H14a2 2 0 0 1-2-2V27.2h22.455V26H47v12a2 2 0 0 1-2 2zM34.455 17H45a2 2 0 0 1 2 2v2H34.455v-4z"></path>
+<path fill="#6772E5" d="M34 31H3a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h31a2 2 0 0 1 2 2v19a2 2 0 0 1-2 2zM11 15a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3z"></path>
+</svg>
+</figure>
 <h3 class="common-BodyTitle">我们是活跃于各大内容创作平台的自媒体新锐</h3>
 <p class="common-BodyText">现已有100+专注于投资和泛金融创新的自媒体人加入磨石金融。<a class="common-Link" href="/">100+&nbsp;自媒体</a>.</p>
 <ul class="card-list">
@@ -330,7 +378,12 @@ Pricing
 </ul>
 </li>
 <li class="feature-block xs-icon-top md-icon-left">
-<figure class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path fill="#87BBFD" d="M4.01 17.68L4 14.5c0-2.32 1.727-2.94 3.74-3.566L32.803 3.13c1.762-.546 3.19.784 3.19 2.97v10.93l-31.982.65z"></path><path fill="#6772E5" d="M38 44H10a6 6 0 0 1-6-6V16h.003v-2.117S4.337 15.85 6.56 16H38a6 6 0 0 1 6 6v16a6 6 0 0 1-6 6zm-1.004-17a3 3 0 0 0-3.002 3 3 3 0 0 0 3.002 2.997A3 3 0 0 0 40 30a3 3 0 0 0-3.004-3z"></path></svg></figure>
+<figure class="icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+<path fill="#87BBFD" d="M4.01 17.68L4 14.5c0-2.32 1.727-2.94 3.74-3.566L32.803 3.13c1.762-.546 3.19.784 3.19 2.97v10.93l-31.982.65z"></path>
+<path fill="#6772E5" d="M38 44H10a6 6 0 0 1-6-6V16h.003v-2.117S4.337 15.85 6.56 16H38a6 6 0 0 1 6 6v16a6 6 0 0 1-6 6zm-1.004-17a3 3 0 0 0-3.002 3 3 3 0 0 0 3.002 2.997A3 3 0 0 0 40 30a3 3 0 0 0-3.004-3z"></path>
+</svg>
+</figure>
 <h3 class="common-BodyTitle">磨石金融为原创作者提供多种可能性</h3>
 <p class="common-BodyText">一站式内容整合传播，让你可以专注于精细化内容创作。</p>
 <ul class="apm-list">
@@ -356,11 +409,17 @@ Pricing
 <div class="container-lg">
 <ul class="metaNav">
 <li class="select country">
-<a class="rootLink item-country"><svg width="13" height="13"><path d="M1.543,7L6,7,5.979,11.462a0.536,0.536,0,0,0,1.016.24l4.941-9.931a0.537,0.537,0,0,0-.72-0.721L1.3,5.985A0.537,0.537,0,0,0,1.543,7Z"></path></svg>
+<a class="rootLink item-country">
+<svg width="13" height="13">
+<path d="M1.543,7L6,7,5.979,11.462a0.536,0.536,0,0,0,1.016.24l4.941-9.931a0.537,0.537,0,0,0-.72-0.721L1.3,5.985A0.537,0.537,0,0,0,1.543,7Z"></path>
+</svg>
 上海</a>
 </li>
 <li class="select language">
-<a class="rootLink item-language"><svg width="13" height="13"><path d="M8.079,9.837L6.116,12.3A0.654,0.654,0,0,1,5,11.841V9.852C2.488,9.351,1,7.6,1,5.5,1,3.015,3.087,1,6.5,1S12,3.015,12,5.5A4.5,4.5,0,0,1,8.079,9.837Z"></path></svg>
+<a class="rootLink item-language">
+<svg width="13" height="13">
+<path d="M8.079,9.837L6.116,12.3A0.654,0.654,0,0,1,5,11.841V9.852C2.488,9.351,1,7.6,1,5.5,1,3.015,3.087,1,6.5,1S12,3.015,12,5.5A4.5,4.5,0,0,1,8.079,9.837Z"></path>
+</svg>
 在线咨询</a>
 </li>
 <li class="space"></li>
@@ -373,4 +432,5 @@ Pricing
 <script src="public/javascripts/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
 <link type="text/css" rel="stylesheet" media="none" href="//fast.fonts.net/t/1.css?apiType=css&amp;projectid=4414faae-0f1e-48be-9319-851fc710f613">
 </body>
+
 </html>

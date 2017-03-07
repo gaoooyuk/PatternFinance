@@ -1,3 +1,28 @@
+var Strut = {
+    random: function(e, t) {
+        return Math.random() * (t - e) + e
+    },
+    arrayRandom: function(e) {
+        return e[Math.floor(Math.random() * e.length)]
+    },
+    interpolate: function(e, t, n) {
+        return e * (1 - n) + t * n
+    },
+    rangePosition: function(e, t, n) {
+        return (n - e) / (t - e)
+    },
+    clamp: function(e, t, n) {
+        return Math.max(Math.min(e, n), t)
+    },
+    queryArray: function(e, t) {
+        return t || (t = document.body), Array.prototype.slice.call(t.querySelectorAll(e))
+    },
+    ready: function(e) { document.readyState !== "loading" ? e() : document.addEventListener("DOMContentLoaded", e) }
+};
+
+Strut.ready(function() {
+});
+
 function canvasCircle(e, t, n) { e.beginPath(), e.arc(t[0], t[1], n, 0, Math.PI * 2) }
 
 function canvasClearFill(e) { e.fillStyle = "black", e.globalCompositeOperation = "destination-out", e.fill(), e.globalCompositeOperation = "source-over" }
@@ -323,8 +348,6 @@ $(function(e) {
     window.headerMeteors = r, scaleMeteors(), window.addEventListener("resize", function(e) { scaleMeteors() }), window.addEventListener("blur", function(e) {}), window.addEventListener("focus", function(e) { r.start() });
     var i = new Feature;
     i.logos = document.querySelectorAll(".page-header .feature .logo li"), i.texts = document.querySelectorAll(".page-header .feature .text li");
-    var s = ["https://stripe.com/img/connect/header/space.jpg", "https://stripe.com/img/connect/header/starfield.png"];
-    Strut.load.images(s, function(e) { document.body.classList.add("header-ready"), r.start(), setTimeout(i.change, i.interval) });
 
     var u = document.querySelector(".accept .currencies"),
         a = document.querySelector(".page-header .sky-parallax"),
