@@ -168,8 +168,8 @@ ArticleBase {
         }
         ListElement { 
             type: "img"
-            ratio: 1
-            content: ""
+            ratio: 0.42
+            content: "https://pic4.zhimg.com/6902d62542c7a2254baab8292b6bbebb_b.jpg"
         }
         ListElement { 
             type: "txt"
