@@ -204,11 +204,16 @@ function buildArticleModelElement(e) {
     d += "\n"
     d += ("            ratio: " + e.ratio)
     d += "\n"
-    d += ("            content: \"" + e.content + "\"")
+    d += ("            content: \"" + correctHtmlContent(e.content) + "\"")
     d += "\n"
     d += "        }"
 
     return d
+}
+
+function correctHtmlContent(content) {
+	return content.replace(/&lt;/g, "<")
+				  .replace(/&gt;/g, ">")
 }
 
 function handleCodeLogin(token, res) {
