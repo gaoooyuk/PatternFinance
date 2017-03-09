@@ -48,7 +48,7 @@ ArticleBase {
         }
         ListElement { 
             type: "img"
-            ratio: 1
+            ratio: 0.5
             content: "https://pic1.zhimg.com/89d456f7b25f0013070cb6a4a0f51a40_b.jpg"
         }
         ListElement { 
@@ -138,7 +138,7 @@ ArticleBase {
         }
         ListElement { 
             type: "img"
-            ratio: 1
+            ratio: 0.75
             content: "https://pic3.zhimg.com/56a821f205183cf89529ece735eed63a_b.jpg"
         }
         ListElement { 
@@ -292,5 +292,22 @@ ArticleBase {
             content: "END"
         }
 	}
-	ListModel { id: toc }
+    ListModel {
+        id: toc
+        ListElement {
+            title: "1"
+        }
+        ListElement {
+            title: "2"
+        }
+        ListElement {
+            title: "3"
+        }
+        ListElement {
+            title: "4"
+        }
+        ListElement {
+            title: "END"
+        }
+    }
 }

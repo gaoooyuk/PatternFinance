@@ -372,5 +372,25 @@ ArticleBase {
             content: "END"
         }
 	}
-	ListModel { id: toc }
+    ListModel {
+        id: toc
+        ListElement {
+            title: "1"
+        }
+        ListElement {
+            title: "2"
+        }
+        ListElement {
+            title: "3"
+        }
+        ListElement {
+            title: "4"
+        }
+        ListElement {
+            title: "5"
+        }
+        ListElement {
+            title: "END"
+        }
+    }
 }
