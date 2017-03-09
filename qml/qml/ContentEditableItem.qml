@@ -7,20 +7,27 @@ Item {
     signal addItemAfterRequest(string slicedStr)
     signal removeMyself()
     signal inputTextChanged(string text)
+    signal itemSelected()
 
     function initMouseEvents() {
         var impl = input.dom
         impl.addEventListener('mouseup', function(e) {
             updateToolBar()
         });
+        impl.onfocus = function() {
+            console.log("item on focus: ", index)
+            input.itemSelected()
+        };
     }
 
     function initKeyboardEvents() {
         var impl = input.dom
         impl.contentEditable = "plaintext-only"
         impl.addEventListener('keydown', function(e) {
-            if ("txt" === type) {
+            if ("txt" === type || "sectionHeader" === type) {
                 handleTextKeyboardEvents(e)
+            } else if ("img" === type) {
+                handleImageKeyboardEvents(e)
             }
         }, false);
     }
@@ -66,7 +73,7 @@ Item {
 
     function handleTextKeyboardEvents(e) {
         var keyName = e.key;
-        console.log("keyName: ", keyName)
+        console.log("(txt)keyName: ", keyName)
 
         // We call removal of current element when Backspace pressed AND innerHTML is empty
         if ("Backspace" === keyName && "" === input.dom.innerHTML) {
@@ -101,6 +108,52 @@ Item {
 
             input.dom.innerHTML = newContent
             setCaretAtIndex(input.dom, Math.max(0, caretPosition+caretOffset))
+        }
+    }
+
+    function handleImageKeyboardEvents(e) {
+        var keyName = e.key;
+        console.log("(image)keyName: ", keyName)
+
+        // We call removal of current element when Backspace pressed AND innerHTML is empty
+        if ("Backspace" === keyName) {
+            if ("" === input.dom.innerHTML) {
+                input.removeMyself()
+            } else {
+                input.dom.innerHTML = ""
+            }
+
+            return
+        }
+
+        if (getPreventKeys().indexOf(keyName) >= 0) {
+            e.preventDefault()
+
+            if ("Enter" === keyName) {
+                // if no image inserted
+                if (0 === input.dom.children.length) {
+                    var imgUrl = input.dom.innerHTML
+                    input.inputTextChanged(imgUrl)
+
+                    // load image
+                    var img = new Image();
+                    img.onload = function () {
+                        input.dom.innerHTML = ""
+                        if (img.naturalWidth) {
+                            var ratio = img.naturalHeight / img.naturalWidth
+                            console.log("(image)ratio: ", ratio)
+                            img.width = input.width
+                            img.height = img.width * ratio
+                            input.height = img.height
+                            contentModel.setProperty(index, "ratio", parseFloat(Number(ratio).toFixed(2)))
+                        }
+                        input.dom.appendChild(img)
+                    }
+                    img.src = imgUrl;
+                } else {
+                    input.addItemAfterRequest("")
+                }
+            }
         }
     }
 
@@ -154,7 +207,6 @@ Item {
             if (index === newItemIdx) {
                 var impl = input.dom
                 impl.focus()
-                updateToolBar()
             }
         }
     }

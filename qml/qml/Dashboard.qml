@@ -18,13 +18,18 @@ Rectangle {
     property var articleInfo
 
     function publishArticle() {
-//        var url = apiBase + "/publishArticle2Medium"
         var url = apiBase + "/addArticle"
         network.httpPost(url, prepareArticleData(), function(res) {
             try {
                 var json = JSON.parse(res)
-                if (mainWindow.sentBoxObj) {
-                    mainWindow.sentBoxObj.handlePublishResponse(json)
+                if (json.success) {
+                    loader.loadSentBox()
+                    if (mainWindow.sentBoxObj) {
+                        mainWindow.sentBoxObj.showResultBubble(json)
+                    }
+                } else {
+                    notifyBubble.source = "../imgs/dashboard/pFail.png"
+                    notifyText.text = "文章未发布成功"
                 }
             } catch(e) {
                 console.log("JSON parse error(Dashboard.qml publishArticle): ", e)
@@ -36,7 +41,6 @@ Rectangle {
         var info = mainWindow.articleInfo
         var data = info
         data.rawData = mainWindow.composerObj.dumpArticle()
-
         return data
     }
 
@@ -154,7 +158,7 @@ Rectangle {
                     ai.author = "阿一西德卤"
                     ai.cover = "../imgs/dashboard/defaultCover.png"
                     ai.lede = ""
-                    ai.category = "物是评测"
+                    ai.category = "投资故事"
                     mainWindow.articleInfo = ai
                     composer.initArticleInfo(ai)
                     if (contentArray) {
@@ -179,8 +183,6 @@ Rectangle {
                     sbox.anchors.horizontalCenter = dbInner.horizontalCenter
                     dbInner.height = sbox.height
                     changePublishBtnVisibility(false)
-
-                    mainWindow.publishArticle()
                 }
             }
 
@@ -189,7 +191,25 @@ Rectangle {
                 anchors.top: parent.top
                 visible: false
                 onPublishRequest: {
-                    loader.loadSentBox()
+                    mainWindow.publishArticle()
+                }
+            }
+
+            Image {
+                id: notifyBubble
+                width: 500
+                height: 48
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: false
+
+                Text {
+                    id: notifyText
+                    width: 112
+                    height: 18
+                    anchors.centerIn: parent
+                    font.pixelSize: 16
+                    color: "white"
                 }
             }
         }

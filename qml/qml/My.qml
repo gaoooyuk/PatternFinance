@@ -15,15 +15,29 @@ Rectangle {
                 d.selected = false
 
                 var name = cs[c].name
+                var ticker = cs[c].ticker
                 var accum_volatility_50d = cs[c].accum_volatility_50d
                 var relative_volatility_vs_hs300 = cs[c].relative_volatility_vs_hs300
                 var avg_volume_50d = cs[c].avg_volume_50d
                 var corr_vs_hs300 = cs[c].corr_vs_hs300
-                d.mdata = [name, accum_volatility_50d, relative_volatility_vs_hs300, avg_volume_50d, corr_vs_hs300]
+                d.mdata = [name, ticker, accum_volatility_50d, relative_volatility_vs_hs300, avg_volume_50d, corr_vs_hs300]
 
                 candidatesModel.append(d)
             }
         })
+    }
+
+    function exportSelection() {
+        var sel = {}
+        for (var i = 0; i < candidatesModel.count; i++) {
+            if (candidatesModel.get(i).selected) {
+                var name = candidatesModel.get(i).mdata[0]
+                var ticker = candidatesModel.get(i).mdata[1]
+                sel[ticker] = name
+            }
+        }
+
+        console.log(JSON.stringify(sel))
     }
 
     height: bgImg.height + liveChatPanel.height
@@ -34,9 +48,17 @@ Rectangle {
 
     ListModel {
         id: candidatesModel
+
+        function getSelectedCount() {
+            var count = 0
+            for (var i = 0; i < candidatesModel.count; i++) {
+                if (candidatesModel.get(i).selected) {
+                    count++
+                }
+            }
+            return count
+        }
     }
-
-
 
     Column {
         anchors.fill: parent
@@ -89,6 +111,9 @@ Rectangle {
                             Repeater {
                                 model: ListModel {
                                     id: tModel
+                                    ListElement {
+                                        name: "股票名称"
+                                    }
                                     ListElement {
                                         name: "股票代码"
                                     }
@@ -183,6 +208,7 @@ Rectangle {
                                             onClicked: {
                                                 var s = !selected
                                                 candidatesModel.setProperty(cDelegate.rowIdx, "selected", s)
+                                                countText.text = "已选中" + candidatesModel.getSelectedCount() + "支"
                                             }
                                         }
                                     }
@@ -205,6 +231,35 @@ Rectangle {
                         }
 
                         Text {
+                            id: countText
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.pixelSize: 14
+                            color: "#9b9b9b"
+                        }
+
+                        Text {
+                            id: exportBtn
+                            anchors.centerIn: parent
+                            font.pixelSize: 14
+                            color: "#9b9b9b"
+                            text: "导出所选股票"
+
+                            GeneralMouseArea {
+                                onEntered: {
+                                    exportBtn.color = "#4a4a4a"
+                                }
+                                onExited: {
+                                    exportBtn.color = "#9b9b9b"
+                                }
+                                onClicked: {
+                                    mainWindow.exportSelection()
+                                }
+                            }
+                        }
+
+                        Text {
                             id: poweredbyText
                             anchors.right: parent.right
                             anchors.rightMargin: 10
@@ -212,11 +267,11 @@ Rectangle {
                             font.pixelSize: 14
                             color: "#9b9b9b"
                             text: "Powered by Gimletech"
-                        }
 
-                        GeneralMouseArea {
-                            onClicked: {
-                                Qt.openUrlExternally("https://www.gimletech.com")
+                            GeneralMouseArea {
+                                onClicked: {
+                                    Qt.openUrlExternally("https://www.gimletech.com")
+                                }
                             }
                         }
                     }

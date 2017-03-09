@@ -67,6 +67,12 @@ Rectangle {
         contentModel.insert(index, item)
     }
 
+    function setItemType(index, type) {
+        if (index >= 0 && contentModel.count >= index) {
+          contentModel.setProperty(currentSelectedItemIndex, "type", type)
+        }
+    }
+
     height: articleToolbar.height
             + articlePanel.height
             + spacer.height
@@ -199,6 +205,7 @@ Rectangle {
                             }
                             onEnterPressed: {
                                 mainWindow.addItemAtIndex(0, "")
+                                mainWindow.focusItemRequest(0)
                             }
                         }
                     }
@@ -206,7 +213,7 @@ Rectangle {
                     Item {
                         id: articleContentPanel
                         width: parent.width
-                        height: contentLayout.height
+                        height: Math.max(600, contentLayout.height)
 
                         Column {
                             id: contentLayout
@@ -217,7 +224,12 @@ Rectangle {
                                 model: contentModel
                                 delegate: ContentEditableItem {
                                     width: contentPanel.width
+                                    onItemSelected: {
+                                        currentSelectedItemIndex = index
+                                        updateToolBar()
+                                    }
                                     onInputTextChanged: {
+                                        contentModel.setProperty(index, "content", input.dom.innerHTML)
                                         updateToolBar()
                                     }
                                     onRemoveMyself: {
@@ -336,6 +348,11 @@ Rectangle {
 
                             property bool toggleOn: false
 
+                            function close() {
+                                toolBar.toggleOn = false
+                                toolBar.visible = false
+                            }
+
                             Rectangle {
                                 id: toolBtn
                                 width: 30
@@ -388,10 +405,21 @@ Rectangle {
                                     anchors.left: parent.left
                                     anchors.verticalCenter: parent.verticalCenter
                                     radius: width / 2
-                                    color: "#d8d8d8"
+                                    border.width: 2
+                                    border.color: "#d8d8d8"
+
+                                    Image {
+                                        id: imgBtn
+                                        width: 16
+                                        height: 12
+                                        anchors.centerIn: parent
+                                        source: "../imgs/dashboard/addImage.png"
+                                    }
 
                                     GeneralMouseArea {
                                         onClicked: {
+                                            setItemType(currentSelectedItemIndex, "img")
+                                            toolBar.close()
                                         }
                                     }
                                 }
@@ -408,6 +436,25 @@ Rectangle {
 
                                     GeneralMouseArea {
                                         onClicked: {
+                                            toolBar.close()
+                                        }
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: addHeaderBtn
+                                    width: 30
+                                    height: 30
+                                    anchors.left: addVideoBtn.right
+                                    anchors.leftMargin: 10
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    radius: width / 2
+                                    color: "#d8d8d8"
+
+                                    GeneralMouseArea {
+                                        onClicked: {
+                                            setItemType(currentSelectedItemIndex, "sectionHeader")
+                                            toolBar.close()
                                         }
                                     }
                                 }

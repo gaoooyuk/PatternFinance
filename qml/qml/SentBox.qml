@@ -13,18 +13,13 @@ Rectangle {
 
     signal newArticleRequest()
 
-    function handlePublishResponse(res) {
-        console.log(res)
-        showResultBubble(res.success)
-    }
-
     function showResultBubble(res) {
         if (res) {
             notifyBubble.source = "../imgs/dashboard/pSuccess.png"
             notifyText.text = "已完成文章发布"
         } else {
             notifyBubble.source = "../imgs/dashboard/pFail.png"
-            notifyText.text = "文章发布未成功"
+            notifyText.text = "文章未发布成功"
         }
     }
 
