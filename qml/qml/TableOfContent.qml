@@ -3,7 +3,7 @@ import QtQuick 2.5
 Rectangle {
     id: tocImpl
     width: 250
-    height: sharesCountText.height + spacer1.height + itemHeight * tocRepeater.count
+    height: sharesCountText.height + spacer1.height + tableItem.height
 
     property var tableOfContentModel
     property int itemHeight: 40
@@ -25,19 +25,30 @@ Rectangle {
             height: 20
         }
 
-        Repeater {
-            id: tocRepeater
-            model: tableOfContentModel
-            delegate: Item {
-                width: tocImpl.width
-                height: tocImpl.itemHeight
+        Item {
+            id: tableItem
+            width: parent.width
+            height: tocImpl.itemHeight * tocRepeater.count
 
-                Text {
-                    anchors.top: parent.top
-                    anchors.right: parent.right
-                    font.pixelSize: 18
-                    color: "#6a6a6a"
-                    text: title
+            Column {
+                id: layout
+                anchors.fill: parent
+
+                Repeater {
+                    id: tocRepeater
+                    model: tableOfContentModel
+                    delegate: Item {
+                        width: tocImpl.width
+                        height: tocImpl.itemHeight
+
+                        Text {
+                            anchors.top: parent.top
+                            anchors.right: parent.right
+                            font.pixelSize: 18
+                            color: "#6a6a6a"
+                            text: title
+                        }
+                    }
                 }
             }
         }
