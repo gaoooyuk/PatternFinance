@@ -19,8 +19,7 @@ ArticleBase {
         ListElement { 
             type: "txt"
             ratio: 1
-            content: "编者按: 本文来自<strong>交易门</strong>联合创始人<strong>马赛客</strong>。交易门是一家聚焦中国金融交易生态圈，跟踪记录业界鲜活个体的新媒体。如果你喜欢他们的文章，你也可以微信订阅：<strong>Tradingmen</strong>
-<div><br></div>"
+            content: "编者按: 本文来自<strong>交易门</strong>联合创始人<strong>马赛客</strong>。交易门是一家聚焦中国金融交易生态圈，跟踪记录业界鲜活个体的新媒体。如果你喜欢他们的文章，你也可以微信订阅：<strong>Tradingmen</strong>"
         }
         ListElement { 
             type: "txt"
