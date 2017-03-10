@@ -15,7 +15,7 @@ Rectangle {
 
     signal articleInfoChanged(var info)
     signal resetInputAsModel()
-    signal focusItemRequest(int newItemIdx)
+    signal focusItemRequest(int newItemIdx, string pcp) // pcp: prefered caret position
 
     function qmlWidth(w) {
         return w + 1
@@ -59,12 +59,16 @@ Rectangle {
     }
 
     function addItemAtIndex(index, initStr) {
+        console.log("addItemAtIndex: ", index)
         var item = {
             "type": "txt",
             "ratio": 1,
             "content": initStr
         }
         contentModel.insert(index, item)
+        setTimeout(function() {
+            mainWindow.focusItemRequest(index, "start")
+        }, 50)
     }
 
     function setItemType(index, type) {
@@ -204,8 +208,8 @@ Rectangle {
                                 mainWindow.updateArticleInfo()
                             }
                             onEnterPressed: {
+                                console.log("titleInput onEnterPressed")
                                 mainWindow.addItemAtIndex(0, "")
-                                mainWindow.focusItemRequest(0)
                             }
                         }
                     }
@@ -235,105 +239,18 @@ Rectangle {
                                     onRemoveMyself: {
                                         toolBar.visible = false
                                         contentModel.remove(index)
+                                        if (0 !== index) {
+                                            setTimeout(function() {
+                                                mainWindow.focusItemRequest(index-1, "end")
+                                            }, 50)
+                                        } else {
+                                            titleInput.dom.firstChild.focus()
+                                        }
                                     }
-                                    onAddItemBeforeRequest: {
-                                        mainWindow.addItemAtIndex(index, slicedStr)
-                                    }
-                                    onAddItemAfterRequest: {
+                                    onAddItemRequest: {
                                         mainWindow.addItemAtIndex(index+1, slicedStr)
                                     }
                                 }
-
-//                                delegate: Item {
-//                                    id: contentDelegate
-//                                    width: contentPanel.width
-
-//                                    function loadComp() {
-//                                        if ("img" === type) {
-//                                            loader.source = "../qml/article/ImageComp.qml"
-//                                        } else if ("txt" === type) {
-//                                            loader.source = "../qml/article/TextEditComp.qml"
-//                                        } else if ("sectionHeader" === type) {
-//                                            loader.source = "../qml/article/SectionHeaderComp.qml"
-//                                        } else if ("AD_1" === type) {
-//                                            loader.source = "../qml/article/AD_1.qml"
-//                                        } else if ("AD_2" === type) {
-//                                            loader.source = "../qml/article/AD_2.qml"
-//                                        }
-//                                    }
-
-//                                    function updateGeometry() {
-//                                        var item = loader.item
-
-//                                        if ("img" === type) {
-//                                            item.source = content
-//                                            item.width = qmlWidth(contentPanel.width)
-//                                            contentDelegate.height = item.height
-//                                            item.centerIn = contentDelegate
-//                                        } else if ("txt" === type) {
-//                                            item.text = content
-//                                            item.width = qmlWidth(contentPanel.width)
-//                                            contentDelegate.height = item.height
-//                                        } else if ("sectionHeader" === type) {
-//                                            item.text = content
-//                                            item.width = qmlWidth(contentPanel.width)
-//                                            contentDelegate.height = item.height + 50
-//                                            item.anchors.bottom = contentDelegate.bottom
-//                                        } else if ("AD_1" === type) {
-//                                            if (mainWindow.width >= 1000) {
-//                                                item.width = contentPanel.width * 1.2
-//                                            } else {
-//                                                item.width = qmlWidth(contentPanel.width * 0.9)
-//                                            }
-//                                            contentDelegate.height = item.height + 50
-//                                            item.anchors.left = contentDelegate.left
-//                                            item.anchors.verticalCenter = contentDelegate.verticalCenter
-//                                        } else if ("AD_2" === type) {
-//                                            if (mainWindow.width >= 1000) {
-//                                                item.width = contentPanel.width * 1.2
-//                                            } else {
-//                                                item.width = qmlWidth(contentPanel.width * 0.9)
-//                                            }
-//                                            contentDelegate.height = item.height + 50
-//                                            item.anchors.left = contentDelegate.left
-//                                            item.anchors.verticalCenter = contentDelegate.verticalCenter
-//                                        }
-//                                    }
-
-//                                    Connections {
-//                                        target: mainWindow
-//                                        onWidthChanged: {
-//                                            if (loader.inited) {
-//                                                contentDelegate.updateGeometry()
-//                                            }
-//                                        }
-//                                    }
-
-//                                    Connections {
-//                                        target: articleTitleEditor
-//                                        onHeightChanged: {
-//                                            if (loader.inited) {
-//                                                contentDelegate.updateGeometry()
-//                                            }
-//                                        }
-//                                    }
-
-//                                    Loader {
-//                                        id: loader
-
-//                                        property bool inited: false
-//                                    }
-
-//                                    Component.onCompleted: {
-//                                        loader.loaded.connect(function () {
-//                                            loader.inited = true
-//                                            updateGeometry()
-//                                            initEventListeners()
-//                                        })
-
-//                                        loadComp()
-//                                    }
-//                                }
                             }
                         }
 
@@ -351,6 +268,16 @@ Rectangle {
                             function close() {
                                 toolBar.toggleOn = false
                                 toolBar.visible = false
+                            }
+
+                            function updatePlaceholder(type) {
+                                if ("txt" === type) {
+                                    placeholderText.text = "开始编辑文章"
+                                } else if ("sectionHeader" === type) {
+                                    placeholderText.text = "插入段落标题"
+                                } else if ("img" === type) {
+                                    placeholderText.text = "输入url后按回车键Enter载入图片"
+                                }
                             }
 
                             Rectangle {
@@ -382,6 +309,28 @@ Rectangle {
                                     onClicked: {
                                         toolBar.toggleOn = !toolBar.toggleOn
                                     }
+                                }
+                            }
+
+                            Item {
+                                id: toolPlaceholderPanel
+                                width: 300
+                                height: 39
+                                anchors.left: toolBtn.right
+                                anchors.leftMargin: 10
+                                anchors.verticalCenter: parent.verticalCenter
+                                visible: !toolBar.toggleOn
+
+                                Text {
+                                    id: placeholderText
+                                    width: 300
+                                    height: 18
+                                    anchors.top: parent.top
+                                    anchors.topMargin: 8
+                                    anchors.left: parent.left
+                                    font.pixelSize: 16
+                                    color: "#d8d8d8"
+                                    text: "1234567890"
                                 }
                             }
 
@@ -418,8 +367,11 @@ Rectangle {
 
                                     GeneralMouseArea {
                                         onClicked: {
-                                            setItemType(currentSelectedItemIndex, "img")
+                                            // close toolBar before doing other things
                                             toolBar.close()
+
+                                            setItemType(currentSelectedItemIndex, "img")
+                                            focusItemRequest(currentSelectedItemIndex, "start")
                                         }
                                     }
                                 }
@@ -432,11 +384,27 @@ Rectangle {
                                     anchors.leftMargin: 10
                                     anchors.verticalCenter: parent.verticalCenter
                                     radius: width / 2
-                                    color: "#d8d8d8"
+                                    border.width: 2
+                                    border.color: "#d8d8d8"
+
+                                    Image {
+                                        id: videoBtn
+                                        width: 12
+                                        height: 15
+                                        anchors.top: parent.top
+                                        anchors.topMargin: 8
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 10
+                                        source: "../imgs/dashboard/addVideo.png"
+                                    }
 
                                     GeneralMouseArea {
                                         onClicked: {
+                                            // close toolBar before doing other things
                                             toolBar.close()
+
+                                            // setItemType(currentSelectedItemIndex, "video")
+                                            focusItemRequest(currentSelectedItemIndex, "start")
                                         }
                                     }
                                 }
@@ -449,12 +417,24 @@ Rectangle {
                                     anchors.leftMargin: 10
                                     anchors.verticalCenter: parent.verticalCenter
                                     radius: width / 2
-                                    color: "#d8d8d8"
+                                    border.width: 2
+                                    border.color: "#d8d8d8"
+
+                                    Image {
+                                        id: sHeaderBtn
+                                        width: 12
+                                        height: 12
+                                        anchors.centerIn: parent
+                                        source: "../imgs/dashboard/addSectionHeader.png"
+                                    }
 
                                     GeneralMouseArea {
                                         onClicked: {
-                                            setItemType(currentSelectedItemIndex, "sectionHeader")
+                                            // close toolBar before doing other things
                                             toolBar.close()
+
+                                            setItemType(currentSelectedItemIndex, "sectionHeader")
+                                            focusItemRequest(currentSelectedItemIndex, "start")
                                         }
                                     }
                                 }

@@ -21,7 +21,7 @@ router.get('/partners', function(req, res, next) {
 	res.render('partners', 
 	{ 
 		"html_description": "",
-		"html_keywords": "合作伙伴"
+		"html_keywords": "合作伙伴,Gimletech,技术联盟,媒体联盟"
 	})
 });
 
@@ -31,7 +31,7 @@ router.get('/about', function(req, res, next) {
 	res.render('about', 
 	{ 
 		"html_description": "",
-		"html_keywords": "关于我们,磨石金融,新媒体"
+		"html_keywords": "关于我们,磨石金融,新媒体,财经,内容平台"
 	})
 });
 
@@ -43,7 +43,7 @@ router.get('/research', function(req, res, next) {
 		"channel": "磨石研究",
 		"channel_qml": "website_research",
 		"html_description": "",
-		"html_keywords": "磨石研究,投资模式,磨石金融"
+		"html_keywords": "磨石研究,投资模式,磨石金融,量化交易,算法交易,程序化交易,交易系统"
 	})
 });
 
@@ -55,7 +55,7 @@ router.get('/review', function(req, res, next) {
 		"channel": "物是评测",
 		"channel_qml": "website_review",
 		"html_description": "",
-		"html_keywords": "物是评测,磨石金融"
+		"html_keywords": "物是评测,磨石金融,产品,App"
 	})
 });
 
@@ -67,7 +67,7 @@ router.get('/story', function(req, res, next) {
 		"channel": "投资故事",
 		"channel_qml": "website_story",
 		"html_description": "",
-		"html_keywords": "投资故事,磨石金融,新媒体"
+		"html_keywords": "投资故事,磨石金融,新媒体,交易人生,纪实,财经"
 	})
 });
 
@@ -79,7 +79,7 @@ router.get('/company', function(req, res, next) {
 		"channel": "金融帝国",
 		"channel_qml": "website_company",
 		"html_description": "",
-		"html_keywords": "金融帝国,磨石金融,新媒体"
+		"html_keywords": "金融帝国,磨石金融,新媒体,金融巨鳄"
 	})
 });
 
@@ -89,7 +89,7 @@ router.get('/joinus', function(req, res, next) {
 	res.render('joinus', 
 	{ 
 		"html_description": "",
-		"html_keywords": "加入我们,加入磨石,磨石金融"
+		"html_keywords": "加入我们,加入磨石,磨石金融,新媒体,内容平台,磨石工具"
 	})
 });
 

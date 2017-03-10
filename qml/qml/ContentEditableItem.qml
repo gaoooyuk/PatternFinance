@@ -3,19 +3,17 @@ import QtQuick 2.5
 Item {
     id: input
 
-    signal addItemBeforeRequest(string slicedStr)
-    signal addItemAfterRequest(string slicedStr)
+    signal addItemRequest(string slicedStr)
     signal removeMyself()
     signal inputTextChanged(string text)
     signal itemSelected()
 
     function initMouseEvents() {
         var impl = input.dom
-        impl.addEventListener('mouseup', function(e) {
-            updateToolBar()
-        });
         impl.onfocus = function() {
-            console.log("item on focus: ", index)
+            console.log("Item on focus: ", index)
+            console.log("type: ", type)
+            initStyles()
             input.itemSelected()
         };
     }
@@ -24,6 +22,11 @@ Item {
         var impl = input.dom
         impl.contentEditable = "plaintext-only"
         impl.addEventListener('keydown', function(e) {
+            console.log("Item received keyboard event: ", index)
+            setTimeout(function() {
+                input.inputTextChanged(input.dom.innerHTML)
+            }, 50)
+
             if ("txt" === type || "sectionHeader" === type) {
                 handleTextKeyboardEvents(e)
             } else if ("img" === type) {
@@ -40,13 +43,20 @@ Item {
         // enable pointer events, it was disabled by default (qt.js)
         css.pointerEvents = "auto"
 
-        if ("txt" === type) {
+        if ("txt" === type || "sectionHeader" === type) {
             css.textAlign = "left"
-            css.fontSize = "18px"
             css.color = "#4a4a4a"
             css.lineHeight = "30px"
             css.whiteSpace = "pre-wrap"
             css.wordWrap = "break-word"
+
+            if ("txt" === type) {
+                css.fontSize = "18px"
+                css.fontWeight = "normal"
+            } else {
+                css.fontSize = "30px"
+                css.fontWeight = "700"
+            }
         }
     }
 
@@ -65,6 +75,7 @@ Item {
     function updateToolBar() {
         toolBar.anchors.topMargin = input.y
         if ("" === input.dom.innerHTML) {
+            toolBar.updatePlaceholder(type)
             toolBar.visible = true
         } else {
             toolBar.visible = false
@@ -73,17 +84,14 @@ Item {
 
     function handleTextKeyboardEvents(e) {
         var keyName = e.key;
-        console.log("(txt)keyName: ", keyName)
+        console.log("(" + type + ")keyName: ", keyName)
 
         // We call removal of current element when Backspace pressed AND innerHTML is empty
         if ("Backspace" === keyName && "" === input.dom.innerHTML) {
+            e.preventDefault()
             input.removeMyself()
             return
         }
-
-        setTimeout(function() {
-            input.inputTextChanged(input.dom.innerHTML)
-        }, 50)
 
         if (getPreventKeys().indexOf(keyName) >= 0) {
             e.preventDefault()
@@ -97,13 +105,9 @@ Item {
 
             if ("Enter" === keyName) {
                 caretOffset = 0
-                if (0 === caretPosition) {
-                    input.addItemBeforeRequest("")
-                } else {
-                    var slicedStr = currentContent.slice(caretPosition)
-                    newContent = currentContent.slice(0, caretPosition)
-                    input.addItemAfterRequest(slicedStr)
-                }
+                var slicedStr = currentContent.slice(caretPosition)
+                newContent = currentContent.slice(0, caretPosition)
+                input.addItemRequest(slicedStr)
             }
 
             input.dom.innerHTML = newContent
@@ -120,7 +124,12 @@ Item {
             if ("" === input.dom.innerHTML) {
                 input.removeMyself()
             } else {
-                input.dom.innerHTML = ""
+                var nodeName = input.dom.firstChild.nodeName
+                if ("IMG" === nodeName) {
+                    input.dom.innerHTML = ""
+                } else if ("#text" === nodeName) {
+                    // do nothing
+                }
             }
 
             return
@@ -204,9 +213,17 @@ Item {
     Connections {
         target: mainWindow
         onFocusItemRequest: {
+            console.log("onFocusItemRequest: ", index)
             if (index === newItemIdx) {
+                console.log("Item focus request: ", index)
                 var impl = input.dom
                 impl.focus()
+
+                if ("start" === pcp) {
+//                    setCaretAtIndex(impl, 0)
+                } else if ("end" === pcp) {
+                    setCaretAtIndex(impl, impl.innerHTML.length)
+                }
             }
         }
     }

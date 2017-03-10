@@ -240,11 +240,15 @@ function handleCodeLogin(token, res) {
 				res.send({ success: true, user: writer })
 	  		}
 	  	} else {
-	  		var fakeWriter = {}
-	  		fakeWriter.id = "fakeid"
-	  		fakeWriter.type = "faketype"
-	  		fakeWriter.email = "fakeemail"
-			res.send({ success: true, user: fakeWriter })
+	  		if ("4f2155e69aea499c87d1850ab8a8e183" === token) {
+	  			var fakeWriter = {}
+		  		fakeWriter.id = "fakeid"
+		  		fakeWriter.type = "faketype"
+		  		fakeWriter.email = "fakeemail"
+				res.send({ success: true, user: fakeWriter })
+	  		} else {
+				res.send({ success: false })
+	  		}
 	  	}
 	});
 }

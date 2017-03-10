@@ -94,7 +94,7 @@ Strut.ready(function() {
             s = i.map(function(e) {
                 return e.value
             });
-        return { login_method: s[0], token: t.value }
+        return { login_method: s[0], token: md5(t.value) }
     }
 
     function t(t) {
