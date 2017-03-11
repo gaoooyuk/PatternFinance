@@ -1,3 +1,4 @@
+var toMarkdown = require('to-markdown');
 var pyShell = require('python-shell');
 var medium = require('medium-sdk');
 var express = require('express');
@@ -58,7 +59,7 @@ router.post('/addArticle', function(req, res, next) {
 	    	// Medium
 	    	if (platforms.indexOf("medium") >= 0) {
 	    		var token = "2b883721714b12cf328d0cea259b684bf49492f171164b4ddd812d2b6a877dad8"
-	    		publish2Medium(title, token, callback)
+	    		publish2Medium(title, rawData, token, callback)
 	    	} else {
 		    	callback(null, 'medium:skip');
 	    	}
@@ -152,7 +153,7 @@ function publish2PatternFinance(id, title, cover, lede, type, category, authorNa
     });
 }
 
-function publish2Medium(title, token, callback) {
+function publish2Medium(title, rawData, token, callback) {
 	mediumClient.setAccessToken(token)
 	mediumClient.getUser(function(uErr, user) {
 		if (uErr) {
@@ -168,8 +169,8 @@ function publish2Medium(title, token, callback) {
 		mediumClient.createPost({
 			userId: user.id,
 			title: title,
-			contentFormat: medium.PostContentFormat.HTML,
-			content: '<h1>A New Post</h1><p>This is my new post from 磨石金融.</p>',
+			contentFormat: medium.PostContentFormat.MARKDOWN,
+			content: buildMarkdownArticle(title, rawData),
 			publishStatus: medium.PostPublishStatus.DRAFT
 		}, function(err, post) {
 			if (err) {
@@ -268,9 +269,39 @@ function buildArticleModelElement(e) {
     return d
 }
 
+function buildMarkdownArticle(title, rawData) {
+	var md = ("# " + title)
+	md += "\n"
+
+    var model = JSON.parse(rawData)
+    for (var i = 0; i < model.length; i++) {
+        var m = model[i]
+        var content = m.content
+        if ("txt" === m.type) {
+        	md += translateHtml2Markdown(content)
+        } else if ("sectionHeader" === m.type) {
+        	md += "\n"
+        	md += ("## " + content)
+        } else if ("img" === m.type) {
+        	md += ("![source: 磨石金融](" + content + ")")
+        }
+
+        if (i !== (model.length - 1)) {
+        	md += "\n"
+        }
+    }
+
+	return md
+}
+
 function correctHtmlContent(content) {
 	return content.replace(/&lt;/g, "<")
 				  .replace(/&gt;/g, ">")
+}
+
+function translateHtml2Markdown(content) {
+	content = correctHtmlContent(content)
+	return toMarkdown(content)
 }
 
 function handleCodeLogin(token, res) {
