@@ -36,6 +36,7 @@
     "serve-favicon": "~2.3.0",
     "soupselect": "^0.2.0",
     "spdy": "^3.3.2",
+    "to-markdown": "^3.0.3",
     "xml2json": "^0.10.0"
   }
 }
