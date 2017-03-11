@@ -103,7 +103,7 @@ ArticleBase {
         }
         ListElement { 
             type: "img"
-            ratio: 1
+            ratio: 0.56
             content: "https://pic1.zhimg.com/v2-8c51896fbeea04bd101c48a4289269c0_b.jpg"
         }
         ListElement { 
