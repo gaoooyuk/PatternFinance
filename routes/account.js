@@ -271,7 +271,7 @@ function buildArticleModelElement(e) {
 
 function buildMarkdownArticle(title, rawData) {
 	var md = ("# " + title)
-	md += "\n"
+	md += "\n\n"
 
     var model = JSON.parse(rawData)
     for (var i = 0; i < model.length; i++) {
@@ -280,14 +280,14 @@ function buildMarkdownArticle(title, rawData) {
         if ("txt" === m.type) {
         	md += translateHtml2Markdown(content)
         } else if ("sectionHeader" === m.type) {
-        	md += "\n"
+        	md += "\n\n"
         	md += ("## " + content)
         } else if ("img" === m.type) {
         	md += ("![source: 磨石金融](" + content + ")")
         }
 
         if (i !== (model.length - 1)) {
-        	md += "\n"
+        	md += "\n\n"
         }
     }
 

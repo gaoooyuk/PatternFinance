@@ -122,6 +122,7 @@ Item {
         // We call removal of current element when Backspace pressed AND innerHTML is empty
         if ("Backspace" === keyName) {
             if ("" === input.dom.innerHTML) {
+                e.preventDefault()
                 input.removeMyself()
             } else {
                 var nodeName = input.dom.firstChild.nodeName
@@ -213,14 +214,13 @@ Item {
     Connections {
         target: mainWindow
         onFocusItemRequest: {
-            console.log("onFocusItemRequest: ", index)
             if (index === newItemIdx) {
                 console.log("Item focus request: ", index)
                 var impl = input.dom
                 impl.focus()
 
                 if ("start" === pcp) {
-//                    setCaretAtIndex(impl, 0)
+                    // setCaretAtIndex(impl, 0)
                 } else if ("end" === pcp) {
                     setCaretAtIndex(impl, impl.innerHTML.length)
                 }
