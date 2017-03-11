@@ -22,6 +22,7 @@ Rectangle {
         network.httpPost(url, prepareArticleData(), function(res) {
             try {
                 var json = JSON.parse(res)
+                console.log(json)
                 if (json.success) {
                     loader.loadSentBox()
                     if (mainWindow.sentBoxObj) {
@@ -41,6 +42,7 @@ Rectangle {
         var info = mainWindow.articleInfo
         var data = info
         data.rawData = mainWindow.composerObj.dumpArticle()
+        data.platforms = ["patternfinance", "medium"]
         return data
     }
 

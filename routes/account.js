@@ -4,6 +4,7 @@ var express = require('express');
 var deasync = require('deasync');
 var moment = require('moment');
 var assert = require('assert');
+var async = require('async');
 var path = require('path');
 var fs = require('fs');
 
@@ -40,9 +41,69 @@ router.post('/addArticle', function(req, res, next) {
 	if ("物是评测" === category) {
 		type = "评测"
 	}
+	var rawData = req.body.rawData
+	var platforms = req.body.platforms
+	// now we get all platforms writer want to publish to
 
-	var result = {}
+	async.parallel([
+	    function(callback) {
+	    	// 磨石金融
+	    	if (platforms.indexOf("patternfinance") >= 0) {
+	    		publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, callback)
+	    	} else {
+		    	callback(null, 'patternfinance:skip');
+	    	}
+	    },
+	    function(callback) {
+	    	// Medium
+	    	if (platforms.indexOf("medium") >= 0) {
+	    		var token = "2b883721714b12cf328d0cea259b684bf49492f171164b4ddd812d2b6a877dad8"
+	    		publish2Medium(title, token, callback)
+	    	} else {
+		    	callback(null, 'medium:skip');
+	    	}
+	    },
+	    function(callback) {
+	    	// 今日头条
+	    	if (platforms.indexOf("jrtt") >= 0) {
+				publish2JRTT(callback)
+	    	} else {
+		    	callback(null, 'jrtt:skip');
+	    	}
+	    },
+	    function(callback) {
+	    	// 微信公众号
+	    	if (platforms.indexOf("wxmp") >= 0) {
+				publish2WXMP(callback)
+	    	} else {
+		    	callback(null, 'wxmp:skip');
+	    	}
+	    },
+	    function(callback) {
+	    	// 雪球
+	    	if (platforms.indexOf("xueqiu") >= 0) {
+				publish2Xueqiu(callback)
+	    	} else {
+		    	callback(null, 'xueqiu:skip');
+	    	}
+	    },
+	    function(callback) {
+	    	// 新浪财经头条号
+	    	if (platforms.indexOf("sinacj") >= 0) {
+				publish2Sinacj(callback)
+	    	} else {
+		    	callback(null, 'sinacj:skip');
+	    	}
+	    }
+	],
+	// async.parallel callback
+	function(err, results) {
+		var atMs = (new Date).getTime()
+		res.send({ success: "true", resultsArray: results, actionTimeInMs: atMs })
+	});
+});
 
+function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, callback) {
 	// save to db
 	global.mongodb.collection('article').update( 
 	{ "articleId": id },
@@ -78,67 +139,63 @@ router.post('/addArticle', function(req, res, next) {
     var now = moment()
     var fmt = "YYYY-MM-DD hh:mm"
 	var from = now.format(fmt)
-	var qmlData = buildArticle(id, title, type, category, authorName, lede, from, cover, req.body.rawData)
+	var qmlData = buildArticle(id, title, type, category, authorName, lede, from, cover, rawData)
 
     var data_dir = path.join(global.dirRoot, 'qml/qml/')
     var file_path = data_dir + 'article_' + id + '.qml'
     fs.writeFile(file_path, qmlData, function(err) {
         if (err) {
-            console.log(err);
-            result.success = false
+            callback(err, 'patternfinance:fail')
         } else {
-        	result.success = true
+        	callback(null, 'patternfinance:success')
         }
-
-		result.actionTimeInMs = (new Date).getTime()
-		res.send(result)
     });
-});
+}
 
-router.post('/publishArticle2Medium', function(req, res, next) {
-	console.log("publishArticle2Medium")
-	// article id on Pattern Finance
-	var id = req.body.id
-	id = "kmrg8gea"
+function publish2Medium(title, token, callback) {
+	mediumClient.setAccessToken(token)
+	mediumClient.getUser(function(uErr, user) {
+		if (uErr) {
+			callback(uErr, 'medium:fail');
+			return
+		} else {
+			if (null === user) {
+				callback(null, 'medium:fail');
+				return
+			}
+		}
 
-	var result = {}
+		mediumClient.createPost({
+			userId: user.id,
+			title: title,
+			contentFormat: medium.PostContentFormat.HTML,
+			content: '<h1>A New Post</h1><p>This is my new post from 磨石金融.</p>',
+			publishStatus: medium.PostPublishStatus.DRAFT
+		}, function(err, post) {
+			if (err) {
+				callback(err, 'medium:fail');
+			} else {
+				callback(null, 'medium:success');
+			}
+		})
+	})
+}
 
-	var cursor = global.mongodb.collection("article").find({ "articleId": id });
-	cursor.each(function(err, doc) {
-		assert.equal(err, null);
+function publish2JRTT(callback) {
+	callback(null, 'jrtt:fail');
+}
 
-	  	if (doc != null) {
-	  		var title = doc.title
+function publish2WXMP(callback) {
+	callback(null, 'wxmp:fail');
+}
 
-	  		console.log("Start publishing article to Medium.")
+function publish2Xueqiu(callback) {
+	callback(null, 'xueqiu:fail');
+}
 
-	  		mediumClient.setAccessToken("2b883721714b12cf328d0cea259b684bf49492f171164b4ddd812d2b6a877dad8")
-			mediumClient.getUser(function(err, user) {
-				console.log("err: ", err)
-				console.log("user: ", user)
-
-				if (null === user) {
-					result.success = false
-					result.errcode = -1 // server error
-					res.send(result)
-					return
-				}
-
-				mediumClient.createPost({
-					userId: user.id,
-					title: 'A new post',
-					contentFormat: medium.PostContentFormat.HTML,
-					content: '<h1>A New Post</h1><p>This is my new post from 磨石金融.</p>',
-					publishStatus: medium.PostPublishStatus.DRAFT
-				}, function(err, post) {
-					console.log(token, user, post)
-					result.success = true
-					res.send(result)
-				})
-			})
-	  	}
-	});
-});
+function publish2Sinacj(callback) {
+	callback(null, 'sinacj:fail');
+}
 
 function buildArticle(id, title, type, category, authorName, lede, from, cover, rawData) {
 	var article = "import QtQuick 2.5"
