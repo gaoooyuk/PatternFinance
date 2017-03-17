@@ -37,12 +37,52 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "官网: http://tushare.org/"
+            content: "官网: http://tushare.org/\nGithub: https://github.com/waditu/tushare (Python)"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "Github: https://github.com/waditu/tushare (Python)"
+            content: "<strong>恒生OpenAPI</strong>  恒生开放平台提供多品种多市场的交易所行情数据和金融业资讯数据。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "恒生开放平台: https://open.hscloud.cn/openplat/index.html"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>通联数据</strong>  开放金融数据平台，整合了包括股票、基金、期货、期权和港股方面的全品类金融数据。可以使用TuShare调用通联数据API。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "官网: https://app.wmcloud.com/cloud-portal\nTuShare调用: http://tushare.org/datayes.html"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>Wind数据</strong>  Wind经济数据库整合了海量全球宏观和行业统计数据，而Datafeed数据服务为量化投资与各类金融业务系统提供准确、及时、完整的落地数据。Wind是中国市场的精准金融数据服务供应商。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "经济数据库: http://www.wind.com.cn/NewSite/edb.html\nDatafeed数据服务: http://www.wind.com.cn/NewSite/data.html"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>数库金融数据</strong>  目前价格为6000元/月。提供A股、新三板、港股和中概股等的基本面信息和行业分类信息。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "数库开发者中心: http://developer.chinascope.com/"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>国外主流数据源</strong>  一份包含了Bloomberg、晨星和Capital IQ等的数据源列表。由Quantpedia维护。 列表地址: http://quantpedia.com/Links/HistoricalData"
         }
         ListElement {
             type: "sectionHeader"
@@ -57,12 +97,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "官网: http://ta-lib.org/"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "Github: https://github.com/mrjbq7/ta-lib (Python)"
+            content: "官网: http://ta-lib.org/\nGithub: https://github.com/mrjbq7/ta-lib (Python)"
         }
         ListElement {
             type: "txt"
