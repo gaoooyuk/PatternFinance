@@ -25,6 +25,16 @@ router.get('/partners', function(req, res, next) {
 	})
 });
 
+router.get('/liqi', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('liqi', 
+	{ 
+		"html_description": "",
+		"html_keywords": "利器,磨石金融,Python,TALib,scikit-learn"
+	})
+});
+
 router.get('/about', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 
