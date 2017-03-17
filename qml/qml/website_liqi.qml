@@ -20,6 +20,11 @@ Rectangle {
     ListModel {
         id: contentModel
         ListElement {
+            type: "txt"
+            ratio: 1
+            content: "\n利器版本: 2017-03-17 16:09"
+        }
+        ListElement {
             type: "sectionHeader"
             ratio: 1
             content: "财经数据"
@@ -27,7 +32,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>TuShare</strong>"
+            content: "<strong>TuShare</strong>  一个免费、开源的python财经数据接口包。主要实现对股票等金融数据从数据采集、清洗加工到数据存储的过程，能够为金融分析人员提供快速、整洁、和多样的便于分析的数据，为他们在数据获取方面极大地减轻工作量，使他们更加专注于策略和模型的研究与实现上。"
         }
         ListElement {
             type: "txt"
@@ -40,19 +45,14 @@ Rectangle {
             content: "Github: https://github.com/waditu/tushare (Python)"
         }
         ListElement {
-            type: "txt"
-            ratio: 1
-            content: "TuShare是一个免费、开源的python财经数据接口包。主要实现对股票等金融数据从数据采集、清洗加工到数据存储的过程，能够为金融分析人员提供快速、整洁、和多样的便于分析的数据，为他们在数据获取方面极大地减轻工作量，使他们更加专注于策略和模型的研究与实现上。"
-        }
-        ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "技术分析(技术指标/技术图形)"
+            content: "技术分析(技术指标/技术图形/时间序列)"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>TA-Lib</strong>"
+            content: "<strong>TA-Lib</strong>  提供200种技术分析指标和蜡烛图模式识别API。包括MACD、RSI、Bollinger Bands、十字星线、蜻蜓星等在实战中使用频率较高的指标和图形。"
         }
         ListElement {
             type: "txt"
@@ -67,7 +67,72 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "提供200种技术分析指标和蜡烛图模式识别API。包括MACD、RSI、Bollinger Bands、十字星线、蜻蜓星等在实战中使用频率较高的指标和图形。"
+            content: "<strong>ARCH</strong>  使用ARCH相关模型对时间序列进行分析。提供Volatility Modeling、Unit Root Tests(ADF/KPSS/Phillips-Perron)和Bootstrap等API。Github地址: https://github.com/bashtage/arch"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>statsmodels</strong>  功能强大的统计建模和计量经济学工具包。Github地址: https://github.com/statsmodels/statsmodels"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "交易系统 - 回测"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>Zipline</strong> (Python)  Quantopian背后的回测引擎。Github地址: https://github.com/quantopian/zipline"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>RQAlpha</strong> (Python)  由Ricequant米筐科技开源的回测引擎。Github地址: https://github.com/ricequant/rqalpha"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "交易系统 - 交易API"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "在这里我们收录了一些LTS(由券商提供的自由交易系统)和CTP(统一行情交易接口)提供商和API。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>华宝证券 LTS</strong>"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "交易系统 - 杂项"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "Watchlist"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "我们在这里收录了一些暂未分类的产品和它们背后的(金融)科技公司。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>Prophet</strong> (Python/R/Time Series)  出自于Facebook的Core Data Science团队。Prophet适用于大规模的时间序列预测。Github地址: https://github.com/facebookincubator/prophet"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>pyfora</strong> (Python/分布式计算)  由一家名叫Ufora的公司开发。主要应用于对数据分析、量化建模和其他一些任务的分布式计算。Github地址: https://github.com/ufora/ufora"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: ""
         }
         ListElement {
             type: "txt"
