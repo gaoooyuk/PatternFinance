@@ -32,6 +32,11 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
+            content: "行情历史数据(快照、逐笔、日K线、分钟K线以及集合竞价)可以直接联系上证所购买(http://sseinfo.com/services/assortment/historical/)。除此之外，我们也收录了一些免费的或者收费较低的数据产品。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
             content: "<strong>TuShare</strong>  一个免费、开源的python财经数据接口包。主要实现对股票等金融数据从数据采集、清洗加工到数据存储的过程，能够为金融分析人员提供快速、整洁、和多样的便于分析的数据，为他们在数据获取方面极大地减轻工作量，使他们更加专注于策略和模型的研究与实现上。"
         }
         ListElement {
@@ -62,7 +67,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>Wind数据</strong>  Wind经济数据库整合了海量全球宏观和行业统计数据，而Datafeed数据服务为量化投资与各类金融业务系统提供准确、及时、完整的落地数据。Wind是中国市场的精准金融数据服务供应商。"
+            content: "<strong>Wind数据</strong>  Wind(万得)经济数据库整合了海量全球宏观和行业统计数据，而Datafeed数据服务为量化投资与各类金融业务系统提供准确、及时、完整的落地数据。Wind是中国市场的精准金融数据服务供应商。提供部分免费数据。"
         }
         ListElement {
             type: "txt"
