@@ -35,6 +35,16 @@ router.get('/liqi', function(req, res, next) {
 	})
 });
 
+router.get('/edge', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('edge', 
+	{ 
+		"html_description": "磨石金融Edge频道为您收录世界上最前沿的量化交易研究和金融科技创新。",
+		"html_keywords": "前沿,Edge,磨石金融,宽客,量化交易,学术研究,量化对冲基金,Quant,Quatitative,Hedge Fund,Strategy"
+	})
+});
+
 router.get('/about', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 
