@@ -104,53 +104,75 @@ router.post('/addArticle', function(req, res, next) {
 	});
 });
 
-function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, callback) {
-	// save to db
-	global.mongodb.collection('article').update( 
-	{ "articleId": id },
-	{ 
-		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": title,
-			"cover": "../articledata/covers/" + cover,
-			"lede": lede,
-			"type": type,
-			"category": category
+function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, cb) {
+	async.parallel([
+	    function(callback) {
+		    var now = moment()
+		    var fmt = "YYYY-MM-DD hh:mm"
+			var from = now.format(fmt)
+			var qmlData = buildArticle(id, title, type, category, authorName, lede, from, cover, rawData)
+
+		    var data_dir = path.join(global.dirRoot, 'qml/qml/')
+		    var file_path = data_dir + 'article_' + id + '.qml'
+		    fs.writeFile(file_path, qmlData, function(err) {
+		        if (err) {
+		            callback(err, 'qmlfile:fail')
+		        } else {
+		        	callback(null, 'qmlfile:success')
+		        }
+		    });
+	    },
+	    function(callback) {
+		    var data_dir = path.join(global.dirRoot, 'origins/')
+		    var file_path = data_dir + id + '.txt'
+		    fs.writeFile(file_path, rawData, function(err) {
+		        if (err) {
+		            callback(err, 'originsfile:fail')
+		        } else {
+	  				// extract keywords from article
+					extractKeywords(id, function(keywords) {
+						global.mongodb.collection('article').update( 
+						{ "articleId": id },
+						{ $set: { "keywords": keywords } },
+						{ upsert: true } );
+						callback(null, 'originsfile+keywords:success');
+					});
+		        }
+		    });
+	    },
+	    function(callback) {
+			// generate QR code
+			generateQRCode4PatternFinance(id)
+			callback(null, 'qrcode:success');
+	    },
+	    function(callback) {
+			// save to db
+			global.mongodb.collection('article').update( 
+			{ "articleId": id },
+			{ 
+				$set: { 
+					"viewedTimes": 0,
+					"likedTimes": 0,
+					"sharedTimes": 0,
+					"title": title,
+					"cover": "../articledata/covers/" + cover,
+					"lede": lede,
+					"type": type,
+					"category": category
+				}
+			},
+			{ upsert: true } );
+			callback(null, 'db:success');
+	    }
+	],
+	// async.parallel callback
+	function(err, results) {
+		if (err) {
+			cb(err, 'patternfinance:fail')
+		} else {
+			cb(null, 'patternfinance:success')
 		}
-	},
-	{ upsert: true } );
-
-	// generate QR code
-	var api_dir = path.join(global.dirRoot, 'tools/qrcode')
-	var out_dir = path.join(global.dirRoot, 'qml/articledata/qrcodes')
-	var articleUrl = "https://www.patternfinance.com/article/" + id
-	var qrFn = id + ".png"
-    var options = {
-        mode: 'text',
-        pythonPath: '/usr/bin/python2.7',
-        scriptPath: api_dir,
-        args: [articleUrl, "-n", qrFn, "-d", out_dir]
-    };
-
-    pyShell.run('myqr.py', options, function(err, results) {
-    });
-
-    var now = moment()
-    var fmt = "YYYY-MM-DD hh:mm"
-	var from = now.format(fmt)
-	var qmlData = buildArticle(id, title, type, category, authorName, lede, from, cover, rawData)
-
-    var data_dir = path.join(global.dirRoot, 'qml/qml/')
-    var file_path = data_dir + 'article_' + id + '.qml'
-    fs.writeFile(file_path, qmlData, function(err) {
-        if (err) {
-            callback(err, 'patternfinance:fail')
-        } else {
-        	callback(null, 'patternfinance:success')
-        }
-    });
+	});
 }
 
 function publish2Medium(title, rawData, token, callback) {
@@ -292,6 +314,42 @@ function buildMarkdownArticle(title, rawData) {
     }
 
 	return md
+}
+
+function generateQRCode4PatternFinance(id) {
+	var api_dir = path.join(global.dirRoot, 'tools/qrcode')
+	var out_dir = path.join(global.dirRoot, 'qml/articledata/qrcodes')
+	var articleUrl = "https://www.patternfinance.com/article/" + id
+	var qrFn = id + ".png"
+    var options = {
+        mode: 'text',
+        pythonPath: '/usr/bin/python2.7',
+        scriptPath: api_dir,
+        args: [articleUrl, "-n", qrFn, "-d", out_dir]
+    };
+
+    pyShell.run('myqr.py', options, function(err, results) {
+    });
+}
+
+function extractKeywords(articleId, callback) {
+	var fn = articleId + ".txt"
+	var api_dir = path.join(global.dirRoot, 'tools')
+    var options = {
+        mode: 'text',
+        pythonPath: '/usr/bin/python2.7',
+        scriptPath: api_dir,
+        args: [fn]
+    };
+
+    pyShell.run('gKeywords.py', options, function(err, results) {
+    	if (err) {
+    		console.log(err)
+    		callback("")
+    	} else {
+    		callback(results[0])
+    	}
+    });
 }
 
 function correctHtmlContent(content) {
