@@ -120,45 +120,31 @@ Rectangle {
             width: parent.width
             height: 60
 
-            Image {
-                id: adminEditImg
-                width: 16
-                height: 20
-                anchors.horizontalCenter: parent.horizontalCenter
+            Text {
+                id: metaBtn
+                width: 60
+                height: 16
+                anchors.right: visibilityCombo.left
+                anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
-                source: "../imgs/dashboard/gene.png"
+                font.pixelSize: 14
+                color: "#9b9b9b"
+                text: "编辑Meta"
 
                 GeneralMouseArea {
-                    onEntered: {
-                        adminEditImg.source = "../imgs/dashboard/geneHover.png"
-                    }
-                    onExited: {
-                        adminEditImg.source = "../imgs/dashboard/gene.png"
-                    }
                     onClicked: {
-                        adminEditPanel.visible = true
+                        adminEditPanel.visible = !adminEditPanel.visible
                     }
                 }
             }
 
             Item {
                 id: visibilityCombo
-                width: 90
+                width: 40
                 height: 40
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
-
-                Text {
-                    width: 42
-                    height: 16
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 14
-                    color: "#8a8a8a"
-                    text: "发布到"
-                }
 
                 Text {
                     id: visibilityText
@@ -522,7 +508,8 @@ Rectangle {
         width: 300
         height: 400
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 60
+        anchors.right: parent.right
         radius: 5
         visible: false
 
