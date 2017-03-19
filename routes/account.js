@@ -42,6 +42,10 @@ router.post('/addArticle', function(req, res, next) {
 	if ("物是评测" === category) {
 		type = "评测"
 	}
+	var status = "public" // draft, public, private
+	if (req.body.status) {
+		status = req.body.status
+	}
 	var rawData = req.body.rawData
 	var platforms = req.body.platforms
 	// now we get all platforms writer want to publish to
@@ -50,7 +54,7 @@ router.post('/addArticle', function(req, res, next) {
 	    function(callback) {
 	    	// 磨石金融
 	    	if (platforms.indexOf("patternfinance") >= 0) {
-	    		publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, callback)
+	    		publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, status, callback)
 	    	} else {
 		    	callback(null, 'patternfinance:skip');
 	    	}
@@ -104,7 +108,7 @@ router.post('/addArticle', function(req, res, next) {
 	});
 });
 
-function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, cb) {
+function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, status, cb) {
 	async.parallel([
 	    function(callback) {
 		    var now = moment()
@@ -154,6 +158,7 @@ function publish2PatternFinance(id, title, cover, lede, type, category, authorNa
 					"viewedTimes": 0,
 					"likedTimes": 0,
 					"sharedTimes": 0,
+					"status": status,
 					"title": title,
 					"cover": "../articledata/covers/" + cover,
 					"lede": lede,

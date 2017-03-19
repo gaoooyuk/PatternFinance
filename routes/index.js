@@ -162,8 +162,12 @@ router.get('/article/*', function(req, res, next) {
 		assert.equal(err, null);
 
 	  	if (doc != null) {
-	  		article = doc
-	  		find = true
+	  		// only list public and draft articles
+	  		// list draft articles if user got an id
+	  		if ("private" !== doc.status) {
+		  		article = doc
+		  		find = true
+	  		}
 	  	}
 
 	  	done = true

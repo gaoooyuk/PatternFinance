@@ -161,6 +161,7 @@ Rectangle {
                     ai.cover = "../imgs/dashboard/defaultCover.png"
                     ai.lede = ""
                     ai.category = "投资故事"
+                    ai.status = "public"
                     mainWindow.articleInfo = ai
                     composer.initArticleInfo(ai)
                     if (contentArray) {

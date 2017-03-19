@@ -12,6 +12,7 @@ Rectangle {
 
     // impl related variables
     property int currentSelectedItemIndex: -1
+    property string publishStatus: "public" // private, draft, public
 
     signal articleInfoChanged(var info)
     signal resetInputAsModel()
@@ -55,6 +56,7 @@ Rectangle {
         info.cover = aeModel.get(2).value
         info.lede = aeModel.get(3).value
         info.category = aeModel.get(4).value
+        info.status = mainWindow.publishStatus
         mainWindow.articleInfoChanged(info)
     }
 
@@ -135,6 +137,59 @@ Rectangle {
                     }
                     onClicked: {
                         adminEditPanel.visible = true
+                    }
+                }
+            }
+
+            Item {
+                id: visibilityCombo
+                width: 90
+                height: 40
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+
+                Text {
+                    width: 42
+                    height: 16
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 14
+                    color: "#8a8a8a"
+                    text: "发布到"
+                }
+
+                Text {
+                    id: visibilityText
+                    width: 28
+                    height: 16
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 14
+                    color: "#9b9b9b"
+                    text: "private" === mainWindow.publishStatus
+                          ? "私有"
+                          : "draft" === mainWindow.publishStatus
+                            ? "草稿"
+                            : "公开"
+
+                    GeneralMouseArea {
+                        onClicked: {
+                            if ("private" === mainWindow.publishStatus) {
+                                mainWindow.publishStatus = "draft"
+                            } else if ("draft" === mainWindow.publishStatus) {
+                                mainWindow.publishStatus = "public"
+                            } else {
+                                mainWindow.publishStatus = "private"
+                            }
+                            mainWindow.updateArticleInfo()
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        var css = visibilityText.dom.firstChild.style
+                        css.borderBottom = "2px dotted #d8d8d8"
                     }
                 }
             }
