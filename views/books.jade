@@ -1,0 +1,106 @@
+doctype html
+html
+  head
+    title Books | 磨石金融
+    script(type="text/javascript"
+      src="lib/qt.js")
+    meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width,initial-scale=1")
+    meta(name="googlebot" content="NOODP")
+    meta(name="description" content=html_description)
+    meta(name="keywords" content=html_keywords)
+    script.
+      var _vds = _vds || [];
+      window._vds = _vds;
+      (function(){
+      _vds.push(['setAccountId', '8c80410b5bc2dd32']);
+      (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+      })();
+      })();
+    script.
+      (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+      }
+      else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+      })();
+    link(rel='stylesheet', type='text/css', href='public/stylesheets/article.css')
+    link(rel="shortcut icon" href='public/images/ico/favicon.ico')
+  body
+    div#embed
+    script.
+      (function() {
+      var div = document.getElementById('embed');
+      var engine = new QmlWeb.QMLEngine(div);
+      engine.loadFile('qml/website_books.qml');
+      engine.start();
+      })();
+    footer.global-footer
+      
+      section.footer-main
+        
+        div.main-inner
+          
+          div.mck-logo-icon
+            a(class="rootLink item-home colorize" href="/")
+              h1
+                img(src='imgs/partner/pattern.svg')
+          
+          div.main-section
+
+            div.subscribe
+              span.title 发现最合适你的投资模式
+              p 现在就申请加入磨石金融“投资者联盟”
+
+              form(class="form-content subscribe-form" id="subscribeForm" method="post" action="https://www.patternfinance.com/user-registration/register" data-authenticated-action="https://www.patternfinance.com/user-registration/signin" novalidate="novalidate")
+                div(class="col-two form-group")
+                  label(for="signupemail" class="visually-hidden") 邮箱地址
+                  input(type="email" id="signupemail" name="signupemail" placeholder="邮箱地址" data-rule-required="true" data-rule-email="true" data-msg-email="请您输入一个有效的邮箱地址" data-msg-required="请输入您的邮箱地址" aria-required="true")
+                  span.help-block
+                  span.mck-alert-icon
+
+                div.col-one
+                  input(class="btn-submit" type="submit" id="" value="发送" aria-label="submit For email alerts")
+
+            ul.social-links
+              li 
+                strong 探索持续获利的投资模式
+              li 
+                a(href="/research" class="" target="_blank") 磨石研究: 探寻可被复制的获利模式
+              li 
+                a(href="/review" class="" target="_blank") 物是评测: 最全面的金融产品评测
+              li 
+                a(href="/story" class="" target="_blank") 投资故事: 投资即人生
+              li 
+                a(href="/company" class="" target="_blank") 金融帝国: 资本市场里最为人熟知的大鳄
+              li 
+                a(href="https://www.gimletech.com" class="" target="_blank") Gimletech: 金融科技与投资利器的结合
+          
+            ul.utility-links
+              li 
+                strong 关于我们
+              li 
+                a(href="/joinus" class="" target="_blank") 加入我们
+              li 
+                a(href="/partners" class="" target="_blank") 商务合作
+      
+      section.footer
+        div.footer-inner
+          div.footer-section
+            div.app-description
+                strong 版权所有 
+                | © Pattern Finance 2017。以商业目的使用Pattern Finance网站内容需获许可。非商业目的使用授权遵循 CC BY-NC 4.0
+            div.copyright
+              a(style="color: #fbfbfb" href="http://www.miibeian.gov.cn/") 粤 ICP 备 020217557 号
