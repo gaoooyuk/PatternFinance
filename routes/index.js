@@ -35,6 +35,16 @@ router.get('/liqi', function(req, res, next) {
 	})
 });
 
+router.get('/mindstore', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('mindstore', 
+	{ 
+		"html_description": "在Mindstore频道发现最近都有哪些不容错过的讲座和会议。",
+		"html_keywords": "Mindstore,讲座,会议,磨石金融,学术会议,Conference,Seminar,Talk,Pitch"
+	})
+});
+
 router.get('/edge', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 
