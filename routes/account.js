@@ -109,7 +109,15 @@ router.post('/addArticle', function(req, res, next) {
 });
 
 router.post('/updateArticle', function(req, res, next) {
-	res.send({})
+	var meta = req.body.meta
+	global.mongodb.collection('article').update( 
+	{ "articleId": req.body.articleId },
+	{ 
+		$set: meta
+	},
+	{ upsert: false } );
+	meta.articleId = req.body.articleId
+	res.send(meta)
 });
 
 function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, status, cb) {

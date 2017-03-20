@@ -5,11 +5,12 @@ import QtGraphicalEffects 1.0
 Rectangle {
     id: mainWindow
     width: parent.width
-    height: notifyBar.height + articlesPanel.height
+    height: notifyBar.height + tabBar.height + articlesPanel.height
 
     property int channelWidth: 500
     property int channelHeight: 80
     property int channelSpacing: 10
+    property bool editMode: false
 
     function showNotificationBubble(success, content) {
         notifyBubble.source = "../imgs/dashboard/pSuccess.png"
@@ -22,29 +23,34 @@ Rectangle {
     function listArticles(articles) {
         articleModel.clear()
         for (i in articles) {
-            articleModel.append(articles[i])
+            var article = articles[i]
+            article.selected = false
+            articleModel.append(article)
         }
         articlesPanel.height = mainWindow.channelHeight * articleModel.count
-        mainWindow.height = notifyBar.height + articlesPanel.height
+        mainWindow.height = notifyBar.height + tabBar.height + articlesPanel.height
 
         var bubble = "您已发布文章" + articles.length + "篇"
         showNotificationBubble(true, bubble)
     }
 
-    function changeArticleStatus(idx, articleId, status) {
+    function updateArticle(idx, articleId, meta) {
+        console.log("updateArticle: ", meta)
         var url = "account/updateArticle"
         var body = {}
         body.articleId = articleId
-        body.status = status
+        body.meta = meta
         network.httpPost(url, body, function(res) {
             try {
                 var article = JSON.parse(res)
                 // check if returned article is the one we want to modify
                 if (articleModel.get(idx).articleId === article.articleId) {
-                    articleModel.setProperty(idx, "status", status)
+                    for (k in article) {
+                        articleModel.setProperty(idx, k, article[k])
+                    }
                 }
             } catch(e) {
-                console.log("JSON parse error(ArticleBox.qml changeArticleStatus): ", e)
+                console.log("JSON parse error(ArticleBox.qml updateArticle): ", e)
             }
         })
     }
@@ -53,13 +59,42 @@ Rectangle {
         id: articleModel
     }
 
+    ListModel {
+        id: aeModel
+        ListElement {
+            key: "id"
+            name: "标识"
+            value: ""
+        }
+        ListElement {
+            key: "author"
+            name: "作者"
+            value: ""
+        }
+        ListElement {
+            key: "cover"
+            name: "封面"
+            value: ""
+        }
+        ListElement {
+            key: "lede"
+            name: "导言"
+            value: ""
+        }
+        ListElement {
+            key: "category"
+            name: "专栏"
+            value: ""
+        }
+    }
+
     Column {
         anchors.fill: parent
 
         Rectangle {
             id: notifyBar
             width: parent.width
-            height: 200
+            height: 160
 
             Image {
                 id: notifyBubble
@@ -76,6 +111,49 @@ Rectangle {
                     color: "white"
                     onTextChanged: {
                         notifyText.width = notifyText.dom.firstChild.offsetWidth
+                    }
+                }
+            }
+        }
+
+        Item {
+            id: tabBar
+            width: articlesPanel.width
+            height: 40
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Rectangle {
+                width: parent.width
+                height: 2
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+                color: "#fafafa"
+            }
+
+            Text {
+                width: 64
+                height: 16
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                font.pixelSize: 16
+                color: "#8a8a8a"
+                text: "所有文章"
+            }
+
+            Text {
+                width: 96
+                height: 16
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                font.pixelSize: 16
+                color: "#8a8a8a"
+                text: mainWindow.editMode
+                      ? "退出编辑模式"
+                      : "进入编辑模式"
+
+                GeneralMouseArea {
+                    onClicked: {
+                        mainWindow.editMode = !mainWindow.editMode
                     }
                 }
             }
@@ -116,6 +194,28 @@ Rectangle {
                                 hoverBg.visible = false
                             }
                             onClicked: {
+                                if (mainWindow.editMode) {
+                                    if (editLoader.hasEditor) {
+                                        return
+                                    }
+
+                                    editLoader.hasEditor = true
+                                    editLoader.source = "MetaEditorItem.qml"
+                                    var metaEditor = editLoader.item
+                                    metaEditor.saveMetaRequest.connect(function(meta) {
+                                        mainWindow.updateArticle(index, articleId, meta)
+                                    })
+
+                                    metaEditor.dismiss.connect(function() {
+                                        editLoader.source = ""
+                                        editLoader.hasEditor = false
+                                        articleDelegate.height = mainWindow.channelHeight
+                                    })
+                                    articleDelegate.height = 300
+                                } else {
+                                    var url = "/article/" + articleId
+                                    Qt.openUrlExternally(url)
+                                }
                             }
                         }
 
@@ -144,21 +244,6 @@ Rectangle {
                                   : "draft" === status
                                     ? "草稿"
                                     : "公开"
-
-                            GeneralMouseArea {
-                                onClicked: {
-                                    var newStatus = status
-                                    if ("private" === status) {
-                                        newStatus = "draft"
-                                    } else if ("public" === status) {
-                                        newStatus = "private"
-                                    } else if ("draft" === status) {
-                                        newStatus = "public"
-                                    }
-
-                                    // mainWindow.changeArticleStatus(index, articleId, newStatus)
-                                }
-                            }
 
                             Component.onCompleted: {
                                 var css = visibilityText.dom.firstChild.style
@@ -190,6 +275,12 @@ Rectangle {
                             font.pixelSize: 14
                             color: "#4a4a4a"
                             text: lede
+                        }
+
+                        Loader {
+                            id: editLoader
+                            anchors.fill: parent
+                            property bool hasEditor: false
                         }
                     }
                 }
