@@ -108,6 +108,10 @@ router.post('/addArticle', function(req, res, next) {
 	});
 });
 
+router.post('/updateArticle', function(req, res, next) {
+	res.send({})
+});
+
 function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, status, cb) {
 	async.parallel([
 	    function(callback) {

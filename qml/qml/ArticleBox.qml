@@ -20,13 +20,33 @@ Rectangle {
     }
 
     function listArticles(articles) {
-        console.log("listArticles: ", articles.length)
         articleModel.clear()
         for (i in articles) {
             articleModel.append(articles[i])
         }
         articlesPanel.height = mainWindow.channelHeight * articleModel.count
         mainWindow.height = notifyBar.height + articlesPanel.height
+
+        var bubble = "您已发布文章" + articles.length + "篇"
+        showNotificationBubble(true, bubble)
+    }
+
+    function changeArticleStatus(idx, articleId, status) {
+        var url = "account/updateArticle"
+        var body = {}
+        body.articleId = articleId
+        body.status = status
+        network.httpPost(url, body, function(res) {
+            try {
+                var article = JSON.parse(res)
+                // check if returned article is the one we want to modify
+                if (articleModel.get(idx).articleId === article.articleId) {
+                    articleModel.setProperty(idx, "status", status)
+                }
+            } catch(e) {
+                console.log("JSON parse error(ArticleBox.qml changeArticleStatus): ", e)
+            }
+        })
     }
 
     ListModel {
@@ -50,11 +70,13 @@ Rectangle {
 
                 Text {
                     id: notifyText
-                    width: 112
                     height: 18
                     anchors.centerIn: parent
                     font.pixelSize: 16
                     color: "white"
+                    onTextChanged: {
+                        notifyText.width = notifyText.dom.firstChild.offsetWidth
+                    }
                 }
             }
         }
@@ -86,6 +108,17 @@ Rectangle {
                         width: articlesPanel.width
                         height: mainWindow.channelHeight
 
+                        GeneralMouseArea {
+                            onEntered: {
+                                hoverBg.visible = true
+                            }
+                            onExited: {
+                                hoverBg.visible = false
+                            }
+                            onClicked: {
+                            }
+                        }
+
                         Rectangle {
                             id: hoverBg
                             width: parent.width
@@ -114,6 +147,16 @@ Rectangle {
 
                             GeneralMouseArea {
                                 onClicked: {
+                                    var newStatus = status
+                                    if ("private" === status) {
+                                        newStatus = "draft"
+                                    } else if ("public" === status) {
+                                        newStatus = "private"
+                                    } else if ("draft" === status) {
+                                        newStatus = "public"
+                                    }
+
+                                    // mainWindow.changeArticleStatus(index, articleId, newStatus)
                                 }
                             }
 
@@ -147,18 +190,6 @@ Rectangle {
                             font.pixelSize: 14
                             color: "#4a4a4a"
                             text: lede
-                        }
-
-                        GeneralMouseArea {
-                            onEntered: {
-                                hoverBg.visible = true
-                            }
-                            onExited: {
-                                hoverBg.visible = false
-                            }
-                            onClicked: {
-                                Qt.openUrlExternally("/article/" + articleId)
-                            }
                         }
                     }
                 }
