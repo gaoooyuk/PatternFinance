@@ -15,7 +15,23 @@ Rectangle {
     property string apiBase: "/account"
     property var composerObj
     property var sentBoxObj
+    property var articleBoxObj
     property var articleInfo
+
+    function getAllArticles() {
+        // TODO: user or admin
+        var url = "admin/allArticles"
+        network.httpPost(url, {}, function(res) {
+            try {
+                var articles = JSON.parse(res)
+                if (mainWindow.articleBoxObj) {
+                    mainWindow.articleBoxObj.listArticles(articles)
+                }
+            } catch(e) {
+                console.log("JSON parse error(Dashboard.qml getAllArticles): ", e)
+            }
+        })
+    }
 
     function publishArticle() {
         var url = apiBase + "/addArticle"
@@ -136,6 +152,13 @@ Rectangle {
                     font.pixelSize: 16
                     color: "#8a8a8a"
                     text: "查看我的文章列表"
+
+                    GeneralMouseArea {
+                        onClicked: {
+                            loader.loadArticleBox()
+                            mainWindow.getAllArticles()
+                        }
+                    }
                 }
             }
 
@@ -172,6 +195,20 @@ Rectangle {
                     composer.anchors.top = dbInner.top
                     composer.anchors.horizontalCenter = dbInner.horizontalCenter
                     changePublishBtnVisibility(true)
+                }
+
+                function loadArticleBox() {
+                    loader.source = "ArticleBox.qml"
+                    var abox = loader.item
+                    abox.heightChanged.connect(function() {
+                        dbInner.height = abox.height
+                    })
+                    mainWindow.articleBoxObj = abox
+
+                    abox.width = dbInner.width
+                    abox.anchors.top = dbInner.top
+                    abox.anchors.horizontalCenter = dbInner.horizontalCenter
+                    changePublishBtnVisibility(false)
                 }
 
                 function loadSentBox() {

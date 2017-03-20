@@ -17,6 +17,14 @@ router.post('/addWriter', function(req, res, next) {
 	res.send({ "success": true, "id": writer.id })
 });
 
+router.post('/allArticles', function(req, res, next) {
+	var articles = []
+	var cursor = global.mongodb.collection('article').find({})
+	cursor.toArray(function(err, docs) {
+		res.send(docs)
+	});
+});
+
 var gEmptyWriter = function() {
 	var writer = {}
 	writer.id = ""

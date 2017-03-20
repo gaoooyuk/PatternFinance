@@ -70,21 +70,13 @@ router.post('/addSharesCount4Article', function(req, res, next) {
 
 router.get('/addArticles', function(req, res, next) {
 	global.mongodb.collection('article').update( 
-	{ "articleId": "shanxinhui" },
+	{},
 	{ 
 		$set: { 
-			"viewedTimes": 0,
-			"likedTimes": 0,
-			"sharedTimes": 0,
-			"title": "深度揭秘善心汇：涉及150万人！慈善掩盖下的庞氏骗局！",
-			"cover": "http://mmbiz.qpic.cn/mmbiz_jpg/tTBWF9dweQzlcXHQ3WXDOOuLdljpaNChe1RXoaWnBqdxj5Bdia1CichxZs51Dqo4ialWUqrmgWCUKOcjkasUIVshA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
-			"lede": "善心汇究竟什么来历、是什么性质？为何那么多人涉足其中，甚至不惜与亲朋好友反目？",
-			"type": "评测",
-			"category": "物是评测",
-			"keywords": "善心汇,庞氏骗局"
+			"status": "public"
 		}
 	},
-	{ upsert: true } );
+	{ upsert: false, multi: true } );
 
 	// global.mongodb.collection('article').update( 
 	// { "category": "产品评测" },
