@@ -25,17 +25,31 @@ Rectangle {
         for (i in articles) {
             var article = articles[i]
             article.selected = false
+            article.editing = false
             articleModel.append(article)
         }
-        articlesPanel.height = mainWindow.channelHeight * articleModel.count
-        mainWindow.height = notifyBar.height + tabBar.height + articlesPanel.height
+        updateGeometry()
 
         var bubble = "您已发布文章" + articles.length + "篇"
         showNotificationBubble(true, bubble)
     }
 
+    function updateGeometry() {
+        var h = 0
+        for (var i = 0; i < articleModel.count; i++) {
+            if (articleModel.get(i).editing) {
+                h += 300
+            } else {
+                h += mainWindow.channelHeight
+            }
+        }
+
+        articlesPanel.height = h
+        mainWindow.height = notifyBar.height + tabBar.height + articlesPanel.height
+    }
+
     function updateArticle(idx, articleId, meta) {
-        console.log("updateArticle: ", meta)
+        // console.log("updateArticle: ", meta)
         var url = "account/updateArticle"
         var body = {}
         body.articleId = articleId
@@ -200,6 +214,7 @@ Rectangle {
                                     }
 
                                     editLoader.hasEditor = true
+                                    articleModel.setProperty(index, "editing", true)
                                     editLoader.source = "MetaEditorItem.qml"
                                     var metaEditor = editLoader.item
                                     metaEditor.saveMetaRequest.connect(function(meta) {
@@ -209,9 +224,12 @@ Rectangle {
                                     metaEditor.dismiss.connect(function() {
                                         editLoader.source = ""
                                         editLoader.hasEditor = false
+                                        articleModel.setProperty(index, "editing", false)
                                         articleDelegate.height = mainWindow.channelHeight
+                                        mainWindow.updateGeometry()
                                     })
                                     articleDelegate.height = 300
+                                    mainWindow.updateGeometry()
                                 } else {
                                     var url = "/article/" + articleId
                                     Qt.openUrlExternally(url)
