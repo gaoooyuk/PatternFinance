@@ -219,7 +219,7 @@ ArticleBase {
         ListElement { 
             type: "img"
             ratio: 0.75
-            content: "<img src="http://pic4.zhimg.com/v2-8eb652bad8123eedd8410116e889ddff_b.jpg" width="700" height="525">"
+            content: "http://pic4.zhimg.com/v2-8eb652bad8123eedd8410116e889ddff_b.jpg"
         }
         ListElement { 
             type: "txt"
