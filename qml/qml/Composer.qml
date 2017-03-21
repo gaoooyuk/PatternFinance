@@ -27,7 +27,9 @@ Rectangle {
     }
 
     function dumpArticle() {
+        var article = {}
         var d = []
+        var tocs = []
         for (var i = 0; i < content.count; i++) {
             var e = content.get(i)
             d.push({
@@ -35,9 +37,16 @@ Rectangle {
                        "ratio": e.ratio,
                        "content": e.content
                    })
+
+            if ("sectionHeader" === e.type) {
+                tocs.push(e.content)
+            }
         }
 
-        return JSON.stringify(d)
+        article.rawData = d
+        article.tocs = tocs
+
+        return article
     }
 
     ListModel {

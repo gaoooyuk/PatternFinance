@@ -49,6 +49,7 @@ router.post('/addArticle', function(req, res, next) {
 		status = req.body.status
 	}
 	var rawData = req.body.rawData
+	var tocs = req.body.tocs // table of content array
 	var platforms = req.body.platforms
 	// now we get all platforms writer want to publish to
 
@@ -56,7 +57,7 @@ router.post('/addArticle', function(req, res, next) {
 	    function(callback) {
 	    	// 磨石金融
 	    	if (platforms.indexOf("patternfinance") >= 0) {
-	    		publish2PatternFinance(id, title, cover, lede, type, category, author, rawData, status, callback)
+	    		publish2PatternFinance(id, title, cover, lede, type, category, author, rawData, tocs, status, callback)
 	    	} else {
 		    	callback(null, 'patternfinance:skip');
 	    	}
@@ -134,9 +135,20 @@ router.post('/importArticleFromUrl', function(req, res, next) {
 						for (k in resObj) {
 							meta[k] = resObj[k]
 						}
-						callback(null, "import:success")
+						callback(null, "import-zhihu:success")
 					} else {
-						callback(null, "import:fail")
+						callback(null, "import-zhihu:fail")
+					}
+	    		})
+	    	} else if ("xueqiu.com" === hostName) {
+	    		importFromXueqiu(url, function(success, resObj) {
+					if (success) {
+						for (k in resObj) {
+							meta[k] = resObj[k]
+						}
+						callback(null, "import-xueqiu:success")
+					} else {
+						callback(null, "import-xueqiu:fail")
 					}
 	    		})
 	    	} else {
@@ -150,7 +162,7 @@ router.post('/importArticleFromUrl', function(req, res, next) {
 	],
 	// optional callback
 	function(err, results) {
-		console.log("article: ", meta)
+		// console.log("article: ", meta)
 		var atMs = (new Date).getTime()
 		res.send({ success: "true", article: meta, actionTimeInMs: atMs })
 	});
@@ -168,13 +180,13 @@ router.post('/updateArticle', function(req, res, next) {
 	res.send(meta)
 });
 
-function publish2PatternFinance(id, title, cover, lede, type, category, author, rawData, status, cb) {
+function publish2PatternFinance(id, title, cover, lede, type, category, author, rawData, tocs, status, cb) {
 	async.parallel([
 	    function(callback) {
 		    var now = moment()
 		    var fmt = "YYYY-MM-DD hh:mm"
 			var from = now.format(fmt)
-			var qmlData = buildArticle(id, title, type, category, author, lede, from, cover, rawData)
+			var qmlData = buildArticle(id, title, type, category, author, lede, from, cover, rawData, tocs)
 
 		    var data_dir = path.join(global.dirRoot, 'qml/qml/')
 		    var file_path = data_dir + 'article_' + id + '.qml'
@@ -347,7 +359,7 @@ function importFromZhihu(url, cb) {
 						contentArray.push({
 							"type": "sectionHeader",
 							"ratio": 1,
-							"content": text
+							"content": String(text).trim()
 						})
 					}
 				},
@@ -366,7 +378,90 @@ function importFromZhihu(url, cb) {
 	});
 }
 
-function buildArticle(id, title, type, category, author, lede, from, cover, rawData) {
+function importFromXueqiu(url, cb) {
+	var meta = {}
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = "文章"
+	meta.category = "投资故事"
+	meta.author = ""
+	meta.rawData = ""
+
+	jsdom.env(url, [], function (err, window) {
+		if (err) {
+			cb(false, err);
+		} else {
+			var document = window.document
+
+			meta.author = document.querySelector(".avatar").attributes[2].nodeValue
+			meta.title = document.querySelector(".status-title").innerHTML
+
+			var raw = document.querySelector(".detail").innerHTML;
+			var rawContent = correctHtmlContent(raw)
+
+			var contentArray = []
+			var in_paragraph = false
+			var pContent = ""
+			var currentTag = ""
+			var currentAttribPair = ""
+			var parser = new htmlparser.Parser({
+				onopentag: function(tag, attribs) {
+					currentTag = tag
+					if ("p" === tag) {
+						in_paragraph = true
+					}
+				},
+				ontext: function(text) {
+					// console.log(text)
+					if (in_paragraph) {
+						if ("b" === currentTag) {
+							pContent += ("<strong>" + text + "</strong>")
+						} else {
+							pContent += text
+						}
+					}
+				},
+				onattribute: function(name, value) {
+					if ("class:ke_img" === currentAttribPair) {
+						if ("src" === name) {
+							imgUrl = "http:" + value
+							contentArray.push({
+								"type": "img",
+								"ratio": 1,
+								"content": imgUrl
+							})
+						}
+					}
+					currentAttribPair = name + ":" + value
+				},
+				onclosetag: function(tag) {
+					if ("b" === tag) {
+						currentTag = ""
+					} else if ("p" === tag) {
+						in_paragraph = false
+						contentArray.push({
+							"type": "txt",
+							"ratio": 1,
+							"content": pContent
+						})
+						pContent = ""
+					}
+				},
+				onend: function() {
+					meta.rawData = JSON.stringify(contentArray)
+					// free memory associated with the window
+					window.close();
+					cb(true, meta);
+				}
+			}, {decodeEntities: true});
+			parser.write(rawContent);
+			parser.end();
+		}
+	});
+}
+
+function buildArticle(id, title, type, category, author, lede, from, cover, rawData, tocs) {
 	var article = "import QtQuick 2.5"
 	article += "\n"
 	article += "ArticleBase {"
@@ -401,7 +496,7 @@ function buildArticle(id, title, type, category, author, lede, from, cover, rawD
 	article += "\n"
 	article += buildArticleModel(rawData)
 	article += "\n"
-	article += "	ListModel { id: toc }"
+	article += buildTableOfContentModel(tocs)
 	article += "\n"
 	article += "}"
 
@@ -422,6 +517,20 @@ function buildArticleModel(rawData) {
     return d
 }
 
+function buildTableOfContentModel(tocs) {
+    var d = "	ListModel { "
+    d += "\n"
+    d += "        id: toc"
+    var model = JSON.parse(tocs)
+    for (var i = 0; i < model.length; i++) {
+        d += buildTableOfContentModelElement(model[i])
+    }
+    d += "\n"
+    d += "	}"
+
+    return d	
+}
+
 function buildArticleModelElement(e) {
     var d = "\n"
     d += "        ListElement { "
@@ -431,6 +540,17 @@ function buildArticleModelElement(e) {
     d += ("            ratio: " + e.ratio)
     d += "\n"
     d += ("            content: \"" + correctHtmlContent(e.content) + "\"")
+    d += "\n"
+    d += "        }"
+
+    return d
+}
+
+function buildTableOfContentModelElement(e) {
+    var d = "\n"
+    d += "        ListElement { "
+    d += "\n"
+    d += ("            title: \"" + e + "\"")
     d += "\n"
     d += "        }"
 

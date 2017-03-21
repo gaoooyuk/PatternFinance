@@ -43,9 +43,13 @@ Rectangle {
         // console.log("initArticleInfo: ", ai)
         aeModel.setProperty(0, "value", ai.id)
         aeModel.setProperty(1, "value", ai.author)
-        aeModel.setProperty(2, "value", ai.cover)
+        if ("" !== ai.cover) {
+            aeModel.setProperty(2, "value", ai.cover)
+        }
         aeModel.setProperty(3, "value", ai.lede)
-        aeModel.setProperty(4, "value", ai.category)
+        if ("" !== ai.category) {
+            aeModel.setProperty(4, "value", ai.category)
+        }
         mainWindow.resetInputAsModel()
     }
 
@@ -562,7 +566,7 @@ Rectangle {
 
         TextInput {
             id: urlInput
-            width: parent.width - runCloneBtn.width - anchors.leftMargin * 2
+            width: parent.width - runCloneBtn.width - anchors.leftMargin * 3
             height: 30
             anchors.left: parent.left
             anchors.leftMargin: 10

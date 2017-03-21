@@ -45,7 +45,10 @@ Rectangle {
                         var article = json.article
                         // TODO: merge article meta
                         for (key in mainWindow.articleInfo) {
-                            mainWindow.articleInfo[key] = article[key]
+                            var val = article[key]
+                            if ("" !== val) {
+                                mainWindow.articleInfo[key] = val
+                            }
                         }
                         var composer = mainWindow.composerObj
                         composer.importArticle(article)
@@ -68,7 +71,12 @@ Rectangle {
                 var json = JSON.parse(res)
                 // console.log(json)
                 if (json.success) {
-                    loader.loadSentBox(json)
+                    // TODO: fix the bug
+                    // loader.loadSentBox(json)
+                    notifyBubble.source = "../imgs/dashboard/pSuccess.png"
+                    notifyText.text = "文章已完成发布"
+                    notifyBubble.visible = true
+                    setTimeout(function() { notifyBubble.visible = false; }, 5000)
                 } else {
                     notifyBubble.source = "../imgs/dashboard/pFail.png"
                     notifyText.text = "文章未发布成功"
@@ -83,7 +91,9 @@ Rectangle {
     function prepareArticleData() {
         var info = mainWindow.articleInfo
         var data = info
-        data.rawData = mainWindow.composerObj.dumpArticle()
+        var article = mainWindow.composerObj.dumpArticle()
+        data.rawData = JSON.stringify(article.rawData)
+        data.tocs = JSON.stringify(article.tocs)
         data.platforms = ["patternfinance", "medium"]
         return data
     }

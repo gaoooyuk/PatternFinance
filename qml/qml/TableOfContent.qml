@@ -13,7 +13,7 @@ Rectangle {
 
         Image {
             id: sharesCountText
-            width: 240
+            width: 108
             height: 26
             anchors.right: parent.right
             source: "../imgs/toc.png"
