@@ -17,6 +17,7 @@ Rectangle {
     signal articleInfoChanged(var info)
     signal resetInputAsModel()
     signal focusItemRequest(int newItemIdx, string pcp) // pcp: prefered caret position
+    signal importArticleRequest(string url)
 
     function qmlWidth(w) {
         return w + 1
@@ -39,13 +40,25 @@ Rectangle {
     }
 
     function initArticleInfo(ai) {
+        // console.log("initArticleInfo: ", ai)
         aeModel.setProperty(0, "value", ai.id)
         aeModel.setProperty(1, "value", ai.author)
         aeModel.setProperty(2, "value", ai.cover)
         aeModel.setProperty(3, "value", ai.lede)
         aeModel.setProperty(4, "value", ai.category)
-
         mainWindow.resetInputAsModel()
+    }
+
+    function importArticle(article) {
+        initArticleInfo(article)
+        titleInput.text = article.title
+        var contentArray = JSON.parse(article.rawData)
+        if (contentModel) {
+            contentModel.clear()
+            for (var i in contentArray) {
+                contentModel.append(contentArray[i])
+            }
+        }
     }
 
     function updateArticleInfo() {
@@ -75,13 +88,22 @@ Rectangle {
 
     function setItemType(index, type) {
         if (index >= 0 && contentModel.count >= index) {
-          contentModel.setProperty(currentSelectedItemIndex, "type", type)
+            contentModel.setProperty(currentSelectedItemIndex, "type", type)
         }
     }
 
     height: articleToolbar.height
             + articlePanel.height
             + spacer.height
+
+    Timer {
+        id: autoSaver
+        interval: 1000 * 5 // 5s
+        running: true
+        onTriggered: {
+            // TODO: auto save article
+        }
+    }
 
     ListModel {
         id: aeModel
@@ -121,6 +143,25 @@ Rectangle {
             height: 60
 
             Text {
+                id: cloneBtn
+                width: 28
+                height: 16
+                anchors.right: metaBtn.left
+                anchors.rightMargin: 25
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 14
+                color: "#9b9b9b"
+                text: "采集"
+
+                GeneralMouseArea {
+                    onClicked: {
+                        metaEditPanel.visible = false
+                        cloneBar.visible = !cloneBar.visible
+                    }
+                }
+            }
+
+            Text {
                 id: metaBtn
                 width: 60
                 height: 16
@@ -133,7 +174,8 @@ Rectangle {
 
                 GeneralMouseArea {
                     onClicked: {
-                        adminEditPanel.visible = !adminEditPanel.visible
+                        cloneBar.visible = false
+                        metaEditPanel.visible = !metaEditPanel.visible
                     }
                 }
             }
@@ -142,7 +184,7 @@ Rectangle {
                 id: visibilityCombo
                 width: 40
                 height: 40
-                anchors.right: parent.right
+                anchors.right: contentPanel.right
                 anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
 
@@ -494,22 +536,91 @@ Rectangle {
     }
 
     RectangularGlow {
-          id: effect
-          anchors.fill: adminEditPanel
-          glowRadius: 10
-          spread: 0.1
-          color: "#d8d8d8"
-          cornerRadius: adminEditPanel.radius + glowRadius
-          visible: adminEditPanel.visible
-      }
+        id: effect0
+        anchors.fill: cloneBar
+        glowRadius: 5
+        spread: 0.1
+        color: "#d8d8d8"
+        cornerRadius: cloneBar.radius + glowRadius
+        visible: cloneBar.visible
+    }
 
     Rectangle {
-        id: adminEditPanel
+        id: cloneBar
+        width: 400
+        height: 48
+        anchors.top: parent.top
+        anchors.topMargin: 60
+        anchors.right: contentPanel.right
+        radius: 3
+        visible: false
+
+        function dismiss() {
+            urlInput.text = ""
+            cloneBar.visible = false
+        }
+
+        TextInput {
+            id: urlInput
+            width: parent.width - runCloneBtn.width - anchors.leftMargin * 2
+            height: 30
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 16
+            color: "#8a8a8a"
+        }
+
+        Rectangle {
+            id: runCloneBtn
+            width: 60
+            height: 32
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+            radius: width / 2
+            color: metaEditPanel.baseColor
+
+            Text {
+                width: 32
+                height: 18
+                anchors.top: parent.top
+                anchors.topMargin: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 16
+                font.bold: true
+                color: "white"
+                text: "采集"
+            }
+
+            GeneralMouseArea {
+                onClicked: {
+                    var url = urlInput.text
+                    // TODO: validate url
+                    mainWindow.importArticleRequest(url)
+                    cloneBar.dismiss()
+                }
+            }
+        }
+    }
+
+    RectangularGlow {
+        id: effect1
+        anchors.fill: metaEditPanel
+        glowRadius: 10
+        spread: 0.1
+        color: "#d8d8d8"
+        cornerRadius: metaEditPanel.radius + glowRadius
+        visible: metaEditPanel.visible
+    }
+
+    Rectangle {
+        id: metaEditPanel
         width: 300
         height: 400
         anchors.top: parent.top
         anchors.topMargin: 60
-        anchors.right: parent.right
+        anchors.right: contentPanel.right
         radius: 5
         visible: false
 
@@ -523,7 +634,7 @@ Rectangle {
             anchors.fill: parent
 
             Item {
-                id: adminEditTitleBar
+                id: metaEditTitleBar
                 width: parent.width
                 height: 60
 
@@ -540,11 +651,11 @@ Rectangle {
             }
 
             Rectangle {
-                id: adminEditItems
+                id: metaEditItems
                 width: parent.width
                 height: parent.height
-                        - adminEditTitleBar.height
-                        - adminEditBottomBar.height
+                        - metaEditTitleBar.height
+                        - metaEditBottomBar.height
 
                 Column {
                     anchors.fill: parent
@@ -553,8 +664,8 @@ Rectangle {
                         model: aeModel
                         delegate: Item {
                             id: aeDelegate
-                            width: adminEditPanel.width
-                            height: adminEditItems.height / aeModel.count
+                            width: metaEditPanel.width
+                            height: metaEditItems.height / aeModel.count
 
                             property bool showUpdateChange: false
 
@@ -578,7 +689,7 @@ Rectangle {
                                 anchors.left: parent.left
                                 anchors.leftMargin: 80
                                 font.pixelSize: 16
-                                color: adminEditPanel.baseColor
+                                color: metaEditPanel.baseColor
                                 onTextChanged: {
                                     aeModel.setProperty(index, "value", text)
                                 }
@@ -588,7 +699,7 @@ Rectangle {
                                 width: valInput.width
                                 height: 2
                                 color: valInput.text.length > 0
-                                       ? adminEditPanel.baseColor
+                                       ? metaEditPanel.baseColor
                                        : "#f1f1f1"
                                 anchors.top: valInput.bottom
                                 anchors.topMargin: 2
@@ -615,7 +726,7 @@ Rectangle {
             }
 
             Item {
-                id: adminEditBottomBar
+                id: metaEditBottomBar
                 width: parent.width
                 height: 60
 
@@ -626,7 +737,7 @@ Rectangle {
                     anchors.leftMargin: 20
                     anchors.verticalCenter: parent.verticalCenter
                     radius: width / 2
-                    color: adminEditPanel.baseColor
+                    color: metaEditPanel.baseColor
 
                     Text {
                         width: 32
@@ -643,7 +754,7 @@ Rectangle {
                     GeneralMouseArea {
                         onClicked: {
                             mainWindow.updateArticleInfo()
-                            adminEditPanel.visible = false
+                            metaEditPanel.visible = false
                         }
                     }
                 }
@@ -670,7 +781,7 @@ Rectangle {
 
                     GeneralMouseArea {
                         onClicked: {
-                            adminEditPanel.visible = false
+                            metaEditPanel.visible = false
                         }
                     }
                 }

@@ -33,20 +33,46 @@ Rectangle {
         })
     }
 
+    function importArticle(articleUrl) {
+        var url = apiBase + "/importArticleFromUrl"
+        var body = {}
+        body.url = articleUrl
+        network.httpPost(url, body, function(res) {
+            try {
+                var json = JSON.parse(res)
+                if (json.success) {
+                    if (mainWindow.composerObj) {
+                        var article = json.article
+                        // TODO: merge article meta
+                        for (key in mainWindow.articleInfo) {
+                            mainWindow.articleInfo[key] = article[key]
+                        }
+                        var composer = mainWindow.composerObj
+                        composer.importArticle(article)
+                    }
+                } else {
+
+                }
+            } catch(e) {
+                console.log("JSON parse error(Dashboard.qml importArticle): ", e)
+            }
+        })
+    }
+
     function publishArticle() {
         var url = apiBase + "/addArticle"
         network.httpPost(url, prepareArticleData(), function(res) {
             try {
+                publishBox.publishing = false
+
                 var json = JSON.parse(res)
-                console.log(json)
+                // console.log(json)
                 if (json.success) {
-                    loader.loadSentBox()
-                    if (mainWindow.sentBoxObj) {
-                        mainWindow.sentBoxObj.showResultBubble(json)
-                    }
+                    loader.loadSentBox(json)
                 } else {
                     notifyBubble.source = "../imgs/dashboard/pFail.png"
                     notifyText.text = "文章未发布成功"
+                    notifyBubble.visible = true
                 }
             } catch(e) {
                 console.log("JSON parse error(Dashboard.qml publishArticle): ", e)
@@ -175,6 +201,9 @@ Rectangle {
                     composer.articleInfoChanged.connect(function (info) {
                         mainWindow.articleInfo = info
                     })
+                    composer.importArticleRequest.connect(function (url) {
+                        mainWindow.importArticle(url)
+                    })
                     mainWindow.composerObj = composer
 
                     // create default article info
@@ -211,18 +240,20 @@ Rectangle {
                     changePublishBtnVisibility(false)
                 }
 
-                function loadSentBox() {
+                function loadSentBox(result) {
                     loader.source = "SentBox.qml"
                     var sbox = loader.item
-                    mainWindow.sentBoxObj = sbox
                     sbox.newArticleRequest.connect(function() {
                         loader.loadComposer(null)
                     })
+                    mainWindow.sentBoxObj = sbox
                     sbox.width = dbInner.width
                     sbox.anchors.top = dbInner.top
                     sbox.anchors.horizontalCenter = dbInner.horizontalCenter
                     dbInner.height = sbox.height
                     changePublishBtnVisibility(false)
+
+                    sbox.showResultBubble(result)
                 }
             }
 

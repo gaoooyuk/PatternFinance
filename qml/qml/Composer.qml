@@ -9,6 +9,7 @@ Rectangle {
     radius: 10
 
     signal articleInfoChanged(string info)
+    signal importArticleRequest(string url)
 
     function fillContentModel(contentArray) {
         content.clear()
@@ -19,6 +20,10 @@ Rectangle {
 
     function initArticleInfo(ai) {
         editor.initArticleInfo(ai)
+    }
+
+    function importArticle(article) {
+        editor.importArticle(article)
     }
 
     function dumpArticle() {
@@ -51,6 +56,9 @@ Rectangle {
         }
         onArticleInfoChanged: {
             composer.articleInfoChanged(info)
+        }
+        onImportArticleRequest: {
+            composer.importArticleRequest(url)
         }
     }
 }

@@ -1,4 +1,5 @@
 var toMarkdown = require('to-markdown');
+var htmlparser = require("htmlparser2");
 var pyShell = require('python-shell');
 var medium = require('medium-sdk');
 var express = require('express');
@@ -6,6 +7,7 @@ var deasync = require('deasync');
 var moment = require('moment');
 var assert = require('assert');
 var async = require('async');
+var jsdom = require("jsdom");
 var path = require('path');
 var fs = require('fs');
 
@@ -34,7 +36,7 @@ router.post('/login', function(req, res, next) {
 router.post('/addArticle', function(req, res, next) {
 	var id = req.body.id
 	var title = req.body.title
-	var authorName = req.body.author
+	var author = req.body.author
 	var cover = req.body.cover
 	var lede = req.body.lede
 	var type = "文章"
@@ -54,7 +56,7 @@ router.post('/addArticle', function(req, res, next) {
 	    function(callback) {
 	    	// 磨石金融
 	    	if (platforms.indexOf("patternfinance") >= 0) {
-	    		publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, status, callback)
+	    		publish2PatternFinance(id, title, cover, lede, type, category, author, rawData, status, callback)
 	    	} else {
 		    	callback(null, 'patternfinance:skip');
 	    	}
@@ -108,6 +110,52 @@ router.post('/addArticle', function(req, res, next) {
 	});
 });
 
+router.post('/importArticleFromUrl', function(req, res, next) {
+	var url = req.body.url
+	var hostName = getHostName(url)
+
+	// create article meta
+	var meta = {}
+	meta.id = shortUUID()
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = ""
+	meta.category = ""
+	meta.author = ""
+	meta.rawData = ""
+	meta.status = "draft"
+
+	async.series([
+	    function(callback) {
+	    	if ("zhuanlan.zhihu.com" === hostName) {
+	    		importFromZhihu(url, function(success, resObj) {
+					if (success) {
+						for (k in resObj) {
+							meta[k] = resObj[k]
+						}
+						callback(null, "import:success")
+					} else {
+						callback(null, "import:fail")
+					}
+	    		})
+	    	} else {
+	    		callback(null, "import:fail")
+	    	}
+	    },
+	    function(callback) {
+	    	callback(null, "qmlfile:fail")
+	        // publish2PatternFinance(meta.id, meta.title, meta.cover, meta.lede, meta.type, meta.category, meta.author, meta.rawData, meta.status, callback)
+	    }
+	],
+	// optional callback
+	function(err, results) {
+		console.log("article: ", meta)
+		var atMs = (new Date).getTime()
+		res.send({ success: "true", article: meta, actionTimeInMs: atMs })
+	});
+});
+
 router.post('/updateArticle', function(req, res, next) {
 	var meta = req.body.meta
 	global.mongodb.collection('article').update( 
@@ -120,13 +168,13 @@ router.post('/updateArticle', function(req, res, next) {
 	res.send(meta)
 });
 
-function publish2PatternFinance(id, title, cover, lede, type, category, authorName, rawData, status, cb) {
+function publish2PatternFinance(id, title, cover, lede, type, category, author, rawData, status, cb) {
 	async.parallel([
 	    function(callback) {
 		    var now = moment()
 		    var fmt = "YYYY-MM-DD hh:mm"
 			var from = now.format(fmt)
-			var qmlData = buildArticle(id, title, type, category, authorName, lede, from, cover, rawData)
+			var qmlData = buildArticle(id, title, type, category, author, lede, from, cover, rawData)
 
 		    var data_dir = path.join(global.dirRoot, 'qml/qml/')
 		    var file_path = data_dir + 'article_' + id + '.qml'
@@ -237,7 +285,88 @@ function publish2Sinacj(callback) {
 	callback(null, 'sinacj:fail');
 }
 
-function buildArticle(id, title, type, category, authorName, lede, from, cover, rawData) {
+function importFromZhihu(url, cb) {
+	var meta = {}
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = "文章"
+	meta.category = "投资故事"
+	meta.author = ""
+	meta.rawData = ""
+
+	jsdom.env(url, [], function (err, window) {
+		if (err) {
+			cb(false, err);
+		} else {
+			var document = window.document
+			var raw = document.querySelector("#preloadedState").innerHTML;
+			var article = JSON.parse(raw)
+			// console.log(article)
+
+			var rawContent = ""
+			for (p in article.database.Post) {
+				var post = article.database.Post[p]
+				meta.title = post.title
+				rawContent = correctHtmlContent(post.content)
+				// console.log(rawContent)
+				meta.cover = post.titleImage
+			}
+
+			for (u in article.database.User) {
+				var user = article.database.User[u]
+				meta.author = user.name
+			}
+
+			var contentArray = []
+			var currentTag = ""
+			var parser = new htmlparser.Parser({
+				onopentag: function(tag, attribs) {
+					if ("h2" === currentTag && "b" === tag) {
+						currentTag = "sectionHeader"
+					} else {
+						currentTag = tag
+						if ("img" === tag) {
+							contentArray.push({
+								"type": "img",
+								"ratio": attribs["data-rawheight"]/attribs["data-rawwidth"],
+								"content": attribs.src
+							})
+						}
+					}
+				},
+				ontext: function(text) {
+					// console.log(currentTag)
+					if ("p" === currentTag || "i" === currentTag) {
+						contentArray.push({
+							"type": "txt",
+							"ratio": 1,
+							"content": text
+						})
+					} else if ("sectionHeader" === currentTag) {
+						contentArray.push({
+							"type": "sectionHeader",
+							"ratio": 1,
+							"content": text
+						})
+					}
+				},
+				onclosetag: function(tag) {
+				},
+				onend: function() {
+					meta.rawData = JSON.stringify(contentArray)
+					// free memory associated with the window
+					window.close();
+					cb(true, meta);
+				}
+			}, {decodeEntities: true});
+			parser.write(rawContent);
+			parser.end();
+		}
+	});
+}
+
+function buildArticle(id, title, type, category, author, lede, from, cover, rawData) {
 	var article = "import QtQuick 2.5"
 	article += "\n"
 	article += "ArticleBase {"
@@ -258,7 +387,7 @@ function buildArticle(id, title, type, category, authorName, lede, from, cover, 
 	article += "\n"
 	article += ("    articleCategory: " + "\"" + category + "\"")
 	article += "\n"
-	article += ("    authorName: " + "\"" + authorName + "\"")
+	article += ("    authorName: " + "\"" + author + "\"")
 	article += "\n"
 	article += ("    summary: " + "\"" + lede + "\"")
 	article += "\n"
@@ -450,6 +579,49 @@ var getRandomSubset = function(arr, size) {
         shuffled[i] = temp;
     }
     return shuffled.slice(0, size);
+}
+
+var shortUUID = function() {
+    var ALPHABET = '23456789abdegjkmnpqrvwxyz';
+    var ALPHABET_LENGTH = ALPHABET.length;
+
+    var ID_LENGTH = 8
+    var rtn = ''
+    for (var i = 0; i < ID_LENGTH; i++) {
+        rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET_LENGTH));
+    }
+    return rtn;
+}
+
+var getHostName = function(url) {
+	var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+	if (match != null 
+		&& match.length > 2 
+		&& typeof match[2] === 'string' 
+		&& match[2].length > 0) {
+		return match[2];
+	} else {
+		return null;
+	}
+}
+
+var getDomain = function(url) {
+    var hostName = getHostName(url);
+    var domain = hostName;
+    
+    if (hostName != null) {
+        var parts = hostName.split('.').reverse();
+        
+        if (parts != null && parts.length > 1) {
+            domain = parts[1] + '.' + parts[0];
+                
+            if (hostName.toLowerCase().indexOf('.co.uk') != -1 && parts.length > 2) {
+              domain = parts[2] + '.' + domain;
+            }
+        }
+    }
+    
+    return domain;
 }
 
 module.exports = router;

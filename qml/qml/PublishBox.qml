@@ -8,6 +8,7 @@ Rectangle {
 
     property int stage: 0 // 0-发布提醒  1-编辑发布平台 2-添加和编辑文章标签
     property string baseColor: "#52D57A"
+    property bool publishing: false
 
     signal publishRequest()
 
@@ -166,7 +167,9 @@ Rectangle {
                             height: 48
                             anchors.centerIn: parent
                             radius: 5
-                            color: publishBox.baseColor
+                            color: publishBox.publishing
+                                   ? "#9b9b9b"
+                                   : publishBox.baseColor
 
                             Text {
                                 width: 40
@@ -181,6 +184,11 @@ Rectangle {
 
                         GeneralMouseArea {
                             onClicked: {
+                                if (publishBox.publishing) {
+                                    return
+                                }
+
+                                publishBox.publishing = true
                                 publishBox.publishRequest()
                             }
                         }
