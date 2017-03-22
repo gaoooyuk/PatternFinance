@@ -172,7 +172,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: ""
+            content: "<strong>distill.pub</strong>  由Google、DeepMind和OpenAI背书的可交互式期刊平台(机器学习相关)。"
         }
         ListElement {
             type: "txt"

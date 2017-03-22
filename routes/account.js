@@ -114,6 +114,7 @@ router.post('/addArticle', function(req, res, next) {
 router.post('/importArticleFromUrl', function(req, res, next) {
 	var url = req.body.url
 	var hostName = getHostName(url)
+	// console.log("hostName: ", hostName)
 
 	// create article meta
 	var meta = {}
@@ -124,7 +125,7 @@ router.post('/importArticleFromUrl', function(req, res, next) {
 	meta.type = ""
 	meta.category = ""
 	meta.author = ""
-	meta.rawData = ""
+	meta.rawData = "[]"
 	meta.status = "draft"
 
 	async.series([
@@ -149,6 +150,17 @@ router.post('/importArticleFromUrl', function(req, res, next) {
 						callback(null, "import-xueqiu:success")
 					} else {
 						callback(null, "import-xueqiu:fail")
+					}
+	    		})
+	    	} else if ("mp.weixin.qq.com" === hostName) {
+	    		importFromWxMP(url, function(success, resObj) {
+					if (success) {
+						for (k in resObj) {
+							meta[k] = resObj[k]
+						}
+						callback(null, "import-wxmp:success")
+					} else {
+						callback(null, "import-wxmp:fail")
 					}
 	    		})
 	    	} else {
@@ -457,6 +469,93 @@ function importFromXueqiu(url, cb) {
 			}, {decodeEntities: true});
 			parser.write(rawContent);
 			parser.end();
+		}
+	});
+}
+
+function importFromWxMP(url, cb) {
+	var meta = {}
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = "文章"
+	meta.category = "投资故事"
+	meta.author = ""
+	meta.rawData = ""
+
+	jsdom.env({
+		url: url, 
+		headers: { 
+			// to fix the decompress bug caused by gzip
+			// we have to set accept-encoding other than "gzip"
+			"accept-encoding": "compress"
+		}, 
+		done: function (err, window) {
+			if (err) {
+				// console.log(err)
+				cb(false, err);
+			} else {
+				var document = window.document
+
+				meta.author = document.querySelector("span.rich_media_meta_nickname").innerHTML
+				meta.title = document.querySelector("title").innerHTML
+
+				// console.log("meta.author: ", meta.author)
+				// console.log("meta.title: ", meta.title)
+
+				var raw = document.querySelector("div.rich_media_content ").innerHTML
+				var rawContent = correctHtmlContent(raw)
+
+				var contentArray = []
+				var currentTag = ""
+				var parser = new htmlparser.Parser({
+					onopentag: function(tag, attribs) {
+						currentTag = tag
+						// console.log("tag: ", tag)
+						// console.log("attribs: ", attribs)
+						if ("img" === tag && {} !== attribs) {
+							var ratio = ratio = attribs["data-ratio"]
+							if (null !== attribs["data-s"]) {
+								var wh = attribs["data-s"].split(",")
+								if (null !== attribs["data-w"] 
+									&& wh[1] === attribs["data-w"]) {
+									ratio = wh[0]/wh[1]
+								}
+							}
+							contentArray.push({
+								"type": "img",
+								"ratio": ratio,
+								"content": attribs["data-src"]
+							})
+						}
+					},
+					ontext: function(text) {
+						if ("" !== String(text).trim()) {
+							if ("p" === currentTag || "span" === currentTag) {
+								contentArray.push({
+									"type": "txt",
+									"ratio": 1,
+									"content": text
+								})
+							}
+							// console.log("text: ", text)
+						}
+					},
+					onattribute: function(name, value) {
+						// console.log(name + ":" + value)
+					},
+					onclosetag: function(tag) {
+					},
+					onend: function() {
+						meta.rawData = JSON.stringify(contentArray)
+						// free memory associated with the window
+						window.close();
+						cb(true, meta);
+					}
+				}, {decodeEntities: true});
+				parser.write(rawContent);
+				parser.end();
+			}
 		}
 	});
 }
