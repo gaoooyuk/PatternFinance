@@ -163,6 +163,39 @@ router.post('/importArticleFromUrl', function(req, res, next) {
 						callback(null, "import-wxmp:fail")
 					}
 	    		})
+	    	} else if (hostName.indexOf("baijia.baidu.com") >= 0) {
+	    		importFromBdBj(url, function(success, resObj) {
+					if (success) {
+						for (k in resObj) {
+							meta[k] = resObj[k]
+						}
+						callback(null, "import-bdbj:success")
+					} else {
+						callback(null, "import-bdbj:fail")
+					}
+	    		})
+	    	} else if (hostName.indexOf("ifeng.com") >= 0) {
+	    		importFromFhh(url, function(success, resObj) {
+					if (success) {
+						for (k in resObj) {
+							meta[k] = resObj[k]
+						}
+						callback(null, "import-fhh:success")
+					} else {
+						callback(null, "import-fhh:fail")
+					}
+	    		})
+	    	} else if ("finance.sina.com.cn" === hostName) {
+	    		importFromSinacj(url, function(success, resObj) {
+					if (success) {
+						for (k in resObj) {
+							meta[k] = resObj[k]
+						}
+						callback(null, "import-sinacj:success")
+					} else {
+						callback(null, "import-sinacj:fail")
+					}
+	    		})
 	    	} else {
 	    		callback(null, "import:fail")
 	    	}
@@ -503,7 +536,7 @@ function importFromWxMP(url, cb) {
 				// console.log("meta.author: ", meta.author)
 				// console.log("meta.title: ", meta.title)
 
-				var raw = document.querySelector("div.rich_media_content ").innerHTML
+				var raw = document.querySelector("div.rich_media_content").innerHTML
 				var rawContent = correctHtmlContent(raw)
 
 				var contentArray = []
@@ -556,6 +589,258 @@ function importFromWxMP(url, cb) {
 				parser.write(rawContent);
 				parser.end();
 			}
+		}
+	});
+}
+
+function importFromBdBj(url, cb) {
+	var meta = {}
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = "文章"
+	meta.category = "投资故事"
+	meta.author = ""
+	meta.rawData = ""
+
+	jsdom.env(url, [], function (err, window) {
+		if (err) {
+			cb(false, err);
+		} else {
+			var document = window.document
+
+			meta.title = String(document.querySelector("title").innerHTML).replace("--百度百家", "")
+			meta.author = document.querySelector("div.article-info>a.name").innerHTML
+			meta.lede = String(document.querySelector('blockquote').innerHTML)
+						.replace("<i class=\"i iquote\"></i>", "")
+
+			var raw = document.querySelector("div.article-detail").innerHTML
+			var rawContent = correctHtmlContent(raw)
+
+			var contentArray = []
+			var in_paragraph = false
+			var pContent = ""
+			var currentTag = ""
+			var currentAttribPair = ""
+			var parser = new htmlparser.Parser({
+				onopentag: function(tag, attribs) {
+					currentTag = tag
+					if ("p" === tag) {
+						in_paragraph = true
+					} else if ("img" === tag) {
+						contentArray.push({
+							"type": "img",
+							"ratio": 1,
+							"content": attribs["src"]
+						})
+					}
+				},
+				ontext: function(text) {
+					// console.log(text)
+					if (in_paragraph) {
+						if ("b" === currentTag || "strong" === currentTag) {
+							pContent += ("<strong>" + text + "</strong>")
+						} else {
+							pContent += text
+						}
+					}
+				},
+				onclosetag: function(tag) {
+					if ("p" === tag) {
+						in_paragraph = false
+						contentArray.push({
+							"type": "txt",
+							"ratio": 1,
+							"content": pContent
+						})
+						pContent = ""
+					} else {
+						currentTag = ""
+					}
+				},
+				onend: function() {
+					meta.rawData = JSON.stringify(contentArray)
+					// free memory associated with the window
+					window.close();
+					cb(true, meta);
+				}
+			}, {decodeEntities: true});
+			parser.write(rawContent);
+			parser.end();
+		}
+	});
+}
+
+function importFromFhh(url, cb) {
+	var meta = {}
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = "文章"
+	meta.category = "投资故事"
+	meta.author = ""
+	meta.rawData = ""
+
+	jsdom.env(url, [], function (err, window) {
+		if (err) {
+			cb(false, err);
+		} else {
+			var document = window.document
+
+			meta.title = document.querySelector('meta[property="og:title"]').content
+			meta.lede = correctHtmlContent(document.querySelector('meta[property="og:description"]').content)
+			meta.author = document.querySelector("span.ss03").textContent
+			
+			var raw = document.querySelector("div#main_content").innerHTML
+			var rawContent = correctHtmlContent(raw)
+
+			var contentArray = []
+			var in_paragraph = false
+			var pContent = ""
+			var currentTag = ""
+			var currentAttribPair = ""
+			var parser = new htmlparser.Parser({
+				onopentag: function(tag, attribs) {
+					currentTag = tag
+					if ("p" === tag) {
+						in_paragraph = true
+					} else if ("img" === tag) {
+						if ("class:detailPic" === currentAttribPair) {
+							currentAttribPair = ""
+							contentArray.push({
+								"type": "img",
+								"ratio": attribs["height"]/attribs["width"],
+								"content": attribs["src"]
+							})
+						}
+					}
+				},
+				ontext: function(text) {
+					// console.log(text)
+					if (in_paragraph) {
+						if ("b" === currentTag || "strong" === currentTag) {
+							pContent += ("<strong>" + text + "</strong>")
+						} else {
+							pContent += text
+						}
+					}
+				},
+				onattribute: function(name, value) {
+					pair = name + ":" + value
+					if ("class:detailPic" === pair) {
+						currentAttribPair = pair
+					}
+				},
+				onclosetag: function(tag) {
+					if ("p" === tag) {
+						in_paragraph = false
+						contentArray.push({
+							"type": "txt",
+							"ratio": 1,
+							"content": pContent
+						})
+						pContent = ""
+					} else {
+						currentTag = ""
+					}
+				},
+				onend: function() {
+					meta.rawData = JSON.stringify(contentArray)
+					// free memory associated with the window
+					window.close();
+					cb(true, meta);
+				}
+			}, {decodeEntities: true});
+			parser.write(rawContent);
+			parser.end();
+		}
+	});
+}
+
+function importFromSinacj(url, cb) {
+	var meta = {}
+	meta.title = ""
+	meta.cover = ""
+	meta.lede = ""
+	meta.type = "文章"
+	meta.category = "投资故事"
+	meta.author = ""
+	meta.rawData = ""
+
+	jsdom.env(url, [], function (err, window) {
+		if (err) {
+			cb(false, err);
+		} else {
+			var document = window.document
+
+			meta.title = document.querySelector('meta[property="og:title"]').content
+			meta.lede = correctHtmlContent(document.querySelector('meta[name="description"]').content)
+			meta.author = document.querySelector('meta[name="mediaid"]').content
+			
+			var raw = document.querySelector("div#artibody").innerHTML
+			var rawContent = correctHtmlContent(raw)
+
+			var contentArray = []
+			var in_paragraph = false
+			var pContent = ""
+			var currentTag = ""
+			var currentAttribPair = ""
+			var parser = new htmlparser.Parser({
+				onopentag: function(tag, attribs) {
+					console.log(tag)
+					currentTag = tag
+					if ("p" === tag) {
+						in_paragraph = true
+					} else if ("img" === tag) {
+						if ("class:detailPic" === currentAttribPair) {
+							currentAttribPair = ""
+							contentArray.push({
+								"type": "img",
+								"ratio": attribs["height"]/attribs["width"],
+								"content": attribs["src"]
+							})
+						}
+					}
+				},
+				ontext: function(text) {
+					console.log(text)
+					if (in_paragraph) {
+						if ("b" === currentTag || "strong" === currentTag) {
+							pContent += ("<strong>" + text + "</strong>")
+						} else {
+							pContent += text
+						}
+					}
+				},
+				onattribute: function(name, value) {
+					pair = name + ":" + value
+					console.log(pair)
+					if ("class:detailPic" === pair) {
+						currentAttribPair = pair
+					}
+				},
+				onclosetag: function(tag) {
+					if ("p" === tag) {
+						in_paragraph = false
+						contentArray.push({
+							"type": "txt",
+							"ratio": 1,
+							"content": pContent
+						})
+						pContent = ""
+					} else {
+						currentTag = ""
+					}
+				},
+				onend: function() {
+					meta.rawData = JSON.stringify(contentArray)
+					// free memory associated with the window
+					window.close();
+					cb(true, meta);
+				}
+			}, {decodeEntities: true});
+			parser.write(rawContent);
+			parser.end();
 		}
 	});
 }
@@ -720,6 +1005,8 @@ function extractKeywords(articleId, callback) {
 function correctHtmlContent(content) {
 	return content.replace(/&lt;/g, "<")
 				  .replace(/&gt;/g, ">")
+				  .replace(/&ld/g, "“")
+				  .replace(/&gd/g, "”")
 }
 
 function translateHtml2Markdown(content) {
