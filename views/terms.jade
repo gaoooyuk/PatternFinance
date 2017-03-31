@@ -16,9 +16,10 @@ html
     div#embed
     script.
       (function() {
+      QmlWeb.Qt.cache = "#{html_data}".replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, "\"")
       var div = document.getElementById('embed');
       var engine = new QmlWeb.QMLEngine(div);
-      engine.loadFile('qml/website_sts.qml');
+      engine.loadFile('qml/website_term.qml');
       engine.start();
       })();
     include footer_all

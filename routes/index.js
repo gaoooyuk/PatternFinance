@@ -237,7 +237,8 @@ router.get('/terms/*', function(req, res, next) {
 					"html_zh": term.zh, 
 					"html_en": term.en,
 					"html_description": term.lede,
-					"html_keywords": term.keywords
+					"html_keywords": term.keywords,
+					"html_data": JSON.stringify(term)
 				})
 		} else {
 			var home_dir = path.join(global.dirRoot, 'qml/')

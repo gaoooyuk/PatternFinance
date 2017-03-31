@@ -1882,6 +1882,8 @@ var Qt = {
     QmlWeb.importJavascriptInContext(js, QmlWeb.executionContext);
   },
 
+  // Qt global cache to pass value from html to QML
+  cache: "",
 
   platform: {
     os: "qmlweb"
