@@ -214,17 +214,13 @@ router.get('/terms/*', function(req, res, next) {
 	var find = false
 	async.series([
 	    function(callback) {
-			var cursor = global.mongodb.collection('terms').find({ "id": fn });
-			cursor.each(function(err, doc) {
-				assert.equal(err, null);
-
-			  	if (doc != null) {
+			var doc = global.mongodb.collection('terms').findOne({ "id": fn }, function(err, doc) {
+				if (doc) {
 			  		term = doc
 			  		find = true
-			  		callback(null, "success")
-			  	} else {
-					callback(null, "fail")
-			  	}
+				}
+
+				callback(null, "")
 			});
 	    }
 	],
