@@ -44,6 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public/')));
 app.use('/article', express.static(path.join(__dirname, 'qml/')));
+app.use('/terms', express.static(path.join(__dirname, 'qml/')));
 app.use('/', express.static(path.join(__dirname, 'qml/')));
 app.use('/account', account);
 app.use('/admin', admin);

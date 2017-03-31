@@ -1,9 +1,11 @@
 var express = require('express');
 var deasync = require('deasync');
 var assert = require('assert');
-var router = express.Router();
+var async = require('async');
 var path = require('path');
 var fs = require('fs');
+
+var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
@@ -161,7 +163,6 @@ router.get('/story', function(req, res, next) {
 // 
 // 
 router.get('/article/*', function(req, res, next) {
-	var home_dir = path.join(global.dirRoot, 'qml/')
 	var fn = req.params['0']
 
 	var article = {}
@@ -199,8 +200,63 @@ router.get('/article/*', function(req, res, next) {
 				"html_keywords": article.keywords
 			})
 	} else {
+		var home_dir = path.join(global.dirRoot, 'qml/')
 		res.status(404).sendFile(path.join(home_dir + '/404.html'));
 	}
+});
+
+//
+//
+//
+router.get('/terms/*', function(req, res, next) {
+	var fn = req.params['0']
+	var term = {}
+	var find = false
+	async.series([
+	    function(callback) {
+			var cursor = global.mongodb.collection('terms').find({ "id": fn });
+			cursor.each(function(err, doc) {
+				assert.equal(err, null);
+
+			  	if (doc != null) {
+			  		term = doc
+			  		find = true
+			  		callback(null, "success")
+			  	} else {
+					callback(null, "fail")
+			  	}
+			});
+	    }
+	],
+	// optional callback
+	function(err, results) {
+	  	if (find) {
+			global.mongodb.collection('terms').update( 
+				{ "id": fn },
+				{ $inc : { "viewedTimes" : 1 } },
+				{ upsert: false } );
+
+			res.render('terms', 
+				{ 
+					"html_zh": term.zh, 
+					"html_en": term.en,
+					"html_description": term.lede,
+					"html_keywords": term.keywords
+				})
+		} else {
+			var home_dir = path.join(global.dirRoot, 'qml/')
+			res.status(404).sendFile(path.join(home_dir + '/404.html'));
+		}
+	});
+});
+
+router.get('/initTerms', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'origins/')
+	var terms = JSON.parse(fs.readFileSync(path.join(home_dir + '/terms.json'), 'utf8'));
+	global.mongodb.collection('terms').drop()
+	global.mongodb.collection('terms').insert(terms);
+
+	res.send({ "success": true, "count": terms.length })
 });
 
 router.get('/sitemap.xml', function(req, res, next) {

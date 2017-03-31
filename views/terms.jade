@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title #{title} | PatternFinance
+    title #{html_zh} | PatternFinance
     script(type="text/javascript"
       src="lib/qt.js")
     meta(charset='utf-8')
@@ -18,7 +18,7 @@ html
       (function() {
       var div = document.getElementById('embed');
       var engine = new QmlWeb.QMLEngine(div);
-      engine.loadFile('qml/article_#{articleId}.qml');
+      engine.loadFile('qml/website_sts.qml');
       engine.start();
       })();
     include footer_all
