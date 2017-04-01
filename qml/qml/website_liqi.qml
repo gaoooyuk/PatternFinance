@@ -22,7 +22,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "\n利器版本: 2017-03-17 16:09"
+            content: "\n利器版本: 2017-03-31 16:09"
         }
         ListElement {
             type: "sectionHeader"
@@ -32,62 +32,37 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "行情历史数据(快照、逐笔、日K线、分钟K线以及集合竞价)可以直接联系上证所购买(http://sseinfo.com/services/assortment/historical/)。除此之外，我们也收录了一些免费的或者收费较低的数据产品。"
+            content: "行情历史数据(快照、逐笔、日K线、分钟K线以及集合竞价)可以直接联系上证所<a href=http://sseinfo.com/services/assortment/historical/ target=_blank>购买</a>。除此之外，我们也收录了一些免费的或者收费较低的数据产品。"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>TuShare</strong>  一个免费、开源的python财经数据接口包。主要实现对股票等金融数据从数据采集、清洗加工到数据存储的过程，能够为金融分析人员提供快速、整洁、和多样的便于分析的数据，为他们在数据获取方面极大地减轻工作量，使他们更加专注于策略和模型的研究与实现上。"
+            content: "<strong>TuShare</strong>  一个免费、开源的python财经数据接口包。主要实现对股票等金融数据从数据采集、清洗加工到数据存储的过程，能够为金融分析人员提供快速、整洁、和多样的便于分析的数据，为他们在数据获取方面极大地减轻工作量，使他们更加专注于策略和模型的研究与实现上。<a href=http://tushare.org/ target=_blank>TuShare官网</a>  <a href=https://github.com/waditu/tushare target=_blank>Github地址</a>"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "官网: http://tushare.org/\nGithub: https://github.com/waditu/tushare (Python)"
+            content: "<strong>恒生OpenAPI</strong>  <a href=https://open.hscloud.cn/openplat/index.html target=_blank>恒生开放平台</a>提供多品种多市场的交易所行情数据和金融业资讯数据。"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>恒生OpenAPI</strong>  恒生开放平台提供多品种多市场的交易所行情数据和金融业资讯数据。"
+            content: "<strong>通联数据</strong>  开放金融数据平台，整合了包括股票、基金、期货、期权和港股方面的全品类金融数据。可以使用<a href=http://tushare.org/datayes.html target=_blank>TuShare</a>调用<a href=https://app.wmcloud.com/cloud-portal target=_blank>通联数据</a>API。"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "恒生开放平台: https://open.hscloud.cn/openplat/index.html"
+            content: "<strong>Wind数据</strong>  Wind(万得)<a href=http://www.wind.com.cn/NewSite/edb.html target=_blank>经济数据库</a>整合了海量全球宏观和行业统计数据，而<a href=http://www.wind.com.cn/NewSite/data.html target=_blank>Datafeed</a>数据服务为量化投资与各类金融业务系统提供准确、及时、完整的落地数据。Wind是中国市场的精准金融数据服务供应商。提供部分免费数据。"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>通联数据</strong>  开放金融数据平台，整合了包括股票、基金、期货、期权和港股方面的全品类金融数据。可以使用TuShare调用通联数据API。"
+            content: "<strong>数库金融数据</strong>  目前价格为6000元/月。提供A股、新三板、港股和中概股等的基本面信息和行业分类信息。<a href=http://developer.chinascope.com/ target=_blank>数库开发者中心</a>"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "官网: https://app.wmcloud.com/cloud-portal\nTuShare调用: http://tushare.org/datayes.html"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "<strong>Wind数据</strong>  Wind(万得)经济数据库整合了海量全球宏观和行业统计数据，而Datafeed数据服务为量化投资与各类金融业务系统提供准确、及时、完整的落地数据。Wind是中国市场的精准金融数据服务供应商。提供部分免费数据。"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "经济数据库: http://www.wind.com.cn/NewSite/edb.html\nDatafeed数据服务: http://www.wind.com.cn/NewSite/data.html"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "<strong>数库金融数据</strong>  目前价格为6000元/月。提供A股、新三板、港股和中概股等的基本面信息和行业分类信息。"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "数库开发者中心: http://developer.chinascope.com/"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "<strong>国外主流数据源</strong>  一份包含了Bloomberg、晨星和Capital IQ等的数据源列表。由Quantpedia维护。 列表地址: http://quantpedia.com/Links/HistoricalData"
+            content: "<strong>国外主流数据源</strong>  一份包含了Bloomberg、晨星和Capital IQ等的数据源列表。由Quantpedia维护。 <a href=http://quantpedia.com/Links/HistoricalData target=_blank>列表地址</a>"
         }
         ListElement {
             type: "sectionHeader"
@@ -97,22 +72,17 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>TA-Lib</strong>  提供200种技术分析指标和蜡烛图模式识别API。包括MACD、RSI、Bollinger Bands、十字星线、蜻蜓星等在实战中使用频率较高的指标和图形。"
+            content: "<strong>TA-Lib</strong>  提供200种技术分析指标和蜡烛图模式识别API。包括MACD、RSI、Bollinger Bands、十字星线、蜻蜓星等在实战中使用频率较高的指标和图形。<a href=http://ta-lib.org/ target=_blank>官网</a>  <a href=https://github.com/mrjbq7/ta-lib target=_blank>Github地址</a>"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "官网: http://ta-lib.org/\nGithub: https://github.com/mrjbq7/ta-lib (Python)"
+            content: "<strong>ARCH</strong>  使用ARCH相关模型对时间序列进行分析。提供Volatility Modeling、Unit Root Tests(ADF/KPSS/Phillips-Perron)和Bootstrap等API。<a href=https://github.com/bashtage/arch target=_blank>Github地址</a>"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>ARCH</strong>  使用ARCH相关模型对时间序列进行分析。提供Volatility Modeling、Unit Root Tests(ADF/KPSS/Phillips-Perron)和Bootstrap等API。Github地址: https://github.com/bashtage/arch"
-        }
-        ListElement {
-            type: "txt"
-            ratio: 1
-            content: "<strong>statsmodels</strong>  功能强大的统计建模和计量经济学工具包。Github地址: https://github.com/statsmodels/statsmodels"
+            content: "<strong>statsmodels</strong>  功能强大的统计建模和计量经济学工具包。<a href=https://github.com/statsmodels/statsmodels target=_blank>Github地址</a>"
         }
         ListElement {
             type: "sectionHeader"
@@ -122,12 +92,12 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>Zipline</strong> (Python)  Quantopian背后的回测引擎。Github地址: https://github.com/quantopian/zipline"
+            content: "<strong>Zipline</strong> (Python)  Quantopian背后的回测引擎。<a href=https://github.com/quantopian/zipline target=_blank>Github地址</a>"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>RQAlpha</strong> (Python)  由Ricequant米筐科技开源的回测引擎。Github地址: https://github.com/ricequant/rqalpha"
+            content: "<strong>RQAlpha</strong> (Python)  由Ricequant米筐科技开源的回测引擎。<a href=https://github.com/ricequant/rqalpha target=_blank>Github地址</a>"
         }
         ListElement {
             type: "sectionHeader"
@@ -162,12 +132,12 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>Prophet</strong> (Python/R/Time Series)  出自于Facebook的Core Data Science团队。Prophet适用于大规模的时间序列预测。Github地址: https://github.com/facebookincubator/prophet"
+            content: "<strong>Prophet</strong> (Python/R/Time Series)  出自于Facebook的Core Data Science团队。Prophet适用于大规模的时间序列预测。<a href=https://github.com/facebookincubator/prophet target=_blank>Github地址</a>"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "<strong>pyfora</strong> (Python/分布式计算)  由一家名叫Ufora的公司开发。主要应用于对数据分析、量化建模和其他一些任务的分布式计算。Github地址: https://github.com/ufora/ufora"
+            content: "<strong>pyfora</strong> (Python/分布式计算)  由一家名叫Ufora的公司开发。主要应用于对数据分析、量化建模和其他一些任务的分布式计算。<a href=https://github.com/ufora/ufora target=_blank>Github地址</a>"
         }
         ListElement {
             type: "txt"

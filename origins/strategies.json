@@ -5,7 +5,7 @@
         "en": "Bollinger Bandit",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "dual_thrust",
@@ -13,7 +13,11 @@
         "en": "Dual Thrust",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": [{
+            "content": "Dual Thrust是一个趋势跟踪系统，由Michael Chalek在20世纪80年代开发，曾被<a href=http://futurestruth.com/>Futures Truth杂志</a>评为最赚钱的策略之一。Dual Thrust系统具有简单易用、适用度广的特点。配合不同的参数、止盈止损和仓位管理，可以为投资者带来长期稳定的收益，被投资者广泛应用于股票、货币、贵金属、债券、能源及股指期货等市场。",
+            "type": "txt",
+            "ratio": 1
+        }]
     },
     {
         "id": "dynamic_breakout_2",
@@ -21,7 +25,7 @@
         "en": "Dynamic Breakout II",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "ghost_trader",
@@ -29,7 +33,7 @@
         "en": "Ghost Trader",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "hans123",
@@ -37,7 +41,7 @@
         "en": "Hans123",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "king_keltner",
@@ -45,7 +49,7 @@
         "en": "King Keltner",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "money_manager",
@@ -53,7 +57,7 @@
         "en": "Money Manager",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "ma_crossover",
@@ -61,7 +65,7 @@
         "en": "Moving Average Crossover",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "rbreaker",
@@ -69,7 +73,7 @@
         "en": "R-Breaker",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "rsi",
@@ -77,7 +81,7 @@
         "en": "Relative Strength",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "simple_mr",
@@ -85,7 +89,7 @@
         "en": "Simple Mean Reversion",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "skypark",
@@ -93,7 +97,7 @@
         "en": "Skypark",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "super_combo",
@@ -101,7 +105,7 @@
         "en": "Super Combo",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "thermostat",
@@ -109,7 +113,7 @@
         "en": "Thermostat",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "yangtuo",
@@ -117,7 +121,7 @@
         "en": "YangTuo",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "bonus",
@@ -125,7 +129,7 @@
         "en": "Bonus",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     },
     {
         "id": "donchian",
@@ -133,6 +137,6 @@
         "en": "Donchian",
         "lede": "",
         "keywords": "",
-        "content": ""
+        "article": []
     }
 ]

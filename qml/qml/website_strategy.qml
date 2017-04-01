@@ -24,11 +24,12 @@ Rectangle {
             ratio: 1,
             content: strategy.zh
         })
-        contentModel.append({
-            type: "txt",
-            ratio: 1,
-            content: strategy.lede
-        })
+
+        var cs = strategy.article
+        for (var i = 0; i < cs.length; i++) {
+            contentModel.append(cs[i])
+        }
+        
         contentModel.append({
             type: "txt",
             ratio: 1,
