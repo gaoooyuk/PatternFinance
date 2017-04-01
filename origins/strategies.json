@@ -17,6 +17,10 @@
             "content": "Dual Thrust是一个趋势跟踪系统，由Michael Chalek在20世纪80年代开发，曾被<a href=http://futurestruth.com/>Futures Truth杂志</a>评为最赚钱的策略之一。Dual Thrust系统具有简单易用、适用度广的特点。配合不同的参数、止盈止损和仓位管理，可以为投资者带来长期稳定的收益，被投资者广泛应用于股票、货币、贵金属、债券、能源及股指期货等市场。",
             "type": "txt",
             "ratio": 1
+        },{
+            "content": "/strategydata/dualthrust1.jpg",
+            "type": "img",
+            "ratio": 0.4
         }]
     },
     {

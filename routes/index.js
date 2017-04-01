@@ -6,6 +6,7 @@ var path = require('path');
 var fs = require('fs');
 
 var router = express.Router();
+var gYear = (new Date).getFullYear()
 
 router.get('/', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
@@ -79,7 +80,7 @@ router.get('/liqi', function(req, res, next) {
 
 	res.render('liqi', 
 	{ 
-        "html_description": "我们收集了2017年最值得关注的量化交易利器和它们的使用方法。",
+        "html_description": "我们收集了" + gYear+ "年最值得关注的量化交易利器和它们的使用方法。",
 		"html_keywords": "利器,磨石金融,Python,TALib,scikit-learn"
 	})
 });
@@ -89,7 +90,7 @@ router.get('/mindstore', function(req, res, next) {
 
 	res.render('mindstore', 
 	{ 
-        "html_description": "2017在Mindstore频道发现最近都有哪些不容错过的讲座和会议。",
+        "html_description": gYear + "在Mindstore频道发现最近都有哪些不容错过的讲座和会议。",
 		"html_keywords": "Mindstore,讲座,会议,磨石金融,学术会议,Workshop,Conference,Seminar,Talk,Pitch"
 	})
 });
@@ -99,8 +100,8 @@ router.get('/sts', function(req, res, next) {
 
     res.render('sts',
     {
-        "html_description": "Trading Smart in 2017 - 面向多策略开发的自动交易系统STS。",
-        "html_keywords": "STS,Trading,交易系统,交易策略,策略开发,磨石金融,Python"
+        "html_description": "Trade Smart in " + gYear + " - 面向多策略开发的自动交易系统STS。",
+        "html_keywords": "STS,Trading Systems,交易系统,交易策略,策略开发,磨石金融,Python"
     })
 });
 
