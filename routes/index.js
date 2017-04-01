@@ -217,6 +217,7 @@ router.get('/terms/*', function(req, res, next) {
 			var doc = global.mongodb.collection('terms').findOne({ "id": fn }, function(err, doc) {
 				if (doc) {
 			  		term = doc
+			  		term["_id"] = ""
 			  		find = true
 				}
 
@@ -247,6 +248,49 @@ router.get('/terms/*', function(req, res, next) {
 	});
 });
 
+//
+//
+//
+router.get('/strategy/*', function(req, res, next) {
+	var fn = req.params['0']
+	var strategy = {}
+	var find = false
+	async.series([
+	    function(callback) {
+			var doc = global.mongodb.collection('strategy').findOne({ "id": fn }, function(err, doc) {
+				if (doc) {
+			  		strategy = doc
+			  		strategy["_id"] = ""
+			  		find = true
+				}
+
+				callback(null, "")
+			});
+	    }
+	],
+	// optional callback
+	function(err, results) {
+	  	if (find) {
+			global.mongodb.collection('strategy').update( 
+				{ "id": fn },
+				{ $inc : { "viewedTimes" : 1 } },
+				{ upsert: false } );
+
+			res.render('strategy', 
+				{ 
+					"html_zh": strategy.zh, 
+					"html_en": strategy.en,
+					"html_description": strategy.lede,
+					"html_keywords": strategy.keywords,
+					"html_data": JSON.stringify(strategy)
+				})
+		} else {
+			var home_dir = path.join(global.dirRoot, 'qml/')
+			res.status(404).sendFile(path.join(home_dir + '/404.html'));
+		}
+	});
+});
+
 router.get('/initTerms', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'origins/')
 	var terms = JSON.parse(fs.readFileSync(path.join(home_dir + '/terms.json'), 'utf8'));
@@ -254,6 +298,15 @@ router.get('/initTerms', function(req, res, next) {
 	global.mongodb.collection('terms').insert(terms);
 
 	res.send({ "success": true, "count": terms.length })
+});
+
+router.get('/initStrategies', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'origins/')
+	var strategies = JSON.parse(fs.readFileSync(path.join(home_dir + '/strategies.json'), 'utf8'));
+	global.mongodb.collection('strategy').drop()
+	global.mongodb.collection('strategy').insert(strategies);
+
+	res.send({ "success": true, "count": strategies.length })
 });
 
 router.get('/sitemap.xml', function(req, res, next) {

@@ -13,6 +13,7 @@ var iter = 0
 var sched = null
 var ARTICLE_COLLECTION_NAME = 'article'
 var TERMS_COLLECTION_NAME = 'terms'
+var STRATEGY_COLLECTION_NAME = 'strategy'
 var urls = []
 var agents = ['Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
@@ -156,6 +157,9 @@ function getUrls(cb) {
 	    },
 	    function(callback) {
 	    	getTermsUrls(callback)
+	    },
+	    function(callback) {
+	    	getStrategyUrls(callback)
 	    }
 	],
 	// async.parallel callback
@@ -187,6 +191,21 @@ function getTermsUrls(callback) {
 	  		var id = doc.id
 	  		if ("" !== id) {
 	  			urls.push("/terms/" + id)
+	  		}
+	  	} else {
+			callback(null, "")
+	  	}
+	});
+}
+
+function getStrategyUrls(callback) {
+	var cursor = global.mongodb.collection(STRATEGY_COLLECTION_NAME).find({});
+	cursor.each(function(err, doc) {
+		assert.equal(err, null);
+	  	if (doc != null) {
+	  		var id = doc.id
+	  		if ("" !== id) {
+	  			urls.push("/strategy/" + id)
 	  		}
 	  	} else {
 			callback(null, "")

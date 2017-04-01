@@ -1,0 +1,138 @@
+[
+    {
+        "id": "bollinger_bandit",
+        "zh": "[经典策略1/17] 布林强盗策略",
+        "en": "Bollinger Bandit",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "dual_thrust",
+        "zh": "[经典策略2/17] Dual Thrust双向突破策略",
+        "en": "Dual Thrust",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "dynamic_breakout_2",
+        "zh": "[经典策略3/17] Dynamic Breakout II策略",
+        "en": "Dynamic Breakout II",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "ghost_trader",
+        "zh": "[经典策略4/17] 闪灵策略",
+        "en": "Ghost Trader",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "hans123",
+        "zh": "[经典策略5/17] Hans123策略",
+        "en": "Hans123",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "king_keltner",
+        "zh": "[经典策略6/17] King Keltner金肯特纳策略",
+        "en": "King Keltner",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "money_manager",
+        "zh": "[经典策略7/17] Money Manager策略",
+        "en": "Money Manager",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "ma_crossover",
+        "zh": "[经典策略8/17] Moving Average Crossover策略",
+        "en": "Moving Average Crossover",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "rbreaker",
+        "zh": "[经典策略9/17] R-Breaker策略",
+        "en": "R-Breaker",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "rsi",
+        "zh": "[经典策略10/17] Relative Strength策略",
+        "en": "Relative Strength",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "simple_mr",
+        "zh": "[经典策略11/17] 简单均值回归策略",
+        "en": "Simple Mean Reversion",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "skypark",
+        "zh": "[经典策略12/17] Skypark空中花园策略",
+        "en": "Skypark",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "super_combo",
+        "zh": "[经典策略13/17] Super Combo策略",
+        "en": "Super Combo",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "thermostat",
+        "zh": "[经典策略14/17] Thermostat恒温器策略",
+        "en": "Thermostat",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "yangtuo",
+        "zh": "[经典策略15/17] 羊驼策略",
+        "en": "YangTuo",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "bonus",
+        "zh": "[经典策略16/17] Bonus策略",
+        "en": "Bonus",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    },
+    {
+        "id": "donchian",
+        "zh": "[经典策略17/17] Donchian策略",
+        "en": "Donchian",
+        "lede": "",
+        "keywords": "",
+        "content": ""
+    }
+]
