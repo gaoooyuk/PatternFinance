@@ -2,6 +2,7 @@
 ** BaiduPush is a bot who help us push urls to Baidu
 **/
 var MongoClient = require('mongodb').MongoClient;
+var phantom = require("phantom");
 var request = require('request');
 var moment = require('moment');
 var assert = require('assert');
@@ -14,6 +15,8 @@ var sched = null
 var ARTICLE_COLLECTION_NAME = 'article'
 var TERMS_COLLECTION_NAME = 'terms'
 var STRATEGY_COLLECTION_NAME = 'strategy'
+var phantomJS = null
+var phantomRunning = false
 var urls = []
 var agents = ['Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50', 
@@ -59,6 +62,11 @@ var agents = ['Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWeb
 //
 
 var start = function() {
+	// Create and init PhantomJS
+	phantom.create().then(ph => {
+	    phantomJS = ph;
+	})
+
 	// MongoDB
 	var dbUrl = 'mongodb://localhost:27017/PatternFinanceDB';
 	MongoClient.connect(dbUrl, function(err, db) {
@@ -67,18 +75,18 @@ var start = function() {
 		global.mongodb = db
 
 		getUrls(function() {
-			urls.push("https://www.patternfinance.com")
-			urls.push("https://www.patternfinance.com/about")
-			urls.push("https://www.patternfinance.com/liqi")
-			urls.push("https://www.patternfinance.com/edge")
-			urls.push("https://www.patternfinance.com/mindstore")
-			urls.push("https://www.patternfinance.com/research")
-			urls.push("https://www.patternfinance.com/review")
-			urls.push("https://www.patternfinance.com/company")
-			urls.push("https://www.patternfinance.com/story")
-			urls.push("https://www.patternfinance.com/sts")
-			urls.push("https://www.patternfinance.com/joinus")
-			urls.push("https://www.patternfinance.com/partners")
+			urls.push("/")
+			urls.push("/about")
+			urls.push("/liqi")
+			urls.push("/edge")
+			urls.push("/mindstore")
+			urls.push("/research")
+			urls.push("/review")
+			urls.push("/company")
+			urls.push("/story")
+			urls.push("/sts")
+			urls.push("/joinus")
+			urls.push("/partners")
 		})
 
 		iter = 0
@@ -105,13 +113,11 @@ var useDefaultSchedule = function() {
 	sched = later.parse.recur().every(1).minute()
 			.after('01:05').time().before('03:35').time()
 			.every(1).minute()
-			.onWeekday()
 			.and()
 			.after('04:30').time().before('14:05').time()
 			.every(1).minute()
-			.onWeekday();
 
-	// sched = later.parse.recur().every(1).minute();
+	// sched = later.parse.recur().every(30).second();
 }
 
 //
@@ -120,11 +126,12 @@ var useDefaultSchedule = function() {
 
 function pushUrls() {
 	decision = Math.random()
-	if (decision < 0.9) {
+	if (decision < 0.9 || !phantomJS || phantomRunning) {
 		return
 	}
 
 	iter++
+	phantomRunning = true
 	console.log("")
 	console.log("[" + iter + "] Pushing urls at: " + moment.utc().format("YYYY-MM-DD HH:mm:ss Z"));
 	var pushCount = Math.floor(urls.length/2 * Math.random()) + 1
@@ -135,18 +142,39 @@ function pushUrls() {
 	var k2 = Math.floor(30 * Math.random())
 	var rand = (k1 + k2) * 1000 // 0 ~ 55s
 	setTimeout(function() {
-		for (var i = 0; i < urls2push.length; i++) {
-			var agent = agents[Math.floor(agents.length * Math.random())]
-			var options = {
-				url: 'https://www.patternfinance.com' + urls2push[i],
-				headers: {
-					'User-Agent': agent
-				}
-			};
-			// console.log('{' + i + '} ' + options.url)
-			request(options, function (error, response, body) {
-			});
-		}
+	    next = function(status, url) {
+	        return retrieve();
+	    };
+	    retrieve = function() {
+	        var url;
+	        if (urls2push.length > 0) {
+	        	var agent = agents[Math.floor(agents.length * Math.random())]
+	        	var path = urls2push.shift()
+	        	url = 'https://www.patternfinance.com' + path
+
+			    phantomJS.createPage().then(page => {
+			    	// page.property('viewportSize', { width: 1024, height: 600 });
+			    	page.setting('userAgent', agent)
+			        page.open(url).then(status => {
+			            if ("success" === status) {
+			                // page.render(path.replace(/\//g, "_") + ".png");
+			            }
+			            page.close()
+			            return next(status, url);
+			        }).catch(e => {
+			    	console.log(e)
+			    	page.close()
+			    	phantomRunning = false
+			    });
+			    }).catch(e => {
+			    	console.log(e)
+			    	phantomRunning = false
+			    });
+	        } else {
+	            phantomRunning = false
+	        }
+	    };
+	    return retrieve();
 	}, rand);
 }
 

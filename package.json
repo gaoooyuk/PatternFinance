@@ -31,6 +31,7 @@
     "mongodb": "^2.0.35",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
+    "phantom": "^4.0.1",
     "python-shell": "^0.1.0",
     "querystring": "^0.2.0",
     "request": "^2.75.0",
