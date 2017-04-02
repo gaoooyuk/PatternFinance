@@ -1,3 +1,4 @@
 #!/bin/bash
 
-pm2 start bdpush.js --name="bdpush" --watch
+pm2 delete bdpush
+pm2 start bdpush.js --name="bdpush"
