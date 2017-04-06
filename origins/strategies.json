@@ -1,6 +1,6 @@
 [
     {
-        "id": "bollinger_bandit",
+        "id": "bollinger-bandit",
         "zh": "[经典策略1/17] 布林强盗策略",
         "en": "Bollinger Bandit",
         "lede": "",
@@ -8,7 +8,7 @@
         "article": []
     },
     {
-        "id": "dual_thrust",
+        "id": "dual-thrust",
         "zh": "[经典策略2/17] Dual Thrust双向突破策略",
         "en": "Dual Thrust",
         "lede": "",
@@ -24,7 +24,7 @@
         }]
     },
     {
-        "id": "dynamic_breakout_2",
+        "id": "dynamic-breakout-2",
         "zh": "[经典策略3/17] Dynamic Breakout II策略",
         "en": "Dynamic Breakout II",
         "lede": "",
@@ -32,7 +32,7 @@
         "article": []
     },
     {
-        "id": "ghost_trader",
+        "id": "ghost-trader",
         "zh": "[经典策略4/17] 闪灵策略",
         "en": "Ghost Trader",
         "lede": "",
@@ -48,7 +48,7 @@
         "article": []
     },
     {
-        "id": "king_keltner",
+        "id": "king-keltner",
         "zh": "[经典策略6/17] King Keltner金肯特纳策略",
         "en": "King Keltner",
         "lede": "",
@@ -56,7 +56,7 @@
         "article": []
     },
     {
-        "id": "money_manager",
+        "id": "money-manager",
         "zh": "[经典策略7/17] Money Manager策略",
         "en": "Money Manager",
         "lede": "",
@@ -64,7 +64,7 @@
         "article": []
     },
     {
-        "id": "ma_crossover",
+        "id": "moving-average-crossover",
         "zh": "[经典策略8/17] Moving Average Crossover策略",
         "en": "Moving Average Crossover",
         "lede": "",
@@ -72,7 +72,7 @@
         "article": []
     },
     {
-        "id": "rbreaker",
+        "id": "r-breaker",
         "zh": "[经典策略9/17] R-Breaker策略",
         "en": "R-Breaker",
         "lede": "",
@@ -88,7 +88,7 @@
         "article": []
     },
     {
-        "id": "simple_mr",
+        "id": "simple-mean-reversion",
         "zh": "[经典策略11/17] 简单均值回归策略",
         "en": "Simple Mean Reversion",
         "lede": "",
@@ -104,7 +104,7 @@
         "article": []
     },
     {
-        "id": "super_combo",
+        "id": "super-combo",
         "zh": "[经典策略13/17] Super Combo策略",
         "en": "Super Combo",
         "lede": "",

@@ -32,13 +32,7 @@ var gEmptyWriter = function() {
 	writer.identity = ""
 	writer.type = ""
 	writer.password = ""
-
-	// n_: nick name
-	writer.n_wxmp = ""
-	writer.n_xueqiu = ""
-	writer.n_jrtt = ""
-	writer.n_medium = ""
-	writer.n_sinacj = ""
+	writer.medias = []
 
 	// c_: contact method
 	writer.c_mobile = ""
@@ -49,17 +43,32 @@ var gEmptyWriter = function() {
 	// s_: status
 	writer.s_activated = false
 
-	// avgvt: avg viewed times
-	writer.avgvt_wxmp = 0
-	writer.avgvt_xueqiu = 0
-	writer.avgvt_jrtt = 0
-
 	return writer
+
+	// var channels = ["zhihu", "wxmp", "xueqiu", "jrtt", "medium",
+	// 	"sinacj", "bdbj"]
+	// var mt = []
+	// for (c in channels) {
+	// 	mt.push(gEmptyMedia(channels[c], "", ""))
+	// }
 };
 
 var gInviteCode = function(type) {
 	return String(type).toUpperCase() + shortUUID(6)
 };
+
+var gEmptyMedia = function(channel, id, username) {
+	var media = {}
+	media.channel = channel
+	media.id = id
+	media.username = username
+	media.totalViewedTimes = 0
+	media.avgViewedTimes = 0
+	media.totalNumArticles = 0
+	media.articles = []
+
+	return media
+}
 
 var shortUUID = function(len) {
 	var ALPHABET = '23456789abdegjkmnpqrvwxyz';

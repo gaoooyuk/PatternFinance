@@ -1,6 +1,6 @@
 [
     {
-        "id": "capital_market",
+        "id": "capital-market",
         "zh": "资本市场",
         "en": "Capital Market",
         "lede": "作为金融市场三个组成部分之一，资本市场是政府、企业、个人筹措长期资金的市场，包括长期借贷市场和长期证券市场",
@@ -24,7 +24,7 @@
         "description": "债券是政府、金融机构、工商企业等机构直接向社会借债筹措资金时，向投资者发行，并且承诺按一定利率支付利息并按约定条件偿还本金的债权债务凭证。具有如下特征：偿还性，流通性，安全性，收益性。"
     }, 
     {
-        "id": "convertible_security",
+        "id": "convertible-security",
         "zh": "可转换证券",
         "en": "Convertible Security",
         "lede": "",
@@ -32,7 +32,7 @@
         "description": "是一种其持有人有权将其转换成为另一种不同性质的证券，主要包括可转换公司债券和可转换优先股。"
     }, 
     {
-        "id": "share_warrant",
+        "id": "share-warrant",
         "zh": "权证",
         "en": "Share Warrant",
         "lede": "",
@@ -40,7 +40,7 @@
         "description": "是指标的证券发行人或其以外的第三人发行的，约定持有人在规定期间内或特定到期日，有权按约定价格向发行人购买或出售标的证券，或以现金结算方式收取结算差价的有价证券。"
     }, 
     {
-        "id": "call_warrant",
+        "id": "call-warrant",
         "zh": "认购权证",
         "en": "Call Warrant",
         "lede": "",
@@ -48,7 +48,7 @@
         "description": "发行人发行的，约定持有人在规定期间内或特定到期日，有权按约定价格向发行人购买标的证券的有价证券。"
     }, 
     {
-        "id": "put_warrant",
+        "id": "put-warrant",
         "zh": "认沽权证",
         "en": "Put Warrant",
         "lede": "",
@@ -56,7 +56,7 @@
         "description": "发行人发行的，约定持有人在规定期间内或特定到期日，有权按约定价格向发行人出售标的证券的有价证券。"
     }, 
     {
-        "id": "securities_investment_fund",
+        "id": "securities-investment-fund",
         "zh": "证券投资基金",
         "en": "Securities Investment Fund",
         "lede": "",
@@ -64,7 +64,7 @@
         "description": "基金是指一种利益共享、风险共担的集合证券投资方式，即通过发行基金单位，集中投资者的资金，由基金托管人托管，由基金管理人管理和运用资金，从事股票、债券等金融工具投资。"
     }, 
     {
-        "id": "open_end_funds",
+        "id": "open-end-funds",
         "zh": "开放式基金",
         "en": "Open-end Funds",
         "lede": "",
@@ -72,7 +72,7 @@
         "description": "是指基金发行总额不固定，基金单位总数随时增减，投资者可以按基金的报价在国家规定的营业场所申购或者赎回基金单位的一种基金。"
     }, 
     {
-        "id": "closed_end_funds",
+        "id": "closed-end-funds",
         "zh": "封闭式基金",
         "en": "Closed-end Funds",
         "lede": "",
@@ -80,7 +80,7 @@
         "description": "是指事先确定发行总额，在封闭期内基金单位总数不变，基金上市后投资者可以通过证券市场转让、买卖基金单位的一种基金。"
     }, 
     {
-        "id": "primary_market",
+        "id": "primary-market",
         "zh": "一级市场",
         "en": "Primary Market",
         "lede": "",
@@ -96,7 +96,7 @@
         "description": "全称Initial public offering( 首次公开募股）指某公司（股份有限公司或有限责任公司）首次向社会公众公开招股的发行方式。"
     }, 
     {
-        "id": "offering_price",
+        "id": "offering-price",
         "zh": "发行价",
         "en": "Offering Price",
         "lede": "",
@@ -112,7 +112,7 @@
         "description": "指新上市公司以高于面值的价格办理公开发行或已上市公司以高于面值的价格办理现金增资。"
     }, 
     {
-        "id": "at_discount",
+        "id": "at-discount",
         "zh": "折价发行",
         "en": "At Discount",
         "lede": "",
@@ -120,7 +120,7 @@
         "description": "指以低于面前的价格发行。"
     }, 
     {
-        "id": "security_market",
+        "id": "security-market",
         "zh": "二级市场",
         "en": "Security Market",
         "lede": "",
@@ -168,7 +168,7 @@
         "description": "ST板块股就是指在沪深股市上挂牌的股票，因经营亏损或其他异常情况中国证监会为了提醒股民注意特别处理的股票。"
     }, 
     {
-        "id": "blue_chips",
+        "id": "blue-chips",
         "zh": "蓝筹股",
         "en": "Blue Chips",
         "lede": "",
@@ -176,7 +176,7 @@
         "description": "蓝筹股是指资本雄厚,股本和市值较大的信誉优良的上市公司发行的股票。"
     }, 
     {
-        "id": "red_chips",
+        "id": "red-chips",
         "zh": "红筹股",
         "en": "Red Chips",
         "lede": "",
@@ -288,7 +288,7 @@
         "description": "指在所考察交易日里，证券价格上升、下降的幅度很小，价格变化不大，市价像被钉住了似的，如牛皮之坚韧。"
     }, 
     {
-        "id": "call_auction",
+        "id": "call-auction",
         "zh": "集合竞价",
         "en": "Call Auction",
         "lede": "",
@@ -296,7 +296,7 @@
         "description": "在当天还没有成交价的时候，根据前一天的收盘价和对当日股市的预测来输入股票价格，而在这段时间里输入计算机主机的所有价格都是平等的，不需要按照时间优先和价格优先的原则交易，而是按最大成交量的原则来定出股票的价位，这个价位就被称为集合竞价的价位，而这个过程被称为集合竞价。"
     }, 
     {
-        "id": "continuous_bidding",
+        "id": "continuous-bidding",
         "zh": "连续竞价",
         "en": "Continuous Bidding",
         "lede": "",
@@ -304,7 +304,7 @@
         "description": "所谓连续竞价，即是指对申报的每一笔买卖委托。"
     }, 
     {
-        "id": "odd_lots",
+        "id": "odd-lots",
         "zh": "零股交易",
         "en": "Odd Lots",
         "lede": "",
@@ -360,7 +360,7 @@
         "description": "指定交易指投资者可以指定某一证券营业部为自己买卖证券的唯一的交易营业部。"
     }, 
     {
-        "id": "dividend_payout",
+        "id": "dividend-payout",
         "zh": "派息",
         "en": "Dividend Payout",
         "lede": "",
@@ -1295,7 +1295,7 @@
         "description": "是法律规定的商业银行准备金与商业银行吸收存款的比率。商业银行吸收的存款不能全部放贷出去，必须按照法定比率留存一部分作为随时应付存款人提款的准备金。"
     }, 
     {
-        "id": "index_fund",
+        "id": "index-fund",
         "zh": "指数基金",
         "en": "Index Fund",
         "lede": "",
@@ -1415,7 +1415,7 @@
         "description": "是指基金最新净值与成立以来的分红业绩之和，体现了基金从成立以来所取得的累计收益(减去一元面值即是实际收益)，可以比较直观和全面地反映基金在运作期间的历史表现，结合基金的运作时间，则可以更准确地体现基金的真实业绩水平。"
     }, 
     {
-        "id": "capital_gain",
+        "id": "capital-gain",
         "zh": "资本利得",
         "en": "Capital Gain",
         "lede": "",
@@ -1431,7 +1431,7 @@
         "description": "将投资者分得的收益再投资于基金，并折算成相应数量的基金单位，这实际上是将应分配的收益折为等额的新的基金单位送给投资者。" 
     }, 
     {
-        "id": "monte_carlo_analysis",
+        "id": "monte-carlo-analysis",
         "zh": "",
         "en": "Monte Carlo Analysis",
         "lede": "",
@@ -1455,7 +1455,7 @@
         "description": "The purpose of this indicator is to provide the TradeStation user the ability to identify a potential change in trend by detecting clusters generated by a Fibonacci time series and time projections from predetermined swing highs and swing lows. The indicator will plot a histogram which is a frequency plot showing the clusters of timing relationships that can be used in conjunction with price relationships using other Fibonacci TradeStation tools such as swing retracements. There are a few trading platforms that provide this type of indicator such as Ninja Trader, Genesis Financial and Dynamic Trader. In fact, Carolyn Boroden’s book, entitled “Fibonacci Trading How to Master the Time and Price Advantage”, describes how timing relationships are used together to achieve a more balanced trading decision.  Another indicator with this package, SwingHighLow, is used to visually delineate the key swing highs and swing lows on the price chart by plotting a cross marker over each swing high (Red) and swing low (Blue) as determined by the right and left strength bars" 
     }, 
     {
-        "id": "camarilla_pivot_points",
+        "id": "camarilla-pivot-points",
         "zh": "",
         "en": "Camarilla Pivot Points",
         "lede": "",

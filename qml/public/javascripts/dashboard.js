@@ -10,8 +10,20 @@ function initWriter() {
 	Writer.id = writer.id
 	Writer.type = writer.type
 	Writer.email = writer.email
+    Writer.name = writer.name
+    Writer.medias = writer.medias
+    var totalvt = 0
+    var totalna = 0
+    var avgvt = 0
+    for (var i = 0; i < writer.medias.length; i++) {
+        var mt = writer.medias[i]
+        totalvt += mt.totalViewedTimes
+        totalna += mt.totalNumArticles
+    }
+    avgvt = totalna > 0 ? totalvt/totalna : 0
 
 	document.querySelector("#html_email").innerHTML = ("" === Writer.email ? Writer.id : Writer.email);
+    document.querySelector("#html_totalvt").innerHTML = "浏览量 " + totalvt + "次"
 }
 
 function initPublishBox() {

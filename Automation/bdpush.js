@@ -66,6 +66,9 @@ var start = function() {
 	phantom.create().then(ph => {
 	    phantomJS = ph;
 	})
+	// phantom.create(['--ignore-ssl-errors=yes', '--load-images=no']).then(ph => {
+	//     phantomJS = ph;
+	// })
 
 	// MongoDB
 	var dbUrl = 'mongodb://localhost:27017/PatternFinanceDB';
@@ -153,6 +156,9 @@ function pushUrls() {
 	        	url = 'https://www.patternfinance.com' + path
 
 			    phantomJS.createPage().then(page => {
+					// page.customHeaders = {
+					// 	"Referer" : "http://example.com"
+					// }
 			    	// page.property('viewportSize', { width: 1024, height: 600 });
 			    	page.setting('userAgent', agent)
 			        page.open(url).then(status => {

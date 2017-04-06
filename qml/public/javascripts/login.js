@@ -94,7 +94,16 @@ Strut.ready(function() {
             s = i.map(function(e) {
                 return e.value
             });
-        return { login_method: s[0], token: md5(t.value) }
+
+        var lt = {}
+        lt.login_method = s[0]
+        if ("code" === s[0]) {
+            lt.token = t.value
+        } else if ("email" === s[0]) {
+            lt.token = md5(t.value)
+        }
+
+        return lt
     }
 
     function t(t) {

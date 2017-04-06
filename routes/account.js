@@ -33,6 +33,16 @@ router.post('/login', function(req, res, next) {
 	}
 });
 
+router.post('/getSpreadSummary', function(req, res, next) {
+	var userId = req.body.userId
+	var token = req.body.token
+});
+
+router.post('/getSpreadReport', function(req, res, next) {
+	var userId = req.body.userId
+	var token = req.body.token
+});
+
 router.post('/addArticle', function(req, res, next) {
 	var id = req.body.id
 	var title = req.body.title
@@ -1015,39 +1025,43 @@ function translateHtml2Markdown(content) {
 }
 
 function handleCodeLogin(token, res) {
-	var cursor = global.mongodb.collection('writer').find({ "id": token });
-	cursor.each(function(err, doc) {
-		assert.equal(err, null);
+	var writer = {}
+	var find = false
+	async.series([
+	    function(callback) {
+			global.mongodb.collection('writer').findOne({ "id": token }, function(err, doc) {
+				if (doc) {
+					find = true
+			  		writer.id = doc.id
+			  		writer.email = doc.c_email
+			  		writer.name = doc.name
+			  		writer.medias = doc.medias
 
-	  	if (doc != null) {
-	  		var writer = {}
-	  		writer.id = doc.id
-	  		writer.type = doc.type
-	  		writer.email = doc.c_email
-	  		if ("" === doc.c_email) {
-	  			if (!s_activated) {
-					global.mongodb.collection(collectionName).update( 
-						{ "id": token },
-						{ "s_activated": true },
-						{ upsert: false } 
-					);
-	  			}
+  			  		if ("" === doc.c_email) {
+			  			if (!doc.s_activated) {
+							global.mongodb.collection('writer').update( 
+								{ "id": doc.id },
+								{ "s_activated": true },
+								{ upsert: false } 
+							);
+			  			}
+			  		}
+				}
 
-	  			res.send({ success: true, user: writer })
-	  		} else {
-				res.send({ success: true, user: writer })
-	  		}
-	  	} else {
-	  		if ("4f2155e69aea499c87d1850ab8a8e183" === token) {
-	  			var fakeWriter = {}
-		  		fakeWriter.id = "fakeid"
-		  		fakeWriter.type = "faketype"
-		  		fakeWriter.email = "fakeemail"
-				res.send({ success: true, user: fakeWriter })
-	  		} else {
-				res.send({ success: false })
-	  		}
-	  	}
+				callback(null, "")
+			});
+	    }
+	],
+	// optional callback
+	function(err, results) {
+		var resp = {}
+	  	if (find) {
+	  		resp.success = true
+	  		resp.user = writer
+		} else {
+			resp.success = false
+		}
+		res.send(resp)
 	});
 }
 
