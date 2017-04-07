@@ -1,5 +1,13 @@
 [
     {
+        "id": "quant",
+        "zh": "宽客",
+        "en": "Quant",
+        "lede": "",
+        "keywords": "",
+        "description": ""
+    }, 
+    {
         "id": "capital-market",
         "zh": "资本市场",
         "en": "Capital Market",

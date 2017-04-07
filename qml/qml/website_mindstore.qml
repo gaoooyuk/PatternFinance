@@ -26,6 +26,11 @@ Rectangle {
             content: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F27734528%2F126528235865%2F1%2Foriginal.jpg?w=800&rect=7%2C0%2C3192%2C1596&s=896609348a297fc556a403258afdd604"
         }
         ListElement {
+            type: "img"
+            ratio: 0.67
+            content: "http://battleofthequants.com/wp-content/uploads/2014/08/Bartt-Event-Image-2.jpg"
+        }
+        ListElement {
             type: "txt"
             ratio: 1
             content: ""
