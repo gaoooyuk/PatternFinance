@@ -253,7 +253,7 @@ var crawlXueqiuArticle = function(url, cb) {
 
 var updateWriterArticles = function(writerId, articles) {
 	var docArticles = []
-	var doc = global.mongodb.collection('writer').findOne({
+	global.mongodb.collection('writer').findOne({
 		"id": writerId,
 		"medias": {
 			$elemMatch: {
