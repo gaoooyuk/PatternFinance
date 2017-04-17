@@ -28,6 +28,7 @@
     "medium-sdk": "0.0.4",
     "memcpy": "^0.5.0",
     "moment": "^2.10.6",
+    "moment-timezone": "^0.5.13",
     "mongodb": "^2.0.35",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
