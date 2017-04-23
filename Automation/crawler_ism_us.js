@@ -1,6 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
 var htmlparser = require("htmlparser2");
-var express = require('express');
 var phantom = require("phantom");
 var moment = require('moment');
 var assert = require('assert');
