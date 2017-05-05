@@ -91,7 +91,7 @@ var crawl = function() {
 					var item = news[i]
 					var link = item.querySelector(".news-ticker__headline > a")
 					if (link) {
-						feed.title = link.innerHTML
+						feed.title = correctHtmlContent(link.innerHTML)
 						feed.url = link.href
 					}
 					var pd = item.querySelector(".news-ticker__publish-date")

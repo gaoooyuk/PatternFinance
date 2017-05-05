@@ -92,7 +92,7 @@ var crawl = function() {
 					var link = item.querySelector("h4 > a")
 					if (link) {
 						feed.url = link.href
-						feed.title = link.innerHTML
+						feed.title = correctHtmlContent(link.innerHTML)
 					}
 					feed.timestamp = moment.tz(item.getAttribute("data-last-date"), "YYYY-MM-DD hh:mm:ss z", "America/New_York").valueOf()
 					feed.source = "Seeking Alpha"

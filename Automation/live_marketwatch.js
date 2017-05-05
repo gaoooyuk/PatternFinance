@@ -106,7 +106,7 @@ var crawl = function() {
 						var link = item.querySelector(".nv-text-cont .read-more")
 						if (link) {
 							feed.url = "http://www.marketwatch.com" + link.href
-							feed.title = link.innerHTML
+							feed.title = correctHtmlContent(link.innerHTML)
 						}
 						feed.timestamp = moment.tz(item.getAttribute("timestamp"), "MM/DD/YYYY hh:mm:ss A", "America/New_York").valueOf()
 						feed.source = "MarketWatch"
