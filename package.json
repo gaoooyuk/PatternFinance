@@ -16,6 +16,7 @@
     "emailjs": "^0.3.16",
     "express": "~4.13.0",
     "fb": "^1.1.1",
+    "feedparser": "^2.2.0",
     "filesize": "^3.3.0",
     "fs-extra": "^0.26.4",
     "googleapis": "^5.0.0",
