@@ -49,6 +49,18 @@ router.post('/addWords', function(req, res, next) {
     });
 });
 
+router.post('/updateWords', function(req, res, next) {
+    var words = req.body
+    async.each(words, function(word, callback) {
+        updateWord(word, callback)
+    }, function(err) {
+        if (err) {
+            // TODO
+        }
+        res.send("Done.")
+    });
+});
+
 var searchWord = function(word, callback) {
     var found = false
     var total = 0
@@ -119,6 +131,23 @@ var addWord = function(word, callback) {
         if (!doc) {
             global.mongodb.collection('glossary').insert(word)
         }
+        callback()
+    });
+}
+
+var updateWord = function(word, callback) {
+    global.mongodb.collection('glossary').updateOne(
+    { 
+        word_zh: word.word_zh 
+    }, 
+    { 
+        $set: { 
+            "description_zh": word.description_zh,
+            "description_en": word.description_en,
+            "word_en": word.word_en
+        }
+    },
+    { upsert: true }, function(err) {
         callback()
     });
 }
