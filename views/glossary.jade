@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title #{html_title} - Glossary | 磨石金融
+    script(type="text/javascript"
+      src="lib/qt.js")
+    meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width,initial-scale=1")
+    meta(name="googlebot" content="NOODP")
+    meta(name="description" content=html_description)
+    meta(name="keywords" content=html_keywords)
+    include growthhacker
+    link(rel='stylesheet', type='text/css', href='public/stylesheets/article.css')
+    link(rel="shortcut icon" href='public/images/ico/favicon.ico')
+  body
+    div#embed
+    script.
+      (function() {
+      QmlWeb.Qt.cache = "#{html_cache}".replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, "\"")
+      var div = document.getElementById('embed');
+      var engine = new QmlWeb.QMLEngine(div);
+      engine.loadFile('qml/website_glossary.qml');
+      engine.start();
+      })();

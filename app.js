@@ -1,6 +1,7 @@
 'use strict';
 
 var MongoClient = require('mongodb').MongoClient;
+var subdomain = require('express-subdomain');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
@@ -10,6 +11,7 @@ var assert = require('assert');
 var path = require('path');
 
 // Routes
+var glossary = require('./routes/glossary');
 var account = require('./routes/account');
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
@@ -43,14 +45,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public/')));
+app.use('/dashboard', express.static(path.join(__dirname, 'qml/')));
+app.use('/glossary', express.static(path.join(__dirname, 'qml/')));
 app.use('/strategy', express.static(path.join(__dirname, 'qml/')));
 app.use('/article', express.static(path.join(__dirname, 'qml/')));
 app.use('/terms', express.static(path.join(__dirname, 'qml/')));
 app.use('/', express.static(path.join(__dirname, 'qml/')));
 app.use('/account', account);
 app.use('/admin', admin);
-app.use('/', routes);
 app.use('/api', api);
+app.use('/', routes);
+
+//
+// Sub-domains
+//
+app.use(subdomain('glossary', glossary));
+// app.use('/glossary', glossary);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

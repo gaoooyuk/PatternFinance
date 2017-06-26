@@ -16,7 +16,7 @@ Rectangle {
     height: snsBar.height
             + coverPanel.height
             + articlePanel.height
-            + liveChatPanel.height
+            //+ liveChatPanel.height
 
     ListModel {
         id: contentModel
@@ -182,7 +182,7 @@ Rectangle {
         Rectangle {
             id: articlePanel
             width: parent.width
-            height: articleContentPanel.height
+            height: contentPanel.height
 
             Rectangle {
                 id: contentPanel
@@ -193,7 +193,7 @@ Rectangle {
 
                     return articlePanel.width * 0.85
                 }
-                height: parent.height
+                height: articleContentPanel.height
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
@@ -204,7 +204,7 @@ Rectangle {
                         width: parent.width
                         height: {
                             var h = 0
-                            for (var i = 1; i < contentLayout.children.length; i++) {
+                            for (var i = 0; i < contentLayout.children.length; i++) {
                                 h += contentLayout.children[i].height
                             }
 
@@ -264,11 +264,11 @@ Rectangle {
             }
         }
 
-        LiveChat {
-            id: liveChatPanel
-            width: mainWindow.width
-            anchors.horizontalCenter: parent.horizontalCenter
-            userToken: "5/3ZwMh6PCqJ60EAuLrWZeo7Tvtng141r9wg86KVxosF90Z9cYiGVLiNniqGCupB7ZFOvB3iecnEkbY/9mvGv1Jkz+s3kIFsBzfffUUi/0E=" // moshikf_partners
-        }
+        //LiveChat {
+        //    id: liveChatPanel
+        //    width: mainWindow.width
+        //    anchors.horizontalCenter: parent.horizontalCenter
+        //    userToken: "5/3ZwMh6PCqJ60EAuLrWZeo7Tvtng141r9wg86KVxosF90Z9cYiGVLiNniqGCupB7ZFOvB3iecnEkbY/9mvGv1Jkz+s3kIFsBzfffUUi/0E=" // moshikf_partners
+        //}
     }
 }
