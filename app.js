@@ -51,6 +51,7 @@ app.use('/strategy', express.static(path.join(__dirname, 'qml/')));
 app.use('/article', express.static(path.join(__dirname, 'qml/')));
 app.use('/terms', express.static(path.join(__dirname, 'qml/')));
 app.use('/', express.static(path.join(__dirname, 'qml/')));
+app.use('/glossary', glossary);
 app.use('/account', account);
 app.use('/admin', admin);
 app.use('/api', api);
@@ -60,7 +61,7 @@ app.use('/', routes);
 // Sub-domains
 //
 app.use(subdomain('glossary', glossary));
-// app.use('/glossary', glossary);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -37,6 +37,18 @@ router.get('/*', function(req, res, next) {
     })
 });
 
+router.post('/addWords', function(req, res, next) {
+    var words = req.body
+    async.each(words, function(word, callback) {
+        addWord(word, callback)
+    }, function(err) {
+        if (err) {
+            // TODO
+        }
+        res.send("Done.")
+    });
+});
+
 var searchWord = function(word, callback) {
     var found = false
     var total = 0
@@ -97,6 +109,17 @@ var searchWord = function(word, callback) {
         cache.zxsl = zxsl
         cache.cx = cx
         callback(found, cache)
+    });
+}
+
+var addWord = function(word, callback) {
+    global.mongodb.collection('glossary').findOne({
+        "word_zh": word.word_zh
+    }, function(err, doc) {
+        if (!doc) {
+            global.mongodb.collection('glossary').insert(word)
+        }
+        callback()
     });
 }
 
