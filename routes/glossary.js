@@ -91,7 +91,15 @@ var searchWord = function(word, lang, callback) {
         },
         function(cb) {
             var sort = { '_id': -1 }
-            var cursor2 = global.mongodb.collection('glossary').find({}).sort(sort).limit(3);
+
+            // find items where array.size > 1
+            // https://stackoverflow.com/questions/7811163/query-for-documents-where-array-size-is-greater-than-1/15224544#15224544
+            var cursor2 = null
+            if ("en" === lang) {
+                cursor2 = global.mongodb.collection('glossary').find({ 'examples_en.0': {$exists:true} }).sort(sort).limit(3);
+            } else {
+                cursor2 = global.mongodb.collection('glossary').find({ 'examples_zh.0': {$exists:true} }).sort(sort).limit(3);
+            }
             cursor2.toArray(function(err, docs) {
                 docs.forEach(function(doc) {
                     var word_zh = doc.word_zh
