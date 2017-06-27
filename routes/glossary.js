@@ -9,7 +9,7 @@ var collectionName = 'glossary'
 
 router.get('/', function(req, res) {
     var word = "信贷脉冲"
-    searchWord(word, function(found, cache) {
+    searchWord(word, "zh", function(found, cache) {
         res.render('glossary',
         {
             "html_title": "信贷脉冲",
@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
 
 router.get('/*', function(req, res, next) {
     var word = req.params['0']
-    searchWord(word, function(found, cache) {
+    searchWord(word, "zh", function(found, cache) {
         if (found) {
             res.render('glossary',
             {
@@ -61,7 +61,22 @@ router.post('/updateWords', function(req, res, next) {
     });
 });
 
-var searchWord = function(word, callback) {
+router.post('/searchWord', function(req, res, next) {
+    var word = req.body.word
+    var lang = req.body.lang
+    var result = {}
+    searchWord(word, lang, function(found, cache) {
+        if (found) {
+            result.found = true
+            result.data = cache
+        } else {
+            result.found = false
+        }
+        res.send(result)
+    })
+});
+
+var searchWord = function(word, lang, callback) {
     var found = false
     var total = 0
     var zxsl = []
@@ -94,13 +109,16 @@ var searchWord = function(word, callback) {
             });
         },
         function(cb) {
-            var cursor3 = global.mongodb.collection('glossary').find({ "word_zh": word }).limit(1);
+            var word_lang = "word_" + lang
+            var cursor3 = global.mongodb.collection('glossary').find({ word_lang: word }).limit(1);
             cursor3.toArray(function(err, docs) {
                 docs.forEach(function(doc) {
                     found = true
 
                     cx.word_zh = doc.word_zh
+                    cx.word_en = doc.word_en
                     cx.description_zh = doc.description_zh
+                    cx.description_en = doc.description_en
 
                     var arr = []
                     var len = doc.examples_zh.length

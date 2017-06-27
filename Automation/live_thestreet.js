@@ -82,31 +82,32 @@ var crawl = function() {
 	var timeZone = "EDT"
 	jsdom.env(url, function (err, window) {
 		var document = window.document
-		var lst = document.querySelector(".news-ticker__list")
-		if (lst) {
-			var news = lst.querySelectorAll(".news-ticker__item")
-			if (news) {
-				for (var i = 0; i < news.length; i++) {
-					var feed = {}
-					var item = news[i]
-					var link = item.querySelector(".news-ticker__headline > a")
-					if (link) {
-						feed.title = correctHtmlContent(link.innerHTML)
-						feed.url = link.href
-					}
-					var pd = item.querySelector(".news-ticker__publish-date")
-					if (pd) {
-						var dt = pd.getAttribute("datetime")
-						dt = dt.slice(0, dt.length - 1)
-						feed.timestamp = moment.tz(dt, "YYYY-MM-DDThh:mm", "America/New_York").valueOf()
-					}
-					var sn = item.querySelector(".news-ticker__site-name")
-					if (sn) {
-						feed.source = sn.innerHTML
-					}
+		if (document) {
+			var lst = document.querySelector(".news-ticker__list")
+			if (lst) {
+				var news = lst.querySelectorAll(".news-ticker__item")
+				if (news) {
+					for (var i = 0; i < news.length; i++) {
+						var feed = {}
+						var item = news[i]
+						var link = item.querySelector(".news-ticker__headline > a")
+						if (link) {
+							feed.title = correctHtmlContent(link.innerHTML)
+							feed.url = link.href
+						}
+						var pd = item.querySelector(".news-ticker__publish-date")
+						if (pd) {
+							var dt = pd.getAttribute("datetime")
+							dt = dt.slice(0, dt.length - 1)
+							feed.timestamp = moment.tz(dt, "YYYY-MM-DDThh:mm", "America/New_York").valueOf()
+						}
+						var sn = item.querySelector(".news-ticker__site-name")
+						if (sn) {
+							feed.source = sn.innerHTML
+						}
 
-					// console.log(feed)
-					global.mongodb.collection('live_news').update( { "url": feed.url }, feed, { upsert: true } );
+						processFeed(feed)
+					}
 				}
 			}
 		}
@@ -114,6 +115,10 @@ var crawl = function() {
 		// free memory associated with the window
 		window.close();
 	});
+}
+
+var processFeed = function(feed) {
+	global.mongodb.collection('live_news').update( { "url": feed.url }, feed, { upsert: true } );
 }
 
 var correctHtmlContent = function(content) {

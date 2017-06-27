@@ -81,24 +81,25 @@ var crawl = function() {
 	var url = "https://seekingalpha.com/market-news"
 	jsdom.env(url, function (err, window) {
 		var document = window.document
-		var lst = document.querySelector("#latest-news-list")
-		if (lst) {
-			var news = lst.querySelectorAll("li.item")
+		if (document) {
+			var lst = document.querySelector("#latest-news-list")
+			if (lst) {
+				var news = lst.querySelectorAll("li.item")
 
-			if (news) {
-				for (var i = 0; i < news.length; i++) {
-					var feed = {}
-					var item = news[i]
-					var link = item.querySelector("h4 > a")
-					if (link) {
-						feed.url = link.href
-						feed.title = correctHtmlContent(link.innerHTML)
+				if (news) {
+					for (var i = 0; i < news.length; i++) {
+						var feed = {}
+						var item = news[i]
+						var link = item.querySelector("h4 > a")
+						if (link) {
+							feed.url = link.href
+							feed.title = correctHtmlContent(link.innerHTML)
+						}
+						feed.timestamp = moment.tz(item.getAttribute("data-last-date"), "YYYY-MM-DD hh:mm:ss z", "America/New_York").valueOf()
+						feed.source = "Seeking Alpha"
+
+						processFeed(feed)
 					}
-					feed.timestamp = moment.tz(item.getAttribute("data-last-date"), "YYYY-MM-DD hh:mm:ss z", "America/New_York").valueOf()
-					feed.source = "Seeking Alpha"
-
-					// console.log(feed)
-					global.mongodb.collection('live_news').update( { "url": feed.url }, feed, { upsert: true } );
 				}
 			}
 		}
@@ -106,6 +107,10 @@ var crawl = function() {
 		// free memory associated with the window
 		window.close();
 	});
+}
+
+var processFeed = function(feed) {
+	global.mongodb.collection('live_news').update( { "url": feed.url }, feed, { upsert: true } );
 }
 
 var correctHtmlContent = function(content) {

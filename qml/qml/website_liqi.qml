@@ -147,6 +147,11 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
+            content: "<strong>Algorithmia</strong> 算法商店。由Google在2017年领投的AI版Play Store。上榜CBinsights“最值得关注的100家人工智能公司”。<a href=https://algorithmia.com/ target=_blank>传送门</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
             content: ""
         }
     }

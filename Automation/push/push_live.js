@@ -1,40 +1,22 @@
 var MongoClient = require('mongodb').MongoClient;
 var moment = require('moment-timezone');
-var FeedParser = require('feedparser');
-var request = require('request');
+var JPush = require("jpush-sdk");
 var assert = require('assert');
+var async = require('async');
 var later = require('later');
 var path = require('path');
 var fs = require('fs');
 
 // global variables
+var jpushClient = JPush.buildClient("0795f0cdd7ee316169000467", 
+									"5fc5eedc25d4538574c1d0a3", 
+									null, 
+									false)
 var iter = 0
-var sched = null
-var feedparser = new FeedParser()
-feedparser.on('error', function (error) {
-	// always handle errors
-	console.log("[DEBUG] FeedParser error")
-});
-feedparser.on('readable', function () {
-	// This is where the action is!
-	var stream = this
-	var meta = this.meta
-
-	var item
-	while (item = stream.read()) {
-		var duration = moment.duration(moment().diff(moment(item.pubDate)))
-		var secs = duration.asSeconds()
-		if (secs < 60) { // only process news within 60s
-			var feed = {}
-			feed.url = item.link
-			feed.title = correctHtmlContent(item.title)
-			feed.timestamp = moment.tz(item.pubDate, "MM/DD/YYYY hh:mm:ss A", "America/New_York").valueOf()
-			feed.source = "CNBC"
-			// console.log(feed)
-			global.mongodb.collection('live_news').update( { "url": feed.url }, feed, { upsert: true } );
-		}
-	}
-});
+var whitelist = []
+var blacklist = []
+var queue = []
+var lastTS = 0
 
 var start = function() {
 	// MongoDB
@@ -45,44 +27,58 @@ var start = function() {
 		global.mongodb = db
 
 		iter = 0
-		if (assertPoint(sched)) {
-			// Execute code
-			var timer = later.setInterval(crawl, sched);
-		} else {
-			console.log("Warning: no sched found.")
+		sched1 = later.parse.recur().every(10).second();
+		sched2 = later.parse.recur().every(5).second();
+
+		var timer1 = later.setInterval(queueNews, sched1);
+		var timer2 = later.setInterval(pushNews, sched2);
+	});
+}
+
+var queueNews = function() {
+	var sort = { 'timestamp': -1 }
+	var cursor = global.mongodb.collection('live_news').find({}).sort(sort).limit(1)
+	cursor.toArray(function(err, docs) {
+		if (1 === docs.length) {
+			var news = docs[0]
+
+			// 筛选符合条件的News放入queue中
+			if (isValid(news)) {
+				lastTS = news.timestamp
+				queue.push({
+					"title": news.title,
+					"timestamp": news.timestamp
+				})
+
+				console.log("title: ", news.title)
+				console.log("source: ", news.source)
+				console.log("timestamp: ", moment(news.timestamp).tz('America/New_York').format('YYYY-MM-DD hh:mm:ss'))
+			}
 		}
 	});
 }
 
-var setSchedule = function(s) {
-	sched = s
-}
-
-var useDefaultSchedule = function() {
-	sched = later.parse.recur().every(30).second();
-}
-
-var crawl = function() {
-	var url = "http://www.cnbc.com/id/15839135/device/rss/rss.html"
-	var req = request(url)
-  	// Some feeds do not respond without user-agent and accept headers.
-  	req.setHeader('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
-  	req.setHeader('accept', 'text/html,application/xhtml+xml');
-
-	// Define our handlers
-	req.on('error', function (error) {
-	  // handle any request errors
-	  console.log("[DEBUG] request error")
-	});
-	req.on('response', function (res) {
-		var stream = this; // `this` is `req`, which is a stream
-
-		if (res.statusCode !== 200) {
-			this.emit('error', new Error('Bad status code'));
-		} else {
-			stream.pipe(feedparser);
+var pushNews = function() {
+	var news = queue.shift()
+	if (assertPoint(news)) {
+		var min2 = 1000 * 60 * 2
+		console.log("news timestamp: ", news.timestamp)
+		console.log("now timestamp: ", (new Date).getTime())
+		var diff = Math.abs(news.timestamp - (new Date).getTime())
+		console.log("diff: ", diff)
+		console.log("")
+		if (diff < min2) {
+			tellBoss(news.title)
 		}
-	});
+	}
+}
+
+var isValid = function(news) {
+	if (news.timestamp <= lastTS) {
+		return false
+	}
+
+	return true 
 }
 
 var correctHtmlContent = function(content) {
@@ -147,6 +143,29 @@ var getDomain = function(url) {
     return domain;
 }
 
+function tellBoss(msg) {
+	var t = String(msg)
+	if (jpushClient) {
+		jpushClient.push()
+			.setPlatform('ios')
+		    .setAudience(JPush.registration_id('141fe1da9ea2287bac3'))
+		    .setNotification(t, JPush.ios(t), JPush.android(t, null, 1))
+		    .setMessage(t)
+		    .send(function(err, res) {
+				if (err) {
+					if (err instanceof JPush.APIConnectionError) {
+						console.log(err.message)
+						// Response Timeout means your request to the server may have already received,
+						// please check whether or not to push
+						console.log(err.isResponseTimeout)
+					} else if (err instanceof JPush.APIRequestError) {
+						console.log(err.message)
+					}
+				}
+		    });
+	}
+}
+
 function assertPoint(p) {
 	if (undefined == p || null == p) {
 		return false
@@ -159,5 +178,4 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-useDefaultSchedule()
 start()
