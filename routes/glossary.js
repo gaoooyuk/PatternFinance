@@ -109,8 +109,13 @@ var searchWord = function(word, lang, callback) {
             });
         },
         function(cb) {
-            var word_lang = "word_" + lang
-            var cursor3 = global.mongodb.collection('glossary').find({ word_lang: word }).limit(1);
+            var cursor3 = null
+            if ("en" === lang) {
+                cursor3 = global.mongodb.collection('glossary').find({ "word_en": word }).limit(1);
+            } else {
+                cursor3 = global.mongodb.collection('glossary').find({ "word_zh": word }).limit(1);
+            }
+            
             cursor3.toArray(function(err, docs) {
                 docs.forEach(function(doc) {
                     found = true
