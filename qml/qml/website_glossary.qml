@@ -69,7 +69,7 @@ Rectangle {
                         ptText.color = "#4A4A4A"
                     }
                     onClicked: {
-                        Qt.openUrlExternally("/partners")
+                        Qt.openUrlExternally("https://www.patternfinance.com/partners")
                     }
                 }
             }
@@ -97,7 +97,7 @@ Rectangle {
                         storyText.color = "#4A4A4A"
                     }
                     onClicked: {
-                        Qt.openUrlExternally("/story")
+                        Qt.openUrlExternally("https://www.patternfinance.com/story")
                     }
                 }
             }
@@ -125,7 +125,7 @@ Rectangle {
                         liqiText.color = "#4A4A4A"
                     }
                     onClicked: {
-                        Qt.openUrlExternally("/liqi")
+                        Qt.openUrlExternally("https://www.patternfinance.com/liqi")
                     }
                 }
             }
@@ -208,7 +208,7 @@ Rectangle {
 
                             GeneralMouseArea {
                                 onClicked: {
-                                    Qt.openUrlExternally("/glossary/" + word)
+                                    Qt.openUrlExternally("https://glossary.patternfinance.com/" + word)
                                 }
                             }
                         }
