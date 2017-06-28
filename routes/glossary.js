@@ -10,13 +10,7 @@ var collectionName = 'glossary'
 router.get('/', function(req, res) {
     var word = "信贷脉冲"
     searchWord(word, "zh", function(found, cache) {
-        res.render('glossary',
-        {
-            "html_title": "信贷脉冲",
-            "html_description": "Trade Smart - 面向多策略开发的自动交易系统STS。",
-            "html_keywords": "STS,Trading Systems,交易系统,交易策略,策略开发,磨石金融,Python",
-            "html_cache": JSON.stringify(cache)
-        })
+        renderWord(res, word, cache)
     })
 });
 
@@ -24,13 +18,7 @@ router.get('/*', function(req, res, next) {
     var word = req.params['0']
     searchWord(word, "zh", function(found, cache) {
         if (found) {
-            res.render('glossary',
-            {
-                "html_title": word,
-                "html_description": "Trade Smart - 面向多策略开发的自动交易系统STS。",
-                "html_keywords": "STS,Trading Systems,交易系统,交易策略,策略开发,磨石金融,Python",
-                "html_cache": JSON.stringify(cache)
-            })
+            renderWord(res, word, cache)
         } else {
             res.redirect("https://www.patternfinance.com")
         }
@@ -181,6 +169,29 @@ var updateWord = function(word, callback) {
     { upsert: true }, function(err) {
         callback()
     });
+}
+
+var renderWord = function(res, word, cache) {
+    var cx = cache.cx
+    var w_zh = cx.word_zh
+    var d_zh = cx.description_zh
+
+    var html_d = ""
+    if ("" !== d_zh) {
+        html_d = d_zh
+    } else {
+        html_d = "一群酷到爆的人做的金融新媒体。磨石金融给你看最简明扼要的" + "「" + w_zh + "」" + "解释和实时新闻摘录。"
+    }
+
+    var html_kw = "APP,微信,微博,咨询,AI,智能,科技,利器,金融,新媒体,磨石金融,新闻,解释,翻译," + w_zh
+
+    res.render('glossary',
+    {
+        "html_title": word,
+        "html_description": html_d,
+        "html_keywords": html_kw,
+        "html_cache": JSON.stringify(cache)
+    })
 }
 
 module.exports = router;
