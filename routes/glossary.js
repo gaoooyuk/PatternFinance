@@ -64,6 +64,18 @@ router.post('/searchWord', function(req, res, next) {
     })
 });
 
+router.post('/feedNews', function(req, res, next) {
+    var arr = req.body
+    async.each(arr, function(item, callback) {
+        feedNews(item.word, item.news, callback)
+    }, function(err) {
+        if (err) {
+            // TODO
+        }
+        res.send("Done.")
+    });
+});
+
 var searchWord = function(word, lang, callback) {
     var found = false
     var total = 0
@@ -193,5 +205,60 @@ var renderWord = function(res, word, cache) {
         "html_cache": JSON.stringify(cache)
     })
 }
+
+var feedNews = function(word, news, callback) {
+    var minLength = 15
+    var maxLength = 30
+    var len = String(news.content).length
+    if (len < minLength 
+        || len > maxLength) {
+        callback()
+    } else {
+        find("glossary", "word_zh", word, function(db_res) {
+            if (db_res.exists) {
+                global.mongodb.collection('glossary').findOne({
+                    "word_zh": word,
+                    "examples_zh": {
+                        $elemMatch: {
+                            "content": news.content
+                        }
+                    }
+                }, function(err, doc) {
+                    if (!doc) {
+                        global.mongodb.collection('glossary').update( 
+                            { "word_zh": word },
+                            { $addToSet: { "examples_zh": news } },
+                            { upsert: false } 
+                        );
+                    }
+                    callback()
+                });
+            } else {
+                callback()
+            }
+        })
+    }
+}
+
+var find = function(collectionName, key, value, callback) {
+    var result = {}
+    result.exists = false
+    result.obj = null
+
+    var item = {}
+    item[key] = value
+
+    var cursor = global.mongodb.collection(collectionName).find( item );
+    cursor.each(function(err, doc) {
+        assert.equal(err, null);
+
+        if (doc != null) {
+            result.exists = true
+            result.obj = doc
+        } else {
+            callback(result)
+        }
+    });
+};
 
 module.exports = router;
