@@ -166,7 +166,10 @@ router.get('/story', function(req, res, next) {
 });
 
 router.post('/sync', function(req, res, next) {
-	console.log("Sync with Github")
+	var exec = require('child_process').exec
+	var child = exec("git pull", function (err, stdout, stderr) {
+		res.send("Done.")
+	});
 });
 
 // 
