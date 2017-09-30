@@ -47,8 +47,13 @@ router.get('/company', function(req, res, next) {
 
 router.get('/dashboard', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
-	res.sendFile(path.join(home_dir + '/dashboard.html'));
+	res.sendFile(path.join(home_dir + '/dashboard_.html'));
 });
+
+// router.get('/dashboard', function(req, res, next) {
+// 	var home_dir = path.join(global.dirRoot, 'qml/gentelella/production')
+// 	res.sendFile(path.join(home_dir + '/index.html'));
+// });
 
 router.get('/edge', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
@@ -158,6 +163,10 @@ router.get('/story', function(req, res, next) {
 		"html_description": "",
 		"html_keywords": "投资故事,磨石金融,新媒体,交易人生,纪实,财经"
 	})
+});
+
+router.post('/sync', function(req, res, next) {
+	console.log("Sync with Github")
 });
 
 // 
