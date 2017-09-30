@@ -22,7 +22,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "\n利器版本: 2017-03-31 16:09"
+            content: "\n利器版本: 2017-09-29 11:56"
         }
         ListElement {
             type: "sectionHeader"
@@ -148,6 +148,16 @@ Rectangle {
             type: "txt"
             ratio: 1
             content: "<strong>Algorithmia</strong> 算法商店。由Google在2017年领投的AI版Play Store。上榜CBinsights“最值得关注的100家人工智能公司”。<a href=https://algorithmia.com/ target=_blank>传送门</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: ""
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<strong>Intrinio</strong> 金融数据平台。提供包括美国上市公司财务数据、机构持仓及全球经济在内的多项数据。<a href=https://intrinio.com/ target=_blank>传送门</a>"
         }
         ListElement {
             type: "txt"
