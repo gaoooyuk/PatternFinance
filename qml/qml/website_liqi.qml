@@ -22,7 +22,7 @@ Rectangle {
         ListElement {
             type: "txt"
             ratio: 1
-            content: "\n利器版本: 2017-09-29 11:56"
+            content: "\n利器版本: 2017-09-29 11:55"
         }
         ListElement {
             type: "sectionHeader"
