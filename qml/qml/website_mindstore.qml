@@ -52,7 +52,7 @@ Rectangle {
         ListElement {
             type: "sectionHeader"
             ratio: 1
-            content: "Bridgewater桥水"
+            content: "Bridgewater桥水基金"
         }
         ListElement {
             type: "txt"
@@ -113,6 +113,51 @@ Rectangle {
             type: "txt"
             ratio: 1
             content: "<a href=https://www.aqr.com/-/media/files/papers/understanding-style-premia.pdf target=_blank>Dec 2014 - Understanding Style Premia</a>"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "Citadel城堡基金"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "这家由Harvard毕业生Ken Griffin在1990年创建的大型多策略对冲基金目前管理着270亿美元的资产。除了传统的对冲基金策略，Citadel也涉足高频交易业务。"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "Two Sigma"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "如果不提Two Sigma的对冲基金血统，它看起来更像是一家来自于硅谷的高科技公司。从举办人工智能比赛到创建Collision Lab，它一直在向我们展示其拥有的创新基因。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://www.twosigma.com/uploads/StreetView_Sept_2017_Public_FINAL.pdf target=_blank>Sep 2017 - CTA and Macro Momentum Exposure</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://www.twosigma.com/uploads/SV_08_17.pdf target=_blank>Aug 2017 - CTA Market and Portfolio Diversification</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://www.twosigma.com/uploads/SV_06_17v2.pdf target=_blank>Jun 2017 - What to Make of a Low-Volatility, Low-Correlation Market</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://www.twosigma.com/uploads/StreetView_January_2017_Public.pdf target=_blank>Feb 2017 - Asset Class Correlations: Return to Normalcy?</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://www.twosigma.com/uploads/Thematic_Research_Risk_Premia_4_1.pdf target=_blank>May 2016 - Thematic Research: Risk Factors Are Not Generic</a>"
         }
     }
 
