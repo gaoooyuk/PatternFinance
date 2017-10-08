@@ -13,6 +13,16 @@ router.get('/', function(req, res, next) {
 	res.sendFile(path.join(home_dir + '/main.html'));
 });
 
+router.get('/factor-investing', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('factor_investing', 
+	{ 
+        "html_description": "磨石金融因子投资",
+		"html_keywords": "因子投资,Smart Beta,因子轮动,多因子策略"
+	})
+});
+
 router.get('/about', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 
