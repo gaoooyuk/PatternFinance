@@ -159,6 +159,26 @@ Rectangle {
             ratio: 1
             content: "<a href=https://www.twosigma.com/uploads/Thematic_Research_Risk_Premia_4_1.pdf target=_blank>May 2016 - Thematic Research: Risk Factors Are Not Generic</a>"
         }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
+            content: "Fuller&Thaler资产管理公司"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "72岁的Richard H. Thaler因创建了行为经济学理论(Behavioral Finance)而获得2017年的诺贝尔经济学奖。这家由Richard Thaler和Russell Fuller在1993年建立资产管理公司也招揽了另一位2002年诺奖得主Daniel Kahnerman。除了研究行为经济学，Richard Thaler也管理着多支与其研究相关的基金（比如：<a href=http://www.morningstar.com/funds/XNAS/UBVLX/quote.html target=_blank>UBVLX</a>），且在过去10年间回报率不凡。"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://item.jd.com/11029168.html target=_blank>Daniel Kahneman - 思考，快与慢</a>"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "<a href=https://item.jd.com/11667591.html target=_blank>Richard H. Thaler - 助推</a>"
+        }
     }
 
     Column {

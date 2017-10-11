@@ -32,12 +32,22 @@ Rectangle {
         ListElement {
             type: "sectionHeader"
             ratio: 1
+            content: "因子溢价"
+        }
+        ListElement {
+            type: "txt"
+            ratio: 1
+            content: "我们可以通过各种因子风险敞口来获取风险溢价。而无论是哪一种因子也都会遭遇逆境(Bad times)。"
+        }
+        ListElement {
+            type: "sectionHeader"
+            ratio: 1
             content: "因子类型"
         }
         ListElement {
             type: "txt"
             ratio: 1
-            content: "Assets are bundles of factors，当我们研究因子时，我们真正关心的是与它所能给资产带来风险与收益。在金融投资领域，有两种类型的因子能够给我们带来收益：宏观经济因子(Macroeconomic factos)和风格因子(Style factos)。"
+            content: "Assets are bundles of factors，当我们研究因子时，我们真正关心的是它所能给资产带来的风险与收益。在金融投资领域，有两种类型的因子能够给我们带来收益：宏观经济因子(Macroeconomic factos)和风格因子(Style factos)。"
         }
         ListElement {
             type: "txt"
