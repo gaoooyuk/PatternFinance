@@ -23,6 +23,16 @@ router.get('/factor-investing', function(req, res, next) {
 	})
 });
 
+router.get('/fiction', function(req, res, next) {
+	var home_dir = path.join(global.dirRoot, 'qml/')
+
+	res.render('fiction', 
+	{ 
+        "html_description": "连载",
+		"html_keywords": "投资故事,小说"
+	})
+});
+
 router.get('/about', function(req, res, next) {
 	var home_dir = path.join(global.dirRoot, 'qml/')
 
